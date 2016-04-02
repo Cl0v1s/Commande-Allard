@@ -3,7 +3,7 @@
 class Model 
 {
 
-	constructor(id = 0)
+	constructor(id)
 	{
 		this.id = id;
 	}
@@ -16,7 +16,7 @@ class Model
 			{
 				if(key == other)
 				{
-					couner ++;
+					counter ++;
 					this[key] = object[other];
 				}
 			}

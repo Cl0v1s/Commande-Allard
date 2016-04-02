@@ -1,8 +1,21 @@
-/// <reference path="Model.ts" />
+"use strict";
+
+var Model = require("./Model");
 
 class Author extends Model
 {
-	public firstName:string; 
-	public lastName:string;
-	public picture:string;
+	constructor(firstName, lastName, picture)
+	{
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.picture = picture;
+	}
+
+	getIdentity()
+	{
+		return this.firstName+" "+this.lastName;
+	}
 }
+
+module.exports = Author;

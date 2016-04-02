@@ -1,0 +1,19 @@
+{
+    "indexes": {
+        "Author": 2
+    },
+    "Author": {
+        "0": {
+            "id": 0,
+            "firstName": "Portron",
+            "lastName": "Clovis",
+            "picture": "boobs"
+        },
+        "1": {
+            "id": 1,
+            "firstName": "Portron",
+            "lastName": "Clovis",
+            "picture": "boobs"
+        }
+    }
+}

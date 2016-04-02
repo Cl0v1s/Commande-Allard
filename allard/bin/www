@@ -88,6 +88,11 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
+  var Dao = require('./../models/Dao');
+  Dao.initialize();
+  var Author = require("./../models/Author");
+  var authors = Dao.getAll(Author);
+  debug(authors[0].getIdentity());
     
   debug('Listening on ' + bind);
 }

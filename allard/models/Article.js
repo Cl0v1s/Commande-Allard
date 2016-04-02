@@ -1,8 +1,13 @@
-/// <reference path="Model.ts" />
+"use strict";
 
-class Article extends Model
+class Author extends Model
 {
-	public name:string;
-	public content:string;
-	public author:number;
+	constructor(firstName = null, lastName = null, picture = null)
+	{
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.picture = picture;
+	}
 }
+
+module.exports = Author;
