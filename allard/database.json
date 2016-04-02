@@ -1,19 +1,40 @@
 {
     "indexes": {
-        "Author": 2
+        "Author": 2,
+        "Article": 2
     },
-    "Author": {
-        "0": {
-            "id": 0,
-            "firstName": "Portron",
-            "lastName": "Clovis",
-            "picture": "boobs"
+    "tables": {
+        "Author": {
+            "0": {
+                "id": 0,
+                "firstName": "Clovis",
+                "lastName": "Portron",
+                "picture": "test"
+            },
+            "1": {
+                "id": 1,
+                "firstName": "Clovis",
+                "lastName": "Portron",
+                "picture": "test"
+            }
         },
-        "1": {
-            "id": 1,
-            "firstName": "Portron",
-            "lastName": "Clovis",
-            "picture": "boobs"
+        "Article": {
+            "0": {
+                "id": 0,
+                "title": "Star",
+                "resume" : "Un article sur le jeu.",
+                "content": "craft",
+                "date": 1459606439.402,
+                "author": 0
+            },
+            "1": {
+                "id": 1,
+                "title": "Star",
+                "resume" : "Un article sur le jeu.",
+                "content": "craft",
+                "date": 1459606479,
+                "author": 0
+            }
         }
     }
 }

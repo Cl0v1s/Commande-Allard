@@ -89,5 +89,16 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
     
+
+    var Dao = require("./../models/Dao");
+    var Article = require("./../models/Article");
+    var Author = require("./../models/Author");
+
+    /*Dao.use();
+    var au = new Author("Clovis", "Portron", "test");
+    var ar = new Article("Star", "craft", new Date(), 0);
+    Dao.save(au);
+    Dao.save(ar);*/
+
   debug('Listening on ' + bind);
 }

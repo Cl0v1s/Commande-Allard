@@ -19,9 +19,27 @@ class Dao
 	{
 		if(context != null && indexes != null && tables != null)
 			return;
-		context = new JsonDB("database", false, true);
-		indexes = Dao.context().getData("/indexes");
-		tables = Dao.context().getData("/tables");
+		try
+		{
+			context = new JsonDB("database", false, true);
+		}
+		catch(error)
+		{
+			debug(error.inner);
+		}
+		try
+		{
+			indexes = Dao.context().getData("/indexes");
+			tables = Dao.context().getData("/tables");
+		}
+		catch(error)
+		{
+			Dao.context().push("/indexes", {});
+			indexes = {};
+			Dao.context().push("/tables", {});
+			tables = {};
+			Dao.context().save();
+		}
 	}
 
 	/// Retourne le schéma de données
@@ -97,7 +115,7 @@ class Dao
 		}
 		catch(error)
 		{
-			debug(error);
+			debug("Dao.getAll: "+error.stack);
 			return null;
 		}
 		return result;

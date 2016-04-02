@@ -14,12 +14,16 @@ class Article extends Model
 	 * @param  {Date} date    Date de parution de l'article
 	 * @param  {int} author  Index de l'auteur			
 	 */
-	constructor(title, content, date, author)
+	constructor(title, resume, content, date, author)
 	{
 		super();
 		this.title = title;
+		this.resume = resume;
 		this.content = content;
-		this.date = date.getTime()/1000;
+		if(date instanceof Date)
+			this.date = Math.floor(date.getTime()/1000);
+		else 
+			this.date = date;
 		this.author = author;
 	}
 
@@ -38,4 +42,4 @@ class Article extends Model
 	}
 }
 
-module.exports = Author;
+module.exports = Article;

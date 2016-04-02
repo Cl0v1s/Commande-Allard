@@ -1,10 +1,10 @@
 extends layout
 
 block content
-  - for(var i = 0; i != articles.length; i++)
-  	div(id="article-"+i, class="article-preview")
-  		h1= articles[i].title
-  		div.content= articles[i].content
-  		div.informations
-  			span.author= articles[i].getAuthor().firstName + " " + articles[i].getAuthor().lastName
-  			span.date= articles[i].getHumanDate()
+	each article, index in articles
+		div(id="article-"+index, class="article-preview")
+			h1= article.title
+			div.content= article.resume
+			div.informations
+				span.author= article.getAuthor().firstName + " " + article.getAuthor().lastName
+				span.date= article.getHumanDate()
