@@ -81,6 +81,7 @@ class Dao
 		path += "/" +object.id;
 		Dao.context().push(path, object);
 		Dao.context().save();
+		Dao.tables[object.constructor.name][indexes[object.constructor.name]-1] = object;
 	}
 
 	/// Retourne un objet en fonction de son id
