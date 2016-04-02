@@ -9,14 +9,19 @@ var JsonDB = require('node-json-db');
 let context = null;
 //Indexes
 let indexes = null;
-
+//Tables
+let tables = null;
 class Dao
 {
 
-	static initialize()
+	//Doit être appelé avant toute chose
+	static use()
 	{
+		if(context != null && indexes != null && tables != null)
+			return;
 		context = new JsonDB("database", false, true);
 		indexes = Dao.context().getData("/indexes");
+		tables = Dao.context().getData("/tables");
 	}
 
 	/// Retourne le schéma de données
@@ -25,15 +30,21 @@ class Dao
 		return context;
 	}
 
+	//Retourne la table des index
 	static indexes()
 	{
 		return indexes;
 	}
 
+	static tables()
+	{
+		return tables;
+	}
+
 	/// Sauvegarde l'objet dans le shéma de données
 	static save(object)
 	{
-		var path = "/";
+		var path = "/tables/";
 		path += object.constructor.name;
 		
 		//Auto Incrémente de l'ID
@@ -58,22 +69,10 @@ class Dao
 	/// clas : Classe attendu de l'objet
 	static getById(clas, id)
 	{
-		var path = "/";
-		path += clas;
-		path += "/" +id;
-		var data, obj;
-		try
-		{
-			data = Dao.context().getData(path);
-			obj = new clas(id);
-			obj.load(data);
-		}
-		catch(error)
-		{
-			return null;
-		}
-
-		return obj;
+		var data = Dao.tables()[clas.name][id];
+		var entry = new clas(id);
+		entry.load(data);
+		return entry;
 	}
 
 
@@ -84,12 +83,11 @@ class Dao
 	 */
 	static getAll(clas)
 	{
-		var path = "/" + clas.name;
 		var data;
 		var result = [];
 		try
 		{
-			data = Dao.context().getData(path);
+			data = Dao.tables()[clas.name];
 			Object.keys(data).forEach(function(key)
 			{
 				let entry = new clas(key);

@@ -1,5 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  - for(var i = 0; i != articles.length; i++)
+  	div(id="article-"+i, class="article-preview")
+  		h1= articles[i].title
+  		div.content= articles[i].content
+  		div.informations
+  			span.author= articles[i].getAuthor().firstName + " " + articles[i].getAuthor().lastName
+  			span.date= articles[i].getHumanDate()

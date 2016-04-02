@@ -12,10 +12,7 @@ class Author extends Model
 		this.picture = picture;
 	}
 
-	getIdentity()
-	{
-		return this.firstName+" "+this.lastName;
-	}
+
 }
 
 module.exports = Author;
