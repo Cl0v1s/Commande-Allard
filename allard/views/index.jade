@@ -3,7 +3,8 @@ extends layout
 block content
 	each article, index in articles
 		div(id="article-"+index, class="article-preview")
-			h1= article.title
+			h1
+				a(href="/article/"+article.id)= article.title
 			div.content= article.resume
 			div.informations
 				span.author= article.getAuthor().firstName + " " + article.getAuthor().lastName
