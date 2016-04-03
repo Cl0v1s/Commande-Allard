@@ -18,17 +18,16 @@ var basic = auth.basic({
  * Paramétrage de la gestion de l'upload de fichiers
  */
 var multer  = require('multer');
-//TODO: remplacer .pdf par l'extension des fichiers starcraft
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, '/uploads')
   },
   filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + new Date().getTime() + ".pdf");
+    cb(null, file.fieldname + '-' + new Date().getTime() + ".SC2REPLAY");
   }
 });
 var filter = function (req, file, cb) {
-		    if (path.extension(file.originalname) !== '.pdf') {
+		    if (path.extension(file.originalname) !== '.SC2REPLAY') {
 		      return cb(new Error('Seuls les fichiers de replay starcraft sont autorisés.'));
 		    }
 		    cb(null, true)
