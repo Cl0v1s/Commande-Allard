@@ -11,6 +11,7 @@ let context = null;
 let indexes = null;
 //Tables
 let tables = null;
+
 class Dao
 {
 
@@ -99,6 +100,14 @@ class Dao
 		entry = new clas(id);
 		entry.load(data);
 		return entry;
+	}
+
+	static deleteById(clas, id)
+	{
+		var path = "/tables/"+clas.name+"/"+id;
+		Dao.context().delete(path);
+		Dao.context().save();
+		delete Dao.tables()[clas.name][id];
 	}
 
 

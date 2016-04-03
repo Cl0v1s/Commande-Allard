@@ -94,6 +94,13 @@ router.get("/admin", auth.connect(basic), function(req,res,next)
 	res.render("admin/index", {"articles" : articles});
 });
 
+/**
+ * Affiche la page de formulaire de création d'Article, nécessite authentification
+ * @param  {[type]} req                                    [description]
+ * @param  {[type]} res                                    [description]
+ * @param  {[type]} next){	Dao.use();		if(req.query.title !             [description]
+ * @return {[type]}                                        [description]
+ */
 router.get("/admin/create", auth.connect(basic), function(req,res,next)
 {
 	Dao.use();
@@ -123,6 +130,18 @@ router.get("/admin/create", auth.connect(basic), function(req,res,next)
 		}
 	}
 	res.render("admin/create", {"article" : article, "authors" : authors});
+});
+
+router.get("/admin/delete", auth.connect(basic), function(req,res,next)
+{
+	Dao.use();
+	if(req.query.id == undefined)
+	{
+		res.render("404");
+		return;
+	}
+	Dao.deleteById(Article, parseInt(req.query.id));
+	res.render("admin/terminated");
 });
 
 
