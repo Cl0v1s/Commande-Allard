@@ -3,6 +3,7 @@ var router = express.Router();
 var debug = require('debug')('allard:server');
 var Dao = require("./../models/Dao");
 var Article = require("./../models/Article");
+var Author = require("./../models/Author");
 
 /**
  * Paramétrage de la gestion de l'authentification
@@ -80,11 +81,49 @@ router.post('/upload', upload.single('file'), function (req, res, next) {
   res.send(req.file);
 })
 
+/**
+ * Affiche la page d'index d'administation, nécessite authentification
+ * @param  {[type]} req                    [description]
+ * @param  {[type]} res                    [description]
+ * @param  {[type]} next){	Dao.use();	var articles      [description]
+ * @return {[type]}                        [description]
+ */
 router.get("/admin", auth.connect(basic), function(req,res,next)
 {
 	Dao.use();
 	var articles = Dao.getAll(Article);
 	res.render("admin/index", {"articles" : articles});
+});
+
+router.get("/admin/create", auth.connect(basic), function(req,res,next)
+{
+	Dao.use();
+	//Gestion de l'enregistrement des données
+	if(req.query.title != undefined && req.query.content != undefined && req.query.resume != undefined && req.query.author != undefined)
+	{
+		var article = new Article(req.query.title, req.query.resume, req.query.content, new Date(), parseInt(req.query.author));
+		if(req.query.id != undefined)
+		{
+			article.id = req.query.id;
+		}
+		Dao.save(article);
+		res.render("admin/terminated");
+		return;
+	}
+
+	//Gestion de l'affichage du formulaire
+	var authors = Dao.getAll(Author);
+	var article = null;
+	if(req.query.edit != null && req.query.edit != undefined)
+	{
+		article = Dao.getById(Article, req.query.edit);
+		if(article == null || article == undefined)
+		{
+			res.render('404');
+			return;
+		}
+	}
+	res.render("admin/create", {"article" : article, "authors" : authors});
 });
 
 

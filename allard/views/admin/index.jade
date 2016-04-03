@@ -15,16 +15,20 @@ block content
 		table(border="1")
 			tr
 				td Id
-				td résumé
-				td contenu
-				td date et auteur
-				td action
+				td Titre
+				td Résumé
+				td Contenu
+				td Date et auteur
+				td Action
 			each article in articles
 				tr
 					td= article.id
+					td= article.title
 					td= article.resume
 					td= article.content
 					td= article.getHumanDate()+" de "+article.getAuthor().firstName+" "+article.getAuthor().lastName
 					td
-						button.edit(data-id=article.id) Editer
+						a(href="/admin/create?edit="+article.id)
+							button.edit(data-id=article.id) Editer
+						//TODO: à gérer en JS client
 						button.remove(data-id=article.id) Supprimer

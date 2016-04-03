@@ -1,7 +1,7 @@
 {
     "indexes": {
         "Author": 2,
-        "Article": 2
+        "Article": 3
     },
     "tables": {
         "Author": {
@@ -13,27 +13,35 @@
             },
             "1": {
                 "id": 1,
-                "firstName": "Clovis",
-                "lastName": "Portron",
+                "firstName": "Guillaume",
+                "lastName": "Allard",
                 "picture": "test"
             }
         },
         "Article": {
             "0": {
-                "id": 0,
-                "title": "Star",
-                "resume" : "Un article sur le jeu.",
+                "id": "0",
+                "title": "Star (edited)",
+                "resume": "Un article sur le jeu.",
                 "content": "craft",
-                "date": 1459606439.402,
-                "author": 0
+                "date": 1459684749,
+                "author": 1
             },
             "1": {
-                "id": 1,
-                "title": "Star",
-                "resume" : "Un article sur le jeu.",
-                "content": "craft",
-                "date": 1459606479,
+                "id": "1",
+                "title": "Wars (edité)",
+                "resume": "Un article sur le film.",
+                "content": "Star",
+                "date": 1459684572,
                 "author": 0
+            },
+            "2": {
+                "id": "2",
+                "title": "Test edited",
+                "resume": "Un petit test ! (edité)",
+                "content": "BLAbla BLAbla BLAbla censure",
+                "date": 1459684529,
+                "author": 1
             }
         }
     }

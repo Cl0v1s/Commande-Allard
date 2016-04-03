@@ -1,0 +1,45 @@
+extends ./../layout
+
+block content
+	h1 Création/Edition dun article
+
+	div
+		form
+			if article != null
+				input(name='id', type='hidden', value=article.id)
+			div
+				h3 Titre de l'article 
+				if !article
+					input(name='title')
+				else 
+					input(name='title', value=article.title)
+
+			div
+				h3 Résumé de l'article
+				if !article
+					input(name='resume')
+				else 
+					input(name='resume', value=article.resume)
+
+			div 
+				h3 Contenu de l'article
+				if !article
+					textarea(name='content')
+				else 
+					textarea(name='content')= article.content
+
+			div
+				h3 Auteur de l'article
+				select(name='author')
+					if !article
+						each author in authors
+							option(value=author.id)= author.firstName+" "+author.lastName
+					else 
+						each author in authors
+							if author.id != article.id
+								option(value=author.id)= author.firstName+" "+author.lastName
+							else 	
+								option(value=author.id, selected="true")= author.firstName+" "+author.lastName
+
+			div
+				button.submit Envoyer

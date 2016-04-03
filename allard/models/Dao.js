@@ -62,11 +62,12 @@ class Dao
 	/// Sauvegarde l'objet dans le shéma de données
 	static save(object)
 	{
+		var indexed = object.id != undefined;
 		var path = "/tables/";
 		path += object.constructor.name;
 		
 		//Auto Incrémente de l'ID
-		if(object.id == undefined)
+		if(!indexed)
 		{
 			if(indexes[object.constructor.name] == undefined)
 			{
@@ -81,7 +82,10 @@ class Dao
 		path += "/" +object.id;
 		Dao.context().push(path, object);
 		Dao.context().save();
-		Dao.tables[object.constructor.name][indexes[object.constructor.name]-1] = object;
+		if(!indexed)
+			Dao.tables()[object.constructor.name][indexes[object.constructor.name]-1] = object;
+		else 
+			Dao.tables()[object.constructor.name][object.id] = object;
 	}
 
 	/// Retourne un objet en fonction de son id
@@ -89,7 +93,10 @@ class Dao
 	static getById(clas, id)
 	{
 		var data = Dao.tables()[clas.name][id];
-		var entry = new clas(id);
+		var entry = null;
+		if(data == undefined || data == null)
+			return entry;
+		entry = new clas(id);
 		entry.load(data);
 		return entry;
 	}
