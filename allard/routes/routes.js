@@ -82,7 +82,9 @@ router.post('/upload', upload.single('file'), function (req, res, next) {
 
 router.get("/admin", auth.connect(basic), function(req,res,next)
 {
-	res.send("admin");
+	Dao.use();
+	var articles = Dao.getAll(Article);
+	res.render("admin/index", {"articles" : articles});
 });
 
 

@@ -1,0 +1,30 @@
+extends ./../layout
+
+block content
+	h1 Page d'administration
+
+	div 
+		h2 Actions 
+		span
+			a(href="/admin/create")
+				button.add Rédiger un nouvel article
+
+	div
+		h2 Liste des articles
+
+		table(border="1")
+			tr
+				td Id
+				td résumé
+				td contenu
+				td date et auteur
+				td action
+			each article in articles
+				tr
+					td= article.id
+					td= article.resume
+					td= article.content
+					td= article.getHumanDate()+" de "+article.getAuthor().firstName+" "+article.getAuthor().lastName
+					td
+						button.edit(data-id=article.id) Editer
+						button.remove(data-id=article.id) Supprimer
