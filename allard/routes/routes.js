@@ -3,11 +3,20 @@ var router = express.Router();
 var debug = require('debug')('allard:server');
 var Dao = require("./../models/Dao");
 var Article = require("./../models/Article");
-var multer  = require('multer')
+
+/**
+ * Paramétrage de la gestion de l'authentification
+ */
+var auth = require('http-auth');
+var basic = auth.basic({
+	realm: "StarCraft",
+	file: __dirname + "./../models/Users.json" // gevorg:gpass, Sarah:testpass ... 
+});
 
 /**
  * Paramétrage de la gestion de l'upload de fichiers
  */
+var multer  = require('multer');
 //TODO: remplacer .pdf par l'extension des fichiers starcraft
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -71,6 +80,10 @@ router.post('/upload', upload.single('file'), function (req, res, next) {
   res.send(req.file);
 })
 
+router.get("/admin", auth.connect(basic), function(req,res,next)
+{
+	res.send("admin");
+});
 
 
 module.exports = router;
