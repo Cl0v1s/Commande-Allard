@@ -102,6 +102,9 @@ class Dao
 		return entry;
 	}
 
+	/**
+	 * Suppression d'un element par son ID
+	 */
 	static deleteById(clas, id)
 	{
 		var path = "/tables/"+clas.name+"/"+id;

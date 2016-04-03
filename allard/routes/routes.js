@@ -15,31 +15,6 @@ var basic = auth.basic({
 });
 
 /**
- * Paramétrage de la gestion de l'upload de fichiers
- */
-var multer  = require('multer');
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, '/uploads')
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + new Date().getTime() + ".SC2REPLAY");
-  }
-});
-var filter = function (req, file, cb) {
-		    if (path.extension(file.originalname) !== '.SC2REPLAY') {
-		      return cb(new Error('Seuls les fichiers de replay starcraft sont autorisés.'));
-		    }
-		    cb(null, true)
-  		}; 
-var upload = multer({ 
-	storage: storage,  
-	fileFilter: filter,
-  });
-
-
-
-/**
  * Route vers la page d'index présentant un résumé des articles
  * @param  {[type]} req   [description]
  * @param  {[type]} res   [description]
@@ -68,17 +43,6 @@ router.get('/article/:id', function(req, res, next) {
 	else 
  		res.render('article', { "article": article });
 });
-
-/**
- * Enregistre le fichier envoyé par le formulaire multipart/form-data (champs field) dans le répertoire upload
- * @param  {[type]} req   [description]
- * @param  {[type]} res   [description]
- * @param  {[type]} next) {               } [description]
- * @return {[type]}       [description]
- */
-router.post('/upload', upload.single('file'), function (req, res, next) {
-  res.send(req.file);
-})
 
 /**
  * Affiche la page d'index d'administation, nécessite authentification
@@ -132,6 +96,13 @@ router.get("/admin/create", auth.connect(basic), function(req,res,next)
 	res.render("admin/create", {"article" : article, "authors" : authors});
 });
 
+/**
+ * Page de suppression de création d'Article, nécessite authentification
+ * @param  {[type]} req                                [description]
+ * @param  {[type]} res                                [description]
+ * @param  {[type]} next){	Dao.use();	if(req.query.id [description]
+ * @return {[type]}                                    [description]
+ */
 router.get("/admin/delete", auth.connect(basic), function(req,res,next)
 {
 	Dao.use();

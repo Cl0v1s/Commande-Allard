@@ -1,0 +1,19 @@
+{
+  "name": "commande-allard",
+  "version": "1.0.0",
+  "description": "Site communautaire en rapport avec StarCraft2",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chaipokoi/Commande-Allard.git"
+  },
+  "author": "Clovis Portron",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chaipokoi/Commande-Allard/issues"
+  },
+  "homepage": "https://github.com/chaipokoi/Commande-Allard#readme"
+}
