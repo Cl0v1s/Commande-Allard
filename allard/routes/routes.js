@@ -4,6 +4,7 @@ var debug = require('debug')('allard:server');
 var Dao = require("./../models/Dao");
 var Article = require("./../models/Article");
 var Author = require("./../models/Author");
+var HallEntry = require("./../models/HallEntry");
 
 /**
  * Paramétrage de la gestion de l'authentification
@@ -45,6 +46,32 @@ router.get('/article/:id', function(req, res, next) {
 });
 
 /**
+ * Affiche la page du hall of fame avec le carrousel
+ * @param  {[type]} requ                          [description]
+ * @param  {[type]} res                           [description]
+ * @param  {[type]} next){	res.render('hall');} [description]
+ * @return {[type]}                               [description]
+ */
+router.get('/hall', function(requ,res, next)
+{
+	res.render('hall');
+});
+
+/**
+ * Retourne un tableau json contenant les données du hall of fame 
+ * @param  {[type]} req                    [description]
+ * @param  {[type]} res                    [description]
+ * @param  {[type]} next){	Dao.use();	var entries       [description]
+ * @return {[type]}                        [description]
+ */
+router.post("/hall", function(req, res, next)
+{
+	Dao.use();
+	var entries = Dao.getAll(HallEntry);
+	res.json({'entries' : entries});
+});
+
+/**
  * Affiche la page d'index d'administation, nécessite authentification
  * @param  {[type]} req                    [description]
  * @param  {[type]} res                    [description]
@@ -55,7 +82,8 @@ router.get("/admin", auth.connect(basic), function(req,res,next)
 {
 	Dao.use();
 	var articles = Dao.getAll(Article);
-	res.render("admin/index", {"articles" : articles});
+	var entries = Dao.getAll(HallEntry);
+	res.render("admin/index", {"articles" : articles, 'entries' : entries});
 });
 
 /**
@@ -97,7 +125,7 @@ router.get("/admin/create", auth.connect(basic), function(req,res,next)
 });
 
 /**
- * Page de suppression de création d'Article, nécessite authentification
+ * Page de suppression d'Article, nécessite authentification
  * @param  {[type]} req                                [description]
  * @param  {[type]} res                                [description]
  * @param  {[type]} next){	Dao.use();	if(req.query.id [description]
@@ -112,6 +140,51 @@ router.get("/admin/delete", auth.connect(basic), function(req,res,next)
 		return;
 	}
 	Dao.deleteById(Article, parseInt(req.query.id));
+	res.render("admin/terminated");
+});
+
+/**
+ * Page de création d'entrée du hall of fame
+ * @param  {[type]} req                                    [description]
+ * @param  {[type]} res                                    [description]
+ * @param  {[type]} next){	Dao.use();		if(req.query.title !             [description]
+ * @return {[type]}                                        [description]
+ */
+router.get('/admin/hall/create', auth.connect(basic), function(req,res, next)
+{
+	Dao.use();
+	//Gestion de la création
+	if(req.query.title != undefined && req.query.description != undefined && req.query.image != undefined)
+	{
+		var entry = new HallEntry(req.query.title, req.query.description, req.query.image);
+		if(req.query.id != undefined)
+			entry.id = req.query.id;
+		Dao.save(entry);
+		res.render("admin/terminated");
+		return;
+	}
+
+	//gestion de l'affichage du formulaire
+	var entry = Dao.getById(HallEntry, req.query.edit);
+	res.render('admin/hall/create', {'entry' : entry});
+});
+
+/**
+ * Page de suppression d'entrée du hall of fame, nécessite authentification
+ * @param  {[type]} req                                [description]
+ * @param  {[type]} res                                [description]
+ * @param  {[type]} next){	Dao.use();	if(req.query.id [description]
+ * @return {[type]}                                    [description]
+ */
+router.get("/admin/hall/delete", auth.connect(basic), function(req,res,next)
+{
+	Dao.use();
+	if(req.query.id == undefined)
+	{
+		res.render("404");
+		return;
+	}
+	Dao.deleteById(HallEntry, parseInt(req.query.id));
 	res.render("admin/terminated");
 });
 

@@ -93,6 +93,8 @@ class Dao
 	/// clas : Classe attendu de l'objet
 	static getById(clas, id)
 	{
+		if(Dao.tables()[clas.name] == undefined || id == null)
+			return null;
 		var data = Dao.tables()[clas.name][id];
 		var entry = null;
 		if(data == undefined || data == null)

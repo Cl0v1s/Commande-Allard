@@ -1,7 +1,8 @@
 {
     "indexes": {
         "Author": 2,
-        "Article": 3
+        "Article": 3,
+        "HallEntry": 2
     },
     "tables": {
         "Author": {
@@ -19,14 +20,6 @@
             }
         },
         "Article": {
-            "0": {
-                "id": "0",
-                "title": "Star (edited)",
-                "resume": "Un article sur le jeu.",
-                "content": "craft",
-                "date": 1459684749,
-                "author": 1
-            },
             "2": {
                 "id": "2",
                 "title": "Test edited",
@@ -34,6 +27,14 @@
                 "content": "BLAbla BLAbla BLAbla censure",
                 "date": 1459684529,
                 "author": 1
+            }
+        },
+        "HallEntry": {
+            "1": {
+                "id": "1",
+                "title": "Un test",
+                "description": "Un bon gros test on édite",
+                "image": "http://www.prettydesigns.com/wp-content/uploads/2014/04/Straight-Bob-with-Long-Side-Part.jpg"
             }
         }
     }
