@@ -20,6 +20,7 @@ namespace Allard.Model
 
         public static void Load(string file)
         {
+            
             using (var stream = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.Read)))
             {
                 Dialect.Instance = JsonConvert.DeserializeObject<Dialect>(stream.ReadToEnd());
@@ -28,8 +29,7 @@ namespace Allard.Model
 
         public static Dialect GetInstance()
         {
-            if (Dialect.Instance == null)
-                Dialect.Load(UserSettings.GetInstance().Language);
+            
             return Dialect.Instance;
         }
     }
