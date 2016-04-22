@@ -7,7 +7,10 @@ namespace Allard.Views
 {
     public class BasePage : System.Web.UI.Page
     {
-
+        public BasePage()
+        {
+         
+        }
      
     }
 }
