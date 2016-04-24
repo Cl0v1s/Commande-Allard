@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ModelAllard.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="article">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="resume" Type="varchar" MaxLength="140" Nullable="false" />
+    <Property Name="content" Type="longtext" Nullable="false" />
+    <Property Name="date" Type="int" Nullable="false" />
+    <Property Name="author" Type="int" />
+  </EntityType>
+  <EntityType Name="author">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="lastName" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="picture" Type="varchar" MaxLength="45" />
+  </EntityType>
+  <EntityType Name="hallentry">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="description" Type="varchar" MaxLength="140" Nullable="false" />
+    <Property Name="picture" Type="varchar" MaxLength="45" Nullable="false" />
+  </EntityType>
+  <Association Name="author1">
+    <End Role="author" Type="Self.author" Multiplicity="0..1" />
+    <End Role="article" Type="Self.article" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="author">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="article">
+        <PropertyRef Name="author" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelAllardStoreContainer">
+    <EntitySet Name="article" EntityType="Self.article" Schema="allard" store:Type="Tables" />
+    <EntitySet Name="author" EntityType="Self.author" Schema="allard" store:Type="Tables" />
+    <EntitySet Name="hallentry" EntityType="Self.hallentry" Schema="allard" store:Type="Tables" />
+    <AssociationSet Name="author1" Association="Self.author1">
+      <End Role="author" EntitySet="author" />
+      <End Role="article" EntitySet="article" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
