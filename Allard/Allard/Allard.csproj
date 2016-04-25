@@ -131,6 +131,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Articles\Article.aspx" />
     <Content Include="Views\Articles\ArticleItem.ascx" />
     <Content Include="Views\Articles\Articles.aspx" />
     <Content Include="Views\Errors\404.aspx" />
@@ -186,6 +187,14 @@
     <Compile Include="Model\Dialect.cs" />
     <Compile Include="Model\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="Views\Articles\Article.aspx.cs">
+      <DependentUpon>Article.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Articles\Article.aspx.designer.cs">
+      <DependentUpon>Article.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Articles\ArticleItem.ascx.cs">
       <DependentUpon>ArticleItem.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

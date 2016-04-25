@@ -9,9 +9,14 @@ namespace Allard.Views.Articles
 {
     public partial class ArticleItem : System.Web.UI.UserControl
     {
+
+        public article Article { get; set; }
+
+        protected Model.Dialect Dialect;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            this.Dialect = Controllers.DialectController.GetInstance(Request);
         }
     }
 }
