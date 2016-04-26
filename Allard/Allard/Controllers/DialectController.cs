@@ -22,7 +22,7 @@ namespace Allard.Controllers
         /// <param name="lang">Langue à charger</param>
         public static void Load(Dialect.Lang lang)
         {
-            string file = HttpContext.Current.Request.ApplicationPath + "/Ressources/Lang/" + lang.ToString();
+            string file = HttpContext.Current.Request.PhysicalApplicationPath + "Ressources/Lang/" + lang.ToString() + ".json";
 
             using (var stream = new StreamReader(new FileStream(file, FileMode.Open, FileAccess.Read)))
             {

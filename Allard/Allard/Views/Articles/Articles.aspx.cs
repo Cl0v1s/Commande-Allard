@@ -14,12 +14,10 @@ namespace Allard.Views.Articles
         protected void Page_Load(object sender, EventArgs e)
         {
             Dialect = Controllers.DialectController.GetInstance(Request);
-            using (Allard.EntitiesContext context = new EntitiesContext())
-            {
-                List<article> list = context.articles.ToList();
-                this.ArticlesList.DataSource = list;
-                this.ArticlesList.DataBind();
-            }
+            List<article> list = Model.DataContext.Context.articles.ToList();
+            this.ArticlesList.DataSource = list;
+            this.ArticlesList.DataBind();
+            
         }
     }
 }

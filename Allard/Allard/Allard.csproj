@@ -143,6 +143,7 @@
     <Content Include="Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Ressources\Lang\Fr.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -184,6 +185,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\DataContext.cs" />
     <Compile Include="Model\Dialect.cs" />
     <Compile Include="Model\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -225,7 +227,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Ressources\Lang\" />
     <Folder Include="Views\Administration\" />
     <Folder Include="Views\Hall\" />
   </ItemGroup>
