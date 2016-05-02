@@ -131,6 +131,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Administration\ArticleCreate.aspx" />
+    <Content Include="Views\Administration\Index.aspx" />
     <Content Include="Views\Articles\Article.aspx" />
     <Content Include="Views\Articles\ArticleItem.ascx" />
     <Content Include="Views\Articles\Articles.aspx" />
@@ -190,6 +192,20 @@
     <Compile Include="Model\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils.cs" />
+    <Compile Include="Views\Administration\ArticleCreate.aspx.cs">
+      <DependentUpon>ArticleCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Administration\ArticleCreate.aspx.designer.cs">
+      <DependentUpon>ArticleCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administration\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Administration\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Views\Articles\Article.aspx.cs">
       <DependentUpon>Article.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -227,7 +243,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Administration\" />
     <Folder Include="Views\Hall\" />
   </ItemGroup>
   <ItemGroup>
