@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
+using Allard.Controllers;
+
 namespace Allard.Views.Articles
 {
     public partial class Article : System.Web.UI.Page
@@ -12,27 +14,35 @@ namespace Allard.Views.Articles
 
         protected article _Article;
         protected Model.Dialect Dialect;
+        protected Allard.EntitiesContext DataContext;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             this.Dialect = Controllers.DialectController.GetInstance(Request);
+
+            if(Request.Params["id"] == null)
+            {
+                ErrorController.Show404(Response);
+                return;
+            }
             int id = -1;
             try
             {
                 id = int.Parse(Request.Params["id"]);
+                this.DataContext = new EntitiesContext();
+                _Article = this.DataContext.articles.FirstOrDefault(x => x.id == id);
+                if(_Article == null)
+                {
+                    ErrorController.Show404(Response);
+                    return;
+                }
             }
-            catch(FormatException)
+            catch(Exception ex)
             {
-                Response.Redirect("/views/Errors/404.aspx");
+                ErrorController.Show500(Response, ex);
+                return;
             }
-            try
-            {
-                _Article = (from ar in Model.DataContext.Context.articles where ar.id == id select ar).First();
-            }
-            catch(Exception)
-            {
-                Response.Redirect("/views/Errors/404.aspx");
-            }
+            
         }
     }
 }

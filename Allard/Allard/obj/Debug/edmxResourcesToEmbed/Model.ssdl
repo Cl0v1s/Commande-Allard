@@ -18,7 +18,9 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="firstName" Type="varchar" MaxLength="45" Nullable="false" />
     <Property Name="lastName" Type="varchar" MaxLength="45" Nullable="false" />
-    <Property Name="picture" Type="varchar" MaxLength="45" />
+    <Property Name="picture" Type="varchar" MaxLength="145" />
+    <Property Name="login" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="password" Type="varchar" MaxLength="45" Nullable="false" />
   </EntityType>
   <EntityType Name="hallentry">
     <Key>

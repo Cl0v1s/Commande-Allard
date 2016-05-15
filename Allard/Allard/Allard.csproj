@@ -133,6 +133,7 @@
     </Content>
     <Content Include="Views\Administration\ArticleCreate.aspx" />
     <Content Include="Views\Administration\Index.aspx" />
+    <Content Include="Views\Administration\Login.aspx" />
     <Content Include="Views\Articles\Article.aspx" />
     <Content Include="Views\Articles\ArticleItem.ascx" />
     <Content Include="Views\Articles\Articles.aspx" />
@@ -142,11 +143,13 @@
     <EntityDeploy Include="Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EntityDeploy>
     <Content Include="Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <Content Include="Ressources\Lang\Fr.json" />
+    <Content Include="Views\Administration\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -207,6 +210,13 @@
     </Compile>
     <Compile Include="Views\Administration\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administration\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Administration\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Articles\Article.aspx.cs">
       <DependentUpon>Article.aspx</DependentUpon>

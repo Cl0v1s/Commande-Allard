@@ -8,9 +8,14 @@ namespace Allard.Controllers
     public class ErrorController :  Controller
     {
 
-        public static void Show404()
+        public static void Show404(HttpResponse response)
         {
+            response.Redirect("/Views/Errors/404.aspx");
+        }
 
+        public static void Show500(HttpResponse response, Exception ex)
+        {
+            response.Redirect("/Views/Errors/500.aspx?message=" + HttpUtility.UrlEncode(ex.Message) + "&stacktrace=" + HttpUtility.UrlEncode(ex.StackTrace));
         }
 
         public static void ShowError(string error)

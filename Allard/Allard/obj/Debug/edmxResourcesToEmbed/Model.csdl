@@ -21,6 +21,8 @@
     <Property Name="lastName" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="picture" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="articles" Relationship="Self.author1" FromRole="author" ToRole="article" />
+    <Property Name="login" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="hallentry">
     <Key>

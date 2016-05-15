@@ -16,6 +16,8 @@
     <EntitySetMapping Name="authors">
       <EntityTypeMapping TypeName="ModelAllard.author">
         <MappingFragment StoreEntitySet="author">
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="login" ColumnName="login" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="firstName" ColumnName="firstName" />
           <ScalarProperty Name="lastName" ColumnName="lastName" />

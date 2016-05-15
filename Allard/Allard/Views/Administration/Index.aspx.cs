@@ -6,6 +6,8 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 
+using Allard.Controllers;
+
 namespace Allard.Views.Administration
 {
     public partial class Index : System.Web.UI.Page
@@ -42,7 +44,37 @@ namespace Allard.Views.Administration
 
         void delete_article_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Button button = (Button)sender;
+            int id = -1;
+            try
+            {
+                id = int.Parse(button.Attributes["data-id"]);
+            }
+            catch(Exception)
+            {
+                ErrorController.Show404(Response);
+                return;
+            }
+            try
+            {
+                using (var context = new Allard.EntitiesContext())
+                {
+                    article article = context.articles.FirstOrDefault(x => x.id == id);
+                    if (article == null)
+                    {
+                        ErrorController.Show404(Response);
+                        return;
+                    }
+                    context.articles.Remove(article);
+                    context.SaveChanges();
+                }
+                Response.Redirect("/views/Administration/index.aspx", false);
+            }
+            catch(Exception ex)
+            {
+                ErrorController.Show500(Response, ex);
+                return;
+            }
         }
 
         /// <summary>
