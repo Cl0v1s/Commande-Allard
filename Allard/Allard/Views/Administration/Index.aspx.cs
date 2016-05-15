@@ -13,26 +13,30 @@ namespace Allard.Views.Administration
         protected void Page_Load(object sender, EventArgs e)
         {
             //Récupération de la liste des articles 
-            List<article> articles = Model.DataContext.Context.articles.ToList();
-            foreach(article ar in articles)
+            using (var context = new Allard.EntitiesContext())
             {
-                HtmlTableRow row = new HtmlTableRow();
-                HtmlTableCell title = new HtmlTableCell();
-                title.InnerText = ar.title;
-                HtmlTableCell date = new HtmlTableCell();
-                date.InnerText = Utils.TimeStampToDateTime(ar.date).ToString("dd/MM/yy");
-                HtmlTableCell author = new HtmlTableCell();
-                author.InnerText = ar.author1.firstName + " "+ar.author1.lastName;
-                HtmlTableCell action = new HtmlTableCell();
-                Button edit = new Button(); edit.Text = "Editer"; edit.Click += edit_article_Click;
-                Button delete = new Button(); delete.Text = "Supprimer"; delete.Click += delete_article_Click;
-                action.Controls.Add(edit);
-                action.Controls.Add(delete);
-                row.Controls.Add(title);
-                row.Controls.Add(date);
-                row.Controls.Add(author);
-                row.Controls.Add(action);
-                Articles.Controls.Add(row);
+                List<article> articles = context.articles.ToList();
+                foreach (article ar in articles)
+                {
+                    HtmlTableRow row = new HtmlTableRow();
+                    HtmlTableCell title = new HtmlTableCell();
+                    title.InnerText = ar.title;
+                    HtmlTableCell date = new HtmlTableCell();
+                    date.InnerText = Utils.TimeStampToDateTime(ar.date).ToString("dd/MM/yy");
+                    HtmlTableCell author = new HtmlTableCell();
+                    if (ar.author1 != null)//TODO: à virer après test, ça ne peut pas etre nul
+                        author.InnerText = ar.author1.firstName + " " + ar.author1.lastName;
+                    HtmlTableCell action = new HtmlTableCell();
+                    Button edit = new Button(); edit.Attributes["data-id"] = ar.id.ToString(); edit.Text = "Editer"; edit.Click += edit_article_Click;
+                    Button delete = new Button(); delete.Attributes["data-id"] = ar.id.ToString(); delete.Text = "Supprimer"; delete.Click += delete_article_Click;
+                    action.Controls.Add(edit);
+                    action.Controls.Add(delete);
+                    row.Controls.Add(title);
+                    row.Controls.Add(date);
+                    row.Controls.Add(author);
+                    row.Controls.Add(action);
+                    Articles.Controls.Add(row);
+                }
             }
         }
 
@@ -48,7 +52,9 @@ namespace Allard.Views.Administration
         /// <param name="e"></param>
         void edit_article_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Button button = (Button)sender;
+            string id = button.Attributes["data-id"];
+            Response.Redirect("/Views/Administration/ArticleCreate.aspx?id=" + id);
         }
     }
 }

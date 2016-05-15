@@ -137,6 +137,7 @@
     <Content Include="Views\Articles\ArticleItem.ascx" />
     <Content Include="Views\Articles\Articles.aspx" />
     <Content Include="Views\Errors\404.aspx" />
+    <Content Include="Views\Errors\500.aspx" />
     <Content Include="Views\Layout.Master" />
     <EntityDeploy Include="Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -169,6 +170,7 @@
     <Compile Include="Controllers\DialectController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="hallentry.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -233,6 +235,13 @@
     </Compile>
     <Compile Include="Views\Errors\404.aspx.designer.cs">
       <DependentUpon>404.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Errors\500.aspx.cs">
+      <DependentUpon>500.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Errors\500.aspx.designer.cs">
+      <DependentUpon>500.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Layout.Master.cs">
       <DependentUpon>Layout.Master</DependentUpon>

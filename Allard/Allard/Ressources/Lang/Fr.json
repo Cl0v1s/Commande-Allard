@@ -1,6 +1,7 @@
 ﻿{
 	Error : "Erreur", 
 	Error404 : "Le ficher que vous cherchez à atteindre est introuvable, veuillez vérifier votre requête.", 
+	Error500 : "Une erreur s'est produite sur le serveur pendant le traitement de votre requête.",
 
 	By : "Par", 
 	The : "Le",

@@ -27,6 +27,11 @@ namespace Allard.Model
         public string Error404 { get; set; }
 
         /// <summary>
+        /// Mot pour expliquer l'erreur 500
+        /// </summary>
+        public string Error500 { get; set; }
+
+        /// <summary>
         /// Mot pour introduire le nom de l'auteur d'une article ou d'une entrée de gallerie
         /// </summary>
         public string By { get; set; }

@@ -14,5 +14,12 @@ namespace Allard
             dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
             return dtDateTime;
         }
+
+        public static int DateTimeToTimestamp(DateTime dateTime)
+        {
+            DateTime unixStart = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
+            long unixTimeStampInTicks = (dateTime.ToUniversalTime() - unixStart).Ticks;
+            return (int)(unixTimeStampInTicks / TimeSpan.TicksPerSecond);
+        }
     }
 }
