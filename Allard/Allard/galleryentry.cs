@@ -12,11 +12,14 @@ namespace Allard
     using System;
     using System.Collections.Generic;
     
-    public partial class hallentry
+    public partial class galleryentry
     {
         public int id { get; set; }
         public string title { get; set; }
         public string description { get; set; }
         public string picture { get; set; }
+        public Nullable<int> gallery { get; set; }
+    
+        public virtual gallery gallery1 { get; set; }
     }
 }

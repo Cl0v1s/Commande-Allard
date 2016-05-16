@@ -25,13 +25,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="hallentries">
-      <EntityTypeMapping TypeName="ModelAllard.hallentry">
-        <MappingFragment StoreEntitySet="hallentry">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="title" ColumnName="title" />
+    <EntitySetMapping Name="galleries">
+      <EntityTypeMapping TypeName="ModelAllard.gallery">
+        <MappingFragment StoreEntitySet="gallery">
           <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="galleryentries">
+      <EntityTypeMapping TypeName="ModelAllard.galleryentry">
+        <MappingFragment StoreEntitySet="galleryentry">
+          <ScalarProperty Name="gallery" ColumnName="gallery" />
           <ScalarProperty Name="picture" ColumnName="picture" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

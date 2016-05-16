@@ -27,7 +27,15 @@
           <Property Name="login" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="password" Type="varchar" MaxLength="45" Nullable="false" />
         </EntityType>
-        <EntityType Name="hallentry">
+        <EntityType Name="gallery">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="140" Nullable="false" />
+          <Property Name="description" Type="varchar" MaxLength="400" Nullable="false" />
+        </EntityType>
+        <EntityType Name="galleryentry">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -35,6 +43,7 @@
           <Property Name="title" Type="varchar" MaxLength="45" Nullable="false" />
           <Property Name="description" Type="varchar" MaxLength="140" Nullable="false" />
           <Property Name="picture" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="gallery" Type="int" />
         </EntityType>
         <Association Name="author1">
           <End Role="author" Type="Self.author" Multiplicity="0..1" />
@@ -48,13 +57,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_gallery">
+          <End Role="gallery" Type="Self.gallery" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="galleryentry" Type="Self.galleryentry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="galleryentry">
+              <PropertyRef Name="gallery" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelAllardStoreContainer">
           <EntitySet Name="article" EntityType="Self.article" Schema="allard" store:Type="Tables" />
           <EntitySet Name="author" EntityType="Self.author" Schema="allard" store:Type="Tables" />
-          <EntitySet Name="hallentry" EntityType="Self.hallentry" Schema="allard" store:Type="Tables" />
+          <EntitySet Name="gallery" EntityType="Self.gallery" Schema="allard" store:Type="Tables" />
+          <EntitySet Name="galleryentry" EntityType="Self.galleryentry" Schema="allard" store:Type="Tables" />
           <AssociationSet Name="author1" Association="Self.author1">
             <End Role="author" EntitySet="author" />
             <End Role="article" EntitySet="article" />
+          </AssociationSet>
+          <AssociationSet Name="FK_gallery" Association="Self.FK_gallery">
+            <End Role="gallery" EntitySet="gallery" />
+            <End Role="galleryentry" EntitySet="galleryentry" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -85,15 +113,6 @@
           <Property Name="login" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="hallentry">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="description" Type="String" MaxLength="140" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="picture" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <Association Name="author1">
           <End Role="author" Type="Self.author" Multiplicity="0..1" />
           <End Role="article" Type="Self.article" Multiplicity="*" />
@@ -109,12 +128,51 @@
         <EntityContainer Name="EntitiesContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="articles" EntityType="Self.article" />
           <EntitySet Name="authors" EntityType="Self.author" />
-          <EntitySet Name="hallentries" EntityType="Self.hallentry" />
           <AssociationSet Name="author1" Association="Self.author1">
             <End Role="author" EntitySet="authors" />
             <End Role="article" EntitySet="articles" />
           </AssociationSet>
+          <EntitySet Name="galleries" EntityType="ModelAllard.gallery" />
+          <EntitySet Name="galleryentries" EntityType="ModelAllard.galleryentry" />
+          <AssociationSet Name="FK_gallery" Association="ModelAllard.FK_gallery">
+            <End Role="gallery" EntitySet="galleries" />
+            <End Role="galleryentry" EntitySet="galleryentries" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="gallery">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="140" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="galleryentries" Relationship="ModelAllard.FK_gallery" FromRole="gallery" ToRole="galleryentry" />
+        </EntityType>
+        <EntityType Name="galleryentry">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="140" FixedLength="false" Unicode="false" />
+          <Property Name="picture" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="gallery" Type="Int32" />
+          <NavigationProperty Name="gallery1" Relationship="ModelAllard.FK_gallery" FromRole="galleryentry" ToRole="gallery" />
+        </EntityType>
+        <Association Name="FK_gallery">
+          <End Type="ModelAllard.gallery" Role="gallery" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ModelAllard.galleryentry" Role="galleryentry" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="gallery">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="galleryentry">
+              <PropertyRef Name="gallery" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -145,13 +203,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="hallentries">
-            <EntityTypeMapping TypeName="ModelAllard.hallentry">
-              <MappingFragment StoreEntitySet="hallentry">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="title" ColumnName="title" />
+          <EntitySetMapping Name="galleries">
+            <EntityTypeMapping TypeName="ModelAllard.gallery">
+              <MappingFragment StoreEntitySet="gallery">
                 <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="galleryentries">
+            <EntityTypeMapping TypeName="ModelAllard.galleryentry">
+              <MappingFragment StoreEntitySet="galleryentry">
+                <ScalarProperty Name="gallery" ColumnName="gallery" />
                 <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -24,15 +24,6 @@
     <Property Name="login" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
     <Property Name="password" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
   </EntityType>
-  <EntityType Name="hallentry">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="title" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="description" Type="String" MaxLength="140" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="picture" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-  </EntityType>
   <Association Name="author1">
     <End Role="author" Type="Self.author" Multiplicity="0..1" />
     <End Role="article" Type="Self.article" Multiplicity="*" />
@@ -48,10 +39,49 @@
   <EntityContainer Name="EntitiesContext" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="articles" EntityType="Self.article" />
     <EntitySet Name="authors" EntityType="Self.author" />
-    <EntitySet Name="hallentries" EntityType="Self.hallentry" />
     <AssociationSet Name="author1" Association="Self.author1">
       <End Role="author" EntitySet="authors" />
       <End Role="article" EntitySet="articles" />
     </AssociationSet>
+    <EntitySet Name="galleries" EntityType="ModelAllard.gallery" />
+    <EntitySet Name="galleryentries" EntityType="ModelAllard.galleryentry" />
+    <AssociationSet Name="FK_gallery" Association="ModelAllard.FK_gallery">
+      <End Role="gallery" EntitySet="galleries" />
+      <End Role="galleryentry" EntitySet="galleryentries" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="gallery">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" Nullable="false" MaxLength="140" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="galleryentries" Relationship="ModelAllard.FK_gallery" FromRole="gallery" ToRole="galleryentry" />
+  </EntityType>
+  <EntityType Name="galleryentry">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" Nullable="false" MaxLength="140" FixedLength="false" Unicode="false" />
+    <Property Name="picture" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+    <Property Name="gallery" Type="Int32" />
+    <NavigationProperty Name="gallery1" Relationship="ModelAllard.FK_gallery" FromRole="galleryentry" ToRole="gallery" />
+  </EntityType>
+  <Association Name="FK_gallery">
+    <End Type="ModelAllard.gallery" Role="gallery" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ModelAllard.galleryentry" Role="galleryentry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="gallery">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="galleryentry">
+        <PropertyRef Name="gallery" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

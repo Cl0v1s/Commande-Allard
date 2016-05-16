@@ -132,6 +132,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\Administration\ArticleCreate.aspx" />
+    <Content Include="Views\Administration\GalleryCreate.aspx" />
+    <Content Include="Views\Administration\HallCreate.aspx" />
     <Content Include="Views\Administration\Index.aspx" />
     <Content Include="Views\Administration\Login.aspx" />
     <Content Include="Views\Articles\Article.aspx" />
@@ -174,7 +176,10 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="hallentry.cs">
+    <Compile Include="gallery.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="galleryentry.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Model.Context.cs">
@@ -203,6 +208,20 @@
     </Compile>
     <Compile Include="Views\Administration\ArticleCreate.aspx.designer.cs">
       <DependentUpon>ArticleCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administration\GalleryCreate.aspx.cs">
+      <DependentUpon>GalleryCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Administration\GalleryCreate.aspx.designer.cs">
+      <DependentUpon>GalleryCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Administration\HallCreate.aspx.cs">
+      <DependentUpon>HallCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Administration\HallCreate.aspx.designer.cs">
+      <DependentUpon>HallCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Administration\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>

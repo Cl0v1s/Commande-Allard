@@ -27,6 +27,7 @@ namespace Allard
     
         public virtual DbSet<article> articles { get; set; }
         public virtual DbSet<author> authors { get; set; }
-        public virtual DbSet<hallentry> hallentries { get; set; }
+        public virtual DbSet<gallery> galleries { get; set; }
+        public virtual DbSet<galleryentry> galleryentries { get; set; }
     }
 }

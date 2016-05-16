@@ -7,6 +7,7 @@
         <h1>Actions</h1>
         <span>
             <a href="/Views/Administration/ArticleCreate.aspx" class="button">Rédiger un nouvel article</a>
+            <a href="/Views/Administration/GalleryCreate.aspx" class="button">Ajouter une nouvelle gallerie</a>
         </span>
     </div>
     <div>
@@ -23,6 +24,9 @@
             <tbody id="Articles" runat="server">
             </tbody>
         </table>
+    </div>
+    <div>
+        <h1>Administration des galleries</h1>
     </div>
     
 </asp:Content>
