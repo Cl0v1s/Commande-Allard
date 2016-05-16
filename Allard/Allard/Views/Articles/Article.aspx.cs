@@ -23,7 +23,7 @@ namespace Allard.Views.Articles
             if(Request.Params["id"] == null)
             {
                 ErrorController.Show404(Response);
-                return;
+                Response.End();
             }
             int id = -1;
             try

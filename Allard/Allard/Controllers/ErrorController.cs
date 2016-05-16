@@ -10,12 +10,12 @@ namespace Allard.Controllers
 
         public static void Show404(HttpResponse response)
         {
-            response.Redirect("/Views/Errors/404.aspx");
+            response.Redirect("/Views/Errors/404.aspx", false);
         }
 
         public static void Show500(HttpResponse response, Exception ex)
         {
-            response.Redirect("/Views/Errors/500.aspx?message=" + HttpUtility.UrlEncode(ex.Message) + "&stacktrace=" + HttpUtility.UrlEncode(ex.StackTrace));
+            response.Redirect("/Views/Errors/500.aspx?message=" + HttpUtility.UrlEncode(ex.Message) + "&stacktrace=" + HttpUtility.UrlEncode(ex.StackTrace), false);
         }
 
         public static void ShowError(string error)

@@ -81,8 +81,15 @@ namespace Allard.Views.Administration
                         article.title = Name.Text;
                         article.resume = Resume.Text;
                         article.content = Content.Text;
-                        //TODO: gérer la bonne affectation de l'auteur
-                        //article.author = Controllers.UserController.GetCurrentUser();
+                        try
+                        {
+                            article.author = Controllers.UserController.GetLoggedUser(Request).id;
+                        }
+                        catch(Exception ex)
+                        {
+                            Controllers.ErrorController.Show500(Response, ex);
+                            return;
+                        }
                         article.date = Utils.DateTimeToTimestamp(DateTime.Now);
                         context.articles.Add(article);
                         context.SaveChanges();
