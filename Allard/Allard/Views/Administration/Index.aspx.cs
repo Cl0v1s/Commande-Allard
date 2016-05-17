@@ -14,9 +14,9 @@ namespace Allard.Views.Administration
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //Récupération de la liste des articles 
             using (var context = new Allard.EntitiesContext())
             {
+                //Récupération de la liste des articles 
                 List<article> articles = context.articles.ToList();
                 foreach (article ar in articles)
                 {
@@ -39,7 +39,41 @@ namespace Allard.Views.Administration
                     row.Controls.Add(action);
                     Articles.Controls.Add(row);
                 }
+                //Recupération et affichage de la liste des galleries
+                List<gallery> galleries = context.galleries.ToList();
+                foreach (gallery ar in galleries)
+                {
+                    HtmlTableRow row = new HtmlTableRow();
+                    HtmlTableCell title = new HtmlTableCell();
+                    title.InnerText = ar.name;
+                    HtmlTableCell description = new HtmlTableCell();
+                    description.InnerText = ar.description;
+                    HtmlTableCell action = new HtmlTableCell();
+                    Button edit = new Button(); edit.Attributes["data-id"] = ar.id.ToString(); edit.Text = "Editer";
+                    edit.Click += edit_gallery_Click;
+                    Button delete = new Button(); delete.Attributes["data-id"] = ar.id.ToString(); delete.Text = "Supprimer";
+                    delete.Click += delete_gallery_Click;
+                    action.Controls.Add(edit);
+                    action.Controls.Add(delete);
+                    row.Controls.Add(title);
+                    row.Controls.Add(description);
+                    row.Controls.Add(action);
+                    Galleries.Controls.Add(row);
+                     
+                }
             }
+        }
+
+        void delete_gallery_Click(object sender, EventArgs e)
+        {
+            //TODO: ajouter la supression de la gallerie
+            throw new NotImplementedException();
+        }
+
+        void edit_gallery_Click(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
+            Response.Redirect("/Views/Administration/GalleryCreate.aspx?id=" + button.Attributes["data-id"]);
         }
 
         void delete_article_Click(object sender, EventArgs e)

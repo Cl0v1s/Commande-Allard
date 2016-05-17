@@ -27,6 +27,17 @@
     </div>
     <div>
         <h1>Administration des galleries</h1>
+        <table>
+            <thead>
+                <tr>
+                    <td>Nom</td>
+                    <td>Description</td>
+                    <td>Action</td>
+                </tr>
+            </thead>
+            <tbody id="Galleries" runat="server">
+            </tbody>
+        </table>
     </div>
-    
+
 </asp:Content>

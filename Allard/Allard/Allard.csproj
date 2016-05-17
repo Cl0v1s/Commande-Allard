@@ -133,7 +133,6 @@
     </Content>
     <Content Include="Views\Administration\ArticleCreate.aspx" />
     <Content Include="Views\Administration\GalleryCreate.aspx" />
-    <Content Include="Views\Administration\HallCreate.aspx" />
     <Content Include="Views\Administration\Index.aspx" />
     <Content Include="Views\Administration\Login.aspx" />
     <Content Include="Views\Articles\Article.aspx" />
@@ -215,13 +214,6 @@
     </Compile>
     <Compile Include="Views\Administration\GalleryCreate.aspx.designer.cs">
       <DependentUpon>GalleryCreate.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Administration\HallCreate.aspx.cs">
-      <DependentUpon>HallCreate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Administration\HallCreate.aspx.designer.cs">
-      <DependentUpon>HallCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\Administration\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>

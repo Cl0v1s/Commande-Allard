@@ -10,24 +10,33 @@
 namespace Allard.Views.Administration {
     
     
-    public partial class Index {
+    public partial class Login {
         
         /// <summary>
-        /// Contrôle Articles.
+        /// Contrôle LoginField.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Articles;
+        protected global::System.Web.UI.WebControls.TextBox LoginField;
         
         /// <summary>
-        /// Contrôle Galleries.
+        /// Contrôle Password.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Galleries;
+        protected global::System.Web.UI.WebControls.TextBox Password;
+        
+        /// <summary>
+        /// Contrôle Submit.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Submit;
     }
 }
