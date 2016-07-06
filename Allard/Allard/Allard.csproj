@@ -151,6 +151,28 @@
     </Content>
     <Content Include="Ressources\Lang\Fr.json" />
     <Content Include="Views\Administration\Web.config" />
+    <Content Include="Ressources\Css\abstracts\README.md" />
+    <Content Include="Ressources\Css\abstracts\_functions.scss" />
+    <Content Include="Ressources\Css\abstracts\_mixins.scss" />
+    <Content Include="Ressources\Css\abstracts\_variables.scss" />
+    <Content Include="Ressources\Css\base\README.md" />
+    <Content Include="Ressources\Css\base\_base.scss" />
+    <Content Include="Ressources\Css\base\_fonts.scss" />
+    <Content Include="Ressources\Css\base\_helpers.scss" />
+    <Content Include="Ressources\Css\base\_typography.scss" />
+    <Content Include="Ressources\Css\components\README.md" />
+    <Content Include="Ressources\Css\components\_button.scss" />
+    <Content Include="Ressources\Css\layout\README.md" />
+    <Content Include="Ressources\Css\layout\_footer.scss" />
+    <Content Include="Ressources\Css\layout\_header.scss" />
+    <Content Include="Ressources\Css\main.scss" />
+    <Content Include="Ressources\Css\pages\README.md" />
+    <Content Include="Ressources\Css\pages\_home.scss" />
+    <Content Include="Ressources\Css\README.md" />
+    <Content Include="Ressources\Css\themes\README.md" />
+    <Content Include="Ressources\Css\themes\_default.scss" />
+    <Content Include="Ressources\Css\vendor\README.md" />
+    <Content Include="Ressources\Css\vendor\_normalize.scss" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
