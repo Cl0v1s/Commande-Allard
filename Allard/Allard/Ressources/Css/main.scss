@@ -5,7 +5,7 @@
   'abstracts/variables',
   'abstracts/functions',
   'abstracts/mixins';
-
+ 
 // 2. Vendors
 @import
   'vendor/normalize';
@@ -24,6 +24,8 @@
 
 // 5. Components
 @import
+  'components/important', 
+  'components/panel',
   'components/button';
 
 // 6. Page-specific styles

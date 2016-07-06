@@ -1,3 +1,58 @@
-// -----------------------------------------------------------------------------
-// This file contains all styles related to the button component.
-// -----------------------------------------------------------------------------
+.button
+{
+    @include background-gradient(nth($palet, 4), nth($palet, 3));
+
+    display: inline-block;
+
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+
+	position: relative;
+
+    color: $text-high-color;
+
+    cursor: pointer;
+
+    // Définition de l'angle supérieur gauche 
+    &:before { 
+        content: ""; 
+        position: absolute;  
+        z-index: 1;
+        top: 0; left: 0; 
+        border-bottom: 15px solid rgba(0,0,0,0); 
+        border-left: 15px solid nth($palet,2); 
+        width: 10px; height: 0; 
+        transition: all 0.25s ease;
+    } 
+
+    // Définition de l'angle inférieur droit
+    &:after { 
+        content: ""; 
+        position: absolute;  
+        bottom: 0; right: 0; 
+        border-top: 15px solid rgba(0,0,0,0); 
+        border-right: 15px solid nth($palet,2); 
+        width: 10px; height: 0; 
+        transition: all 0.25s ease;
+    } 
+
+    // Etat: survol de la souris
+    &:hover
+    {
+        // Définition de l'angle supérieur gauche 
+        &:before { 
+            border-bottom: 6px solid rgba(0,0,0,0); 
+            border-left: 6px solid nth($palet,2); 
+        } 
+
+        // Définition de l'angle inférieur droit
+        &:after { 
+            border-top: 6px solid rgba(0,0,0,0); 
+            border-right: 6px solid nth($palet,2); 
+        } 
+    }
+
+
+}

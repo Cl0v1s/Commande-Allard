@@ -32,3 +32,25 @@
   }
 }
 
+/// Génère un dégradé sur tous les navigateurs
+/// param {Color} $first
+/// param {Color} $end 
+@mixin background-gradient($first, $end)
+{
+    background: $first; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient($first, $end); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient($first, $end); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient($first, $end); /* For Firefox 3.6 to 15 */
+    background: linear-gradient($first, $end); /* Standard syntax */
+}
+
+/// Génère une image de bordure sur tous les navigateurs
+/// param {String} $url
+/// param {Integer} $slice 
+@mixin border-image($url, $slice)
+{
+    -webkit-border-image: url($url) $slice round; /* Safari 3.1-5 */
+    -o-border-image: url($url) $slice round; /* Opera 11-12.1 */
+    border-image: url($url) $slice round;
+}
+
