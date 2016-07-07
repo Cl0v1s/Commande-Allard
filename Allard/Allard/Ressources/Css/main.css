@@ -360,6 +360,10 @@ th {
 html {
   box-sizing: border-box; }
 
+body {
+  background-image: url("./../assets/Images/Body-Background.png");
+  background-size: cover; }
+
 /**
  * Make all elements from the DOM inherit from the parent box-sizing
  * Since `*` has a specificity of 0, it does not override the `html` value
@@ -484,6 +488,9 @@ p.important {
     width: 100%;
     height: 6px; }
 
+/*=======================================
+  D├®finition du composant barre de titre
+  =======================================*/
 .title-bar {
   background: #0a4e76;
   /* For browsers that do not support gradients */
@@ -523,9 +530,12 @@ p.important {
     font-size: 30px; }
 
 /*=======================================
-  D├®finition du composant bouton
+  D├®finition des composant bouton
   =======================================*/
-.button {
+/*--------------------------------------
+Composant bouton de base
+---------------------------------------*/
+.button-base {
   background: #4494b8;
   /* For browsers that do not support gradients */
   background: -webkit-linear-gradient(#4494b8, #0a4e76);
@@ -544,7 +554,7 @@ p.important {
   position: relative;
   color: white;
   cursor: pointer; }
-  .button:before {
+  .button-base:before {
     content: "";
     position: absolute;
     z-index: 1;
@@ -555,7 +565,7 @@ p.important {
     width: 10px;
     height: 0;
     transition: all 0.25s ease; }
-  .button:after {
+  .button-base:after {
     content: "";
     position: absolute;
     bottom: 0;
@@ -565,11 +575,43 @@ p.important {
     width: 10px;
     height: 0;
     transition: all 0.25s ease; }
-  .button:hover:before {
+  .button-base:hover:before {
     border-bottom: 6px solid transparent;
     border-left: 6px solid #081a32; }
-  .button:hover:after {
+  .button-base:hover:after {
     border-top: 6px solid transparent;
     border-right: 6px solid #081a32; }
+
+/*--------------------------------------
+Composant bouton du menu
+---------------------------------------*/
+.button-menu {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  min-height: 30px;
+  min-width: 80px;
+  padding: 10px;
+  color: white;
+  font-size: 20px;
+  border: 1px solid #4494b8;
+  overflow: hidden;
+  transition: all 0.25s ease; }
+  .button-menu:before {
+    z-index: -1;
+    display: block;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #0a4e76;
+    opacity: 0.2;
+    transition: all 0.25s ease; }
+  .button-menu:hover {
+    box-shadow: 0px 0px 1px #4494b8; }
+    .button-menu:hover:before {
+      width: 100%; }
 
 /*# sourceMappingURL=main.css.map */

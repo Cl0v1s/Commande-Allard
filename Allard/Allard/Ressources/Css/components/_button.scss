@@ -1,7 +1,11 @@
 /*=======================================
-  Définition du composant bouton
+  Définition des composant bouton
   =======================================*/
-.button
+
+/*--------------------------------------
+Composant bouton de base
+---------------------------------------*/
+.button-base
 {
     @include background-gradient(nth($palet, 4), nth($palet, 3));
 
@@ -56,6 +60,66 @@
             border-right: 6px solid nth($palet,2); 
         } 
     }
+}
+
+/*--------------------------------------
+Composant bouton du menu
+---------------------------------------*/
+.button-menu
+{
+    //Hauteur du bouton
+    $height: 30px;
+    //Largeur du bouton
+    $width: 80px;
+
+    cursor: pointer;
+
+    position: relative;
+    display: inline-block;
+    min-height: $height;
+    min-width : $width;
+
+    padding: 10px;
+
+    color: $text-high-color;
+    font-size: nth($font-size, 3);
+
+    border: 1px solid nth($palet, 4);
+
+    overflow: hidden;
+
+    transition: all 0.25s ease;
+    
+
+    &:before
+    {
+
+        z-index: -1;
+        display: block;
+        content: "";
+
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 0;
+        height: 100%;
+        
+        background-color: nth($palet, 3);
+        opacity: 0.2;
+
+        transition: all 0.25s ease;
+    }
+
+    &:hover
+    {
+
+        box-shadow: 0px 0px 1px nth($palet, 4);
 
 
+        &:before
+        {
+            width: 100%;
+        }
+    }
 }
