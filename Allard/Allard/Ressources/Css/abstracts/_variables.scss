@@ -6,7 +6,6 @@
 /// @type List
 $text-font-stack: 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !default;
 
-
 /// Couleur de texte 
 /// @type Color
 $text-color: hsl(160, 0%, 80%) !default;
@@ -14,6 +13,9 @@ $text-color: hsl(160, 0%, 80%) !default;
 /// Couleur de texte mis en avant
 /// @type Color
 $text-high-color: rgb(255,255,255) !default;
+
+/// Définition des tailles de police
+$font-size: 30px, 25px, 20px, 16px;
 
 /// Définition de la palette
 /// @type List

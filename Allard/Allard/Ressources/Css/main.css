@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
 /**
  * 1. Set default font family to sans-serif.
@@ -385,7 +386,8 @@ a {
  */
 body {
   color: #cccccc;
-  font: normal 125%/1.4 "Open Sans", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif; }
+  font: normal 125%/1.4 "Open Sans", "Helvetica Neue Light", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  font-size: 16px; }
 
 /**
  * Clear inner floats
@@ -446,6 +448,10 @@ p.important {
   background-color: #05162a;
   color: white; }
 
+/*=======================================
+  D├®finition du composant panel
+  Section contenant du texte
+  =======================================*/
 .panel {
   background-color: #081a32;
   color: #cccccc;
@@ -455,14 +461,18 @@ p.important {
   border: 1px solid #4494b8;
   box-shadow: 0px 0px 5px #4494b8; }
   .panel:before {
+    font-size: 25px;
     color: white;
-    padding: 15px;
     content: attr(title);
     position: absolute;
+    padding: 15px;
+    padding-top: 6px;
     top: 0;
     left: 0;
     width: 100%;
     height: 50px;
+    line-height: 50px;
+    vertical-align: middle;
     border-bottom: 1px solid #4494b8; }
   .panel:after {
     content: "";
@@ -474,6 +484,47 @@ p.important {
     width: 100%;
     height: 6px; }
 
+.title-bar {
+  background: #0a4e76;
+  /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(#0a4e76, #081a32);
+  /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#0a4e76, #081a32);
+  /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#0a4e76, #081a32);
+  /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#0a4e76, #081a32);
+  /* Standard syntax */
+  display: block;
+  width: 100%;
+  height: 96px;
+  position: relative;
+  border: 1px solid #4494b8;
+  border-left: none;
+  border-right: none; }
+  .title-bar:before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 249px;
+    height: 144px;
+    background-image: url("./../assets/Images/Avatar.png"); }
+  .title-bar:after {
+    content: attr(title);
+    display: block;
+    position: absolute;
+    left: 299px;
+    height: 96px;
+    line-height: 96px;
+    vertical-align: middle;
+    color: white;
+    font-size: 30px; }
+
+/*=======================================
+  D├®finition du composant bouton
+  =======================================*/
 .button {
   background: #4494b8;
   /* For browsers that do not support gradients */

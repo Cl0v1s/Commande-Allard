@@ -1,3 +1,6 @@
+/*=======================================
+  Définition du composant bouton
+  =======================================*/
 .button
 {
     @include background-gradient(nth($palet, 4), nth($palet, 3));
