@@ -35,13 +35,11 @@ $breakpoints: (
   'large': (min-width: 1024px),
 ) !default;
 
-
-
-
-
-
 /// Relative or absolute URL where all assets are served from
 /// @type String
 /// @example scss - When using a CDN
 ///   $base-url: 'http://cdn.example.com/assets/';
 $BASE_URL: './../assets/' !default;
+
+//Largeur de la barre de menu
+$HEADER_WIDTH: 250px;

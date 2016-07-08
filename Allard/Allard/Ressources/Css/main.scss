@@ -21,6 +21,7 @@
 // 4. Layout-related sections
 @import
   'layout/header',
+  'layout/content',
   'layout/articles',
   'layout/footer';
 
@@ -28,7 +29,6 @@
 @import
   'components/important', 
   'components/panel',
-  'components/titleBar',
   'components/button';
 
 // 6. Page-specific styles

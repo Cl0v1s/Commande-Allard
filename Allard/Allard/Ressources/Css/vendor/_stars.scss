@@ -1,19 +1,19 @@
 // n is number of stars required
-@function multiple-box-shadow ($n) 
+@function multiple-box-shadow ($n, $width, $height) 
 {
-  $value: '#{random(2000)}px #{random(2000)}px #FFF';
+  $value: '#{random($width)}px #{random($height)}px #FFF';
   @for $i from 2 through $n
   {
-    $value: '#{$value} , #{random(2000)}px #{random(2000)}px #FFF';
+    $value: '#{$value} , #{random($width)}px #{random($height)}px #FFF';
   }
   @return unquote($value)
 }
 
-$shadows-small:  multiple-box-shadow(700);
-$shadows-medium: multiple-box-shadow(200);
-$shadows-big:    multiple-box-shadow(100);
+$shadows-small:  multiple-box-shadow(700, $HEADER_WIDTH,2000);
+$shadows-medium: multiple-box-shadow(200, $HEADER_WIDTH,2000);
+$shadows-big:    multiple-box-shadow(100, $HEADER_WIDTH,2000);
 
-html
+@mixin stars
 {
   height: 100%;
   background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
@@ -26,7 +26,7 @@ html
   height: 1px;
   background: transparent;
   box-shadow: $shadows-small;
-  animation			: animStar 50s linear infinite;
+  animation			: animStar 100s linear infinite;
     
   &:after
   {
@@ -47,7 +47,7 @@ html
   height: 2px;
   background: transparent;
   box-shadow: $shadows-medium;
-  animation			: animStar 100s linear infinite;
+  animation			: animStar 150s linear infinite;
     
   &:after
   {
@@ -66,7 +66,7 @@ html
   height: 3px;
   background: transparent;
   box-shadow: $shadows-big;
-  animation			: animStar 150s linear infinite;
+  animation			: animStar 200s linear infinite;
     
   &:after
   {

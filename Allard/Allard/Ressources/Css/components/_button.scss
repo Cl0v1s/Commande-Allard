@@ -3,67 +3,7 @@
   =======================================*/
 
 /*--------------------------------------
-Composant bouton de base
----------------------------------------*/
-.button-base
-{
-    @include background-gradient(nth($palet, 4), nth($palet, 3));
-
-    display: inline-block;
-
-    padding: 5px;
-    padding-left: 15px;
-    padding-right: 15px;
-    box-sizing: border-box;
-
-	position: relative;
-
-    color: $text-high-color;
-
-    cursor: pointer;
-
-    // Définition de l'angle supérieur gauche 
-    &:before { 
-        content: ""; 
-        position: absolute;  
-        z-index: 1;
-        top: 0; left: 0; 
-        border-bottom: 15px solid rgba(0,0,0,0); 
-        border-left: 15px solid nth($palet,2); 
-        width: 10px; height: 0; 
-        transition: all 0.25s ease;
-    } 
-
-    // Définition de l'angle inférieur droit
-    &:after { 
-        content: ""; 
-        position: absolute;  
-        bottom: 0; right: 0; 
-        border-top: 15px solid rgba(0,0,0,0); 
-        border-right: 15px solid nth($palet,2); 
-        width: 10px; height: 0; 
-        transition: all 0.25s ease;
-    } 
-
-    // Etat: survol de la souris
-    &:hover
-    {
-        // Définition de l'angle supérieur gauche 
-        &:before { 
-            border-bottom: 6px solid rgba(0,0,0,0); 
-            border-left: 6px solid nth($palet,2); 
-        } 
-
-        // Définition de l'angle inférieur droit
-        &:after { 
-            border-top: 6px solid rgba(0,0,0,0); 
-            border-right: 6px solid nth($palet,2); 
-        } 
-    }
-}
-
-/*--------------------------------------
-Composant bouton du menu
+Composant bouton de menu
 ---------------------------------------*/
 .button-menu
 {
@@ -83,6 +23,76 @@ Composant bouton du menu
 
     color: $text-high-color;
     font-size: nth($font-size, 3);
+    text-align: center;
+
+    border: 1px solid nth($palet, 4);
+
+    background-color: nth($palet, 3);
+
+    overflow: hidden;
+
+    transition: all 0.5s ease;
+
+    box-sizing: content-box;
+    
+
+    &:before
+    {
+
+        z-index: -1;
+        display: block;
+        content: "";
+
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        width: 0;
+        height: 100%;
+        
+        background-color: nth($palet, 4);
+        opacity: 0.3;
+
+        transition: all 0.25s ease;
+    }
+
+    &:hover
+    {
+
+        box-shadow: 5px 5px 5px black;
+        top: -5px;
+        left: -5px;
+        background-color: nth($palet, 4);
+
+        &:before
+        {
+            width: 100%;
+        }
+    }
+}
+
+/*--------------------------------------
+Composant bouton de base
+---------------------------------------*/
+.button-base
+{
+    //Hauteur du bouton
+    $height: 30px;
+    //Largeur du bouton
+    $width: 80px;
+
+    cursor: pointer;
+
+    position: relative;
+    display: inline-block;
+    min-height: $height;
+    min-width : $width;
+
+    padding: 10px;
+
+    color: $text-high-color;
+    font-size: nth($font-size, 3);
+    text-align: center;
 
     border: 1px solid nth($palet, 4);
 
