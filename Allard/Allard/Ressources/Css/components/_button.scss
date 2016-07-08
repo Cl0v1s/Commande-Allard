@@ -34,40 +34,46 @@ Composant bouton de menu
     transition: all 0.5s ease;
 
     box-sizing: content-box;
-    
 
-    &:before
+
+    //Bouton acceuil
+    &.index
     {
-
-        z-index: -1;
-        display: block;
-        content: "";
-
-        position: absolute;
-        top: 0;
-        left: 0;
-
-        width: 0;
-        height: 100%;
-        
-        background-color: nth($palet, 4);
-        opacity: 0.3;
-
-        transition: all 0.25s ease;
+        background-image: image("steel-door.svg");
+        background-repeat: no-repeat;
+        background-size: auto 70%;
+        background-position: 0% center;
     }
 
+    //Bouton technique
+    &.tech
+    {
+        background-image: image("arrow-scope.svg");
+        background-repeat: no-repeat;
+        background-size: auto 70%;
+        background-position: 0% center;
+    }
+
+    //Bouton gallery
+    &.gallery
+    {
+        background-image: image("eagle-emblem.svg");
+        background-repeat: no-repeat;
+        background-size: auto 70%;
+        background-position: 0% center;
+    }
+
+
+
+
+    
+    //Au survol
     &:hover
     {
-
         box-shadow: 5px 5px 5px black;
         top: -5px;
         left: -5px;
         background-color: nth($palet, 4);
-
-        &:before
-        {
-            width: 100%;
-        }
     }
 }
 
