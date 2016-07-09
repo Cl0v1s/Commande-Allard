@@ -42,7 +42,7 @@ header
     }
 
     //Zone de titre
-    #title
+    /*#title
     {
         color: $text-high-color;
         font-family: $title-font-stack;
@@ -50,6 +50,19 @@ header
 
         margin: 10px;
         margin-top: 5px;
+    }*/
+
+    //Bannière
+    .banner
+    {
+        margin:auto;
+        margin-top: -10px; //-10 valeur arbitraire
+
+        z-index: 100;
+        opacity: 1;
+
+        width: 69px * 1.25; //69 largeur originale de l'image
+        height: 152px * 1.25; //152 hauteur originale de l'image
     }
 
 
