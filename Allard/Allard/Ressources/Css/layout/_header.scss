@@ -61,8 +61,8 @@ header
         z-index: 100;
         opacity: 1;
 
-        width: 69px * 1.25; //69 largeur originale de l'image
-        height: 152px * 1.25; //152 hauteur originale de l'image
+        width: 69 * 1.25px; //69 largeur originale de l'image
+        height: (155/668)*100%; //152 hauteur originale de l'image
     }
 
 
