@@ -67,6 +67,11 @@ namespace Allard.Model
         public string ClickToContinue { get; set; }
 
         /// <summary>
+        /// Mot pour designer un commentaire
+        /// </summary>
+        public string Comment { get; set; }
+
+        /// <summary>
         /// Retourne le pluriel du mot passé en paramètre
         /// </summary>
         /// <param name="word">Mot à mettre au pluriel</param>

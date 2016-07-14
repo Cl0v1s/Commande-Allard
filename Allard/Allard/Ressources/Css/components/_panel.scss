@@ -17,6 +17,8 @@
     padding: $padding;
     padding-top: $title-height + 5px; //5: valeur arbitraire
 
+    margin-bottom: 30px; //30 valeur arbitraire
+
     position: relative;
 
     border: 1px solid nth($palet, 4);
@@ -94,4 +96,10 @@
     }
 
 
+}
+
+.panel-comments
+{
+    width: 80%; //80 valeur arbitraire
+    margin: auto;
 }

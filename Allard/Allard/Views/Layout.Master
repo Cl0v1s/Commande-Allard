@@ -26,9 +26,9 @@
 
             <!--Menu-->
             <div id="menu">
-                <a class="button-menu index">Acceuil</a>
+                <a class="button-menu index" href="/Views/Articles/Articles.aspx">Acceuil</a>
                 <a class="button-menu tech">Technique</a>
-                <a class="button-menu gallery">Gallerie</a>
+                <a class="button-menu gallery" href="/Views/Hall/Galleries.aspx">Gallerie</a>
             </div>
         </header>
 
