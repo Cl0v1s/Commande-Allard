@@ -2,9 +2,10 @@
 
 <%@ Register Src="ArticleItem.ascx" TagName="ArticleItem" TagPrefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <title><%= this.Dialect.GetPlural(this.Dialect.Article) %></title>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
-    <div id="Articles">
+    <div id="Articles" class="articles">
         <div class="Articles-list">
             <asp:ListView ID="ArticlesList" runat="server">
                 <ItemTemplate>

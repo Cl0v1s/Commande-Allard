@@ -131,6 +131,22 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Ressources\Assets\Images\arrow-scope.svg" />
+    <Content Include="Ressources\Assets\Images\Avatar.png" />
+    <Content Include="Ressources\Assets\Images\Banner.png" />
+    <Content Include="Ressources\Assets\Images\Body-Background.png" />
+    <Content Include="Ressources\Assets\Images\condor.png" />
+    <Content Include="Ressources\Assets\Images\Div-Top.png" />
+    <Content Include="Ressources\Assets\Images\eagle-emblem.svg" />
+    <Content Include="Ressources\Assets\Images\freedom-dove.svg" />
+    <Content Include="Ressources\Assets\Images\Head-Background.png" />
+    <Content Include="Ressources\Assets\Images\murphy.png" />
+    <Content Include="Ressources\Assets\Images\Separator.png" />
+    <Content Include="Ressources\Assets\Images\steel-door.svg" />
+    <Content Include="Ressources\Assets\Images\zerg.png" />
+    <Content Include="Ressources\Assets\Images\zerg1.png" />
+    <Content Include="Ressources\Css\main.css" />
+    <Content Include="Ressources\Css\test.html" />
     <Content Include="Views\Administration\ArticleCreate.aspx" />
     <Content Include="Views\Administration\GalleryCreate.aspx" />
     <Content Include="Views\Administration\Index.aspx" />
@@ -173,6 +189,8 @@
     <Content Include="Ressources\Css\themes\_default.scss" />
     <Content Include="Ressources\Css\vendor\README.md" />
     <Content Include="Ressources\Css\vendor\_normalize.scss" />
+    <Content Include="Ressources\Assets\Fonts\PT_Sans-Web-Regular.ttf" />
+    <Content Include="Ressources\Css\main.css.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

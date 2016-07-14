@@ -28,6 +28,13 @@ body
   box-sizing: inherit;
 } 
 
+/// Style basic pour les liens
+a
+{
+  color: $link-color ;
+  text-decoration: underline;
+}
+
 /**
  * Basic styles for links
  

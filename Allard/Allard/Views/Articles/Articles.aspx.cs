@@ -13,7 +13,7 @@ namespace Allard.Views.Articles
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Dialect = Controllers.DialectController.GetInstance(Request);
+            Dialect = Controllers.DialectController.GetInstance();
             List<article> list = Model.DataContext.Context.articles.ToList();
             this.ArticlesList.DataSource = list;
             this.ArticlesList.DataBind();

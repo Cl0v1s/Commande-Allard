@@ -1,9 +1,16 @@
 ﻿{
 	Error : "Erreur", 
-	Error404 : "Le ficher que vous cherchez à atteindre est introuvable, veuillez vérifier votre requête.", 
+	Error404 : "Le fichier que vous cherchez à atteindre est introuvable, veuillez vérifier votre requête.", 
 	Error500 : "Une erreur s'est produite sur le serveur pendant le traitement de votre requête.",
 
 	By : "Par", 
 	The : "Le",
+	At : "à",
+
+	Article : "Article",
+	ClickToContinue: "Vous pouvez cliquer ici pour poursuivre la lecture",
+
+	SiteBy : "Site réalisé par",
+	IllustrationsBy : "Illustrations par",
 
 }

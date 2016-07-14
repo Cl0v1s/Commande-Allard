@@ -57,3 +57,41 @@
     }
     
 }
+
+/*=======================================
+  Définition du composant panel
+  Section contenant du texte et présentant un article
+  =======================================*/
+.panel-article
+{
+    //Taille de marge 
+    $margin: 10px; //10 valeur arbitraire
+
+    padding-bottom: 30px; //30 valeur arbitraire
+
+    //présentation auteur de l'article
+    .author
+    {
+        position: absolute;
+        right: $margin;
+        bottom: $margin;
+    }
+
+    //présentation date de l'article
+    .date
+    {
+        position: absolute;
+        right: $margin;
+        top: $margin;
+    }
+
+    //Cliquez pour lire
+    .click
+    {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+
+}

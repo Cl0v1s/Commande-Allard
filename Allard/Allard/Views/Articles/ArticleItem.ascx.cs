@@ -16,7 +16,7 @@ namespace Allard.Views.Articles
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            this.Dialect = Controllers.DialectController.GetInstance(Request);
+            this.Dialect = Controllers.DialectController.GetInstance();
         }
     }
 }

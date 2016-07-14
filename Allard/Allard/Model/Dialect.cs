@@ -41,6 +41,41 @@ namespace Allard.Model
         /// </summary>
         public string The { get; set; }
 
+        /// <summary>
+        /// Mot pour introduire une heure
+        /// </summary>
+        public string At { get; set; }
+
+        /// <summary>
+        /// Mot pour introduire le créateur du site 
+        /// </summary>
+        public string SiteBy { get; set; }
+
+        /// <summary>
+        /// Mot pour introduire les illustrations 
+        /// </summary>
+        public string IllustrationsBy { get; set; }
+
+        /// <summary>
+        /// Mot pour désigner un article
+        /// </summary>
+        public string Article { get; set; }
+
+        /// <summary>
+        /// Mot pour indiquez cliquer pour lire
+        /// </summary>
+        public string ClickToContinue { get; set; }
+
+        /// <summary>
+        /// Retourne le pluriel du mot passé en paramètre
+        /// </summary>
+        /// <param name="word">Mot à mettre au pluriel</param>
+        /// <returns>Mot au pluriel</returns>
+        public string GetPlural(string word)
+        {
+            return word + "s";
+        }
+
 
     }
 }

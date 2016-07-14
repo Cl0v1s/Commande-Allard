@@ -33,10 +33,10 @@ namespace Allard.Controllers
         /// <summary>
         /// Récupère l'instance courante de langue, si les données ne sont pas chargées alors on récupère les paramètres
         /// </summary>
-        /// <param name="context">Contexte de requete passé par la page</param>
         /// <returns>Les données de langue courantes</returns>
-        public static Dialect GetInstance(HttpRequest context)
+        public static Dialect GetInstance()
         {
+            HttpRequest context = HttpContext.Current.Request;
             if (DialectController.Instance == null)
                 DialectController.Load(Controllers.SettingsController.GetInstance(context).Lang);
             return DialectController.Instance;

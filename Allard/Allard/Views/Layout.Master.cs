@@ -9,9 +9,12 @@ namespace Allard.Views
 {
     public partial class Layout : System.Web.UI.MasterPage
     {
+
+        protected Model.Dialect Dialect;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            this.Dialect = Allard.Controllers.DialectController.GetInstance();
         }
     }
 }

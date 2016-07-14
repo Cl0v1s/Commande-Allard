@@ -14,7 +14,7 @@ namespace Allard.Views.Errors
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Dialect = Controllers.DialectController.GetInstance(Request);
+            Dialect = Controllers.DialectController.GetInstance();
 
 #if DEBUG
             if (Request.Params["message"] != null && Request.Params["stacktrace"] != null)

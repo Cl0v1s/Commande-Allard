@@ -1,21 +1,52 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Layout.master.cs" Inherits="Allard.Views.Layout" %>
 
 <!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <!--Importation de la feuille de style-->
+    <link rel="stylesheet" href="/Ressources/Css/main.css" />
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form" runat="server">
-    <div>
-        <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
-        
-        </asp:ContentPlaceHolder>
-    </div>
+
+        <!--Layout header-->
+        <header>
+            <!--Animation étoiles paralax-->
+            <div id="stars"></div>
+            <div id="stars2"></div>
+            <div id="stars3"></div>
+
+            <!--Bannière-->
+            <div class="banner"></div>
+
+            <!--Menu-->
+            <div id="menu">
+                <a class="button-menu index">Acceuil</a>
+                <a class="button-menu tech">Technique</a>
+                <a class="button-menu gallery">Gallerie</a>
+            </div>
+        </header>
+
+        <!--Layout content-->
+        <div class="content">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+        <!--Layout Footer-->
+        <footer>
+            <p>
+                <%= this.Dialect.SiteBy %> <a href="mailto:portron.cl@gmail.com">Clovis Portron</a> (<a href="https://twitter.com/cportr0n">@cportr0n</a>)
+                <br>
+                <%= this.Dialect.IllustrationsBy %> <a href="http://daviash.deviantart.com/">Daviash</a> & <a href="http://lorcblog.blogspot.fr/">Lorc</a>
+            </p>
+        </footer>
+
     </form>
 </body>
 </html>
