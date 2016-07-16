@@ -20,6 +20,7 @@ namespace Allard.Views.Administration
         {
             //TODO: vérifier les champs
             string password = Utils.CalculateMD5Hash(Password.Text);
+            System.Diagnostics.Debug.WriteLine("Password: " + password);
             using(var context = new Allard.EntitiesContext())
             {
                 author author = context.authors.FirstOrDefault(x => x.login == LoginField.Text && x.password == password);

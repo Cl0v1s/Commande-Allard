@@ -35,6 +35,49 @@ a
   text-decoration: underline;
 }
 
+/// Style basic pour les titres 
+h2
+{
+  color: $text-high-color; 
+  font-family: $title-font-stack;
+  margin: 0;
+  font-weight: normal;
+}
+
+/// Style basic pour les inputs
+input[type=text], input[type=password], textarea
+{
+  background-color: nth($palet, 1);
+  border: 0px solid nth($palet, 4);
+  margin: 5px;//5 valeur abritraire
+
+  &:focus
+  {
+    border-width: 1px;
+  }
+}
+
+/// Style de base pour les tableaux 
+table 
+{
+  border: 1px solid nth($palet,1);
+  border-collapse: collapse;
+
+  tr:first-child
+  {
+    color: $text-high-color; 
+    font-size: nth($font-size, 4);
+  } 
+
+  td
+  {
+    border: 1px solid nth($palet, 1);
+    border-collapse: collapse;
+    padding: 5px;
+  }
+
+}
+
 /**
  * Basic styles for links
  

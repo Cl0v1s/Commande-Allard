@@ -89,6 +89,8 @@ Composant bouton de base
 
     cursor: pointer;
 
+    z-index: 3;
+
     position: relative;
     display: inline-block;
     min-height: $height;
@@ -105,24 +107,26 @@ Composant bouton de base
     overflow: hidden;
 
     transition: all 0.25s ease;
+
     
 
     &:before
     {
 
         z-index: -1;
+
         display: block;
         content: "";
 
         position: absolute;
-        top: 0;
+        top: 100%;
         left: 0;
 
-        width: 0;
+        width: 100%;
         height: 100%;
         
         background-color: nth($palet, 4);
-        opacity: 0.3;
+        opacity: 0.7;
 
         transition: all 0.25s ease;
     }
@@ -135,7 +139,19 @@ Composant bouton de base
 
         &:before
         {
-            width: 100%;
+            top: 0;
         }
     }
+}
+
+/*--------------------------------------
+Composant bouton de base appliqué au bouton d'envoi de formulaire
+---------------------------------------*/
+input[type=submit]
+{
+    @extend .button-base;
+
+    background-color: rgba(0,0,0,0);
+    margin-left: 5px;
+    margin-right: 5px;
 }

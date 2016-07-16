@@ -1,0 +1,15 @@
+.administration-article
+{
+    input[type=text], textarea
+    {
+        width: 100%;
+    }
+
+    input[type=submit]
+    {
+        display: block;
+
+        width: 100px;
+        margin: auto;
+    }
+}

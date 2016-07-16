@@ -34,7 +34,9 @@
 
 // 6. Page-specific styles
 @import
-  'pages/home';
+  'pages/login',
+  'pages/administration-index',
+  'pages/administration-article';
 
 // 7. Themes
 @import
