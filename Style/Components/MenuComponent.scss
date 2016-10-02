@@ -17,6 +17,8 @@ div.Menu
 
     transition: $default-transition;
 
+    @include stars;
+
     // Etat: survol
     &:hover
     {
@@ -35,12 +37,15 @@ div.Menu
         max-width: $logo-max-width;
 
         margin: auto;
+        position: relative;
 
         background-position: 0px 0px;
         background-size: contain;
         background-repeat: no-repeat;
 
         background-image: url("Assets/logo.png");
+
+        z-index :1;
 
         
     }
