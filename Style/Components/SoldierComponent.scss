@@ -1,0 +1,19 @@
+@import "./../Chart";
+
+// Composent décoratif affichant un soldat dans le coin inférieur gauche de l'écran 
+div.Soldier
+{
+    $width: 249px; // Largeur de l'image
+    $height: 144px; // Hauteur de l'image 
+
+    position: fixed;
+    left: 0;
+    bottom: 0;
+
+
+    width: $width;
+    height: $height;
+
+    background-image: url("Assets/Soldier.png");
+    background-size: 100% 100%;
+}

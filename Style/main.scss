@@ -1,0 +1,36 @@
+@import "Chart";
+@import "Components/SoldierComponent";
+@import "Components/MenuComponent";
+
+
+// Définition des styles de base
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+html, body
+{
+    height: 100%;
+}
+
+a
+{
+    text-decoration: none;
+}
+
+button
+{
+    background-color: $color-base; 
+    border: 1px solid $color-light;
+    color: $color-text-light;
+    position: relative;
+
+    transition: $default-transition;
+
+    &:hover
+    {
+        background-color: $color-light;
+    }
+}

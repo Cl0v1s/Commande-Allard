@@ -1,0 +1,80 @@
+@import "./../Chart";
+
+div.Menu
+{
+    $width: 200px; // Arbitraire 
+    $width-minified: 60px; // Arbitraire
+    $height: 100%;
+
+    display: inline-block; // On display en table-cell pour que l'element situé à droite se déplace avec l'agrandissement de l'état survol
+    overflow-x: hidden;
+
+
+    width: $width-minified;
+    height: $height;
+
+    border-right: 1px solid $color-light;
+
+    transition: $default-transition;
+
+    // Etat: survol
+    &:hover
+    {
+        width: $width;
+    }
+
+    // Style du logo
+    div.logo
+    {
+        $logo-width: 90%;
+        $logo-max-width: 80px;
+        $logo-height: 200px;
+
+        width:  $logo-width;
+        height: $logo-height;
+        max-width: $logo-max-width;
+
+        margin: auto;
+
+        background-position: 0px 0px;
+        background-size: contain;
+        background-repeat: no-repeat;
+
+        background-image: url("Assets/logo.png");
+
+        
+    }
+
+    // Style des boutons du menu
+    button
+    {
+
+        $button-height: 40px; // Valeur arbitraire
+
+        display: block;
+
+        width: $width - (2 * $default-margin);
+        height: $button-height;
+        margin: $default-margin;
+
+
+        background-position: 5px center;
+        background-repeat: no-repeat;
+        background-size: $button-height - 4px; // (-2*2pixels)
+
+        &.index
+        {
+            background-image: url("Assets/index.svg");
+        }
+
+        &.articles
+        {
+            background-image: url("Assets/articles.svg");
+        }
+
+        &.gallery
+        {
+            background-image: url("Assets/gallery.svg");
+        }
+    }
+}
