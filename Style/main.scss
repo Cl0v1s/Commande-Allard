@@ -17,6 +17,16 @@ html, body
     height: 100%;
 }
 
+body
+{
+    overflow-x: hidden;
+    background-image: url("Assets/Panel.png");
+    background-size: cover;
+    background-attachment: fixed;
+
+    white-space: nowrap;
+}
+
 a
 {
     text-decoration: none;

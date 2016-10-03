@@ -2,18 +2,26 @@
 
 div.Panel
 {
-    background-image: url("Assets/Panel.png");
-    background-size: cover;
 
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    float: left;
     // Définition du style des élements affiché dans le panel
     div.item
     {
         $height-top : 19px;
         $height-before: 39px; 
+        $width: 70%;
+        $width-max : 700px; 
 
         background-color: $color-dark;
         border: 1px solid $color-light;
         position: relative;
+
+        width: $width;
+        max-width: $width-max;
+        margin: auto;
 
         padding-top: $height-top * 2;
 

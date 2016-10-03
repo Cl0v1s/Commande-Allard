@@ -6,8 +6,9 @@ div.Menu
     $width-minified: 60px; // Arbitraire
     $height: 100%;
 
-    display: inline-block; // On display en table-cell pour que l'element situé à droite se déplace avec l'agrandissement de l'état survol
+    float: left;
     overflow-x: hidden;
+    float: left;
 
 
     width: $width-minified;
