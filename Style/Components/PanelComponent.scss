@@ -1,0 +1,45 @@
+@import './../Chart';
+
+div.Panel
+{
+    background-image: url("Assets/Panel.png");
+    background-size: cover;
+
+    // Définition du style des élements affiché dans le panel
+    div.item
+    {
+        $height-top : 19px;
+        $height-before: 39px; 
+
+        background-color: $color-dark;
+        border: 1px solid $color-light;
+        position: relative;
+
+        padding-top: $height-top * 2;
+
+        &:before
+        {
+
+
+            content: attr(data-title);
+            color: $color-text-light;
+            font-size: $default-title-size;
+
+            background-image: url("Assets/Item-Top.png");
+            background-size: 100% $height-top;
+            background-repeat: no-repeat;
+            border-bottom: 1px solid $color-light;
+
+            display: block;
+            
+            position: absolute;
+            top: 0; 
+            left: 0;
+
+            width: 100%;
+            height: $height-before;
+
+            padding-top: $height-top;
+        }
+    }
+}
