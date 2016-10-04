@@ -3,10 +3,11 @@
 div.Panel
 {
 
+    display: inline-block;
+
     height: 100%;
     width: 100%;
-    background-color: red;
-    float: left;
+    margin: auto;
     // Définition du style des élements affiché dans le panel
     div.item
     {
@@ -22,21 +23,23 @@ div.Panel
         width: $width;
         max-width: $width-max;
         margin: auto;
+        margin-top: $default-margin;
 
         padding-top: $height-top * 2;
 
         &:before
         {
 
+            overflow-x: hidden;
 
             content: attr(data-title);
             color: $color-text-light;
             font-size: $default-title-size;
 
             background-image: url("Assets/Item-Top.png");
-            background-size: 100% $height-top;
+            background-size: 110% $height-top;
+            background-position: -20px -12px;
             background-repeat: no-repeat;
-            border-bottom: 1px solid $color-light;
 
             display: block;
             
