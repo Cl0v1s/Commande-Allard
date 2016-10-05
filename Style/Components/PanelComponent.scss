@@ -12,12 +12,15 @@ div.Panel
     div.item
     {
         $height-top : 19px;
-        $height-before: 39px; 
+        $height-before: 29px; 
         $width: 70%;
         $width-max : 700px; 
 
         background-color: $color-dark;
+
         border: 1px solid $color-light;
+        border-radius: $default-border-radius;
+
         position: relative;
 
         width: $width;
@@ -25,16 +28,22 @@ div.Panel
         margin: auto;
         margin-top: $default-margin;
 
-        padding-top: $height-top * 2;
+        padding: $default-margin;
+        padding-top: $height-top * 2 + $default-margin;
+
+        color: $color-text-base;
+            
+        overflow-x: hidden;
+        
 
         &:before
         {
 
-            overflow-x: hidden;
 
             content: attr(data-title);
             color: $color-text-light;
             font-size: $default-title-size;
+            font-style: bold;
 
             background-image: url("Assets/Item-Top.png");
             background-size: 110% $height-top;
@@ -50,7 +59,10 @@ div.Panel
             width: 100%;
             height: $height-before;
 
-            padding-top: $height-top;
+            padding: 2px;
+            padding-top: 6px;
+
+            border-bottom: 1px solid $color-light;
         }
     }
 }
