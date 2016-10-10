@@ -8,10 +8,14 @@ div.Grid
     width: $width;
     height: $height; 
 
+    border-spacing:$default-margin;
+    border-collapse:separate;
+    
+
     display: table;
 
     // Modification de tout les enfants pour les afficher en tant que cellule de tableau
-    *
+    &>div
     {
         display: table-cell;
     }
@@ -19,11 +23,18 @@ div.Grid
     // Précision: tech
     &.tech
     {
-        margin: $default-margin;
+        display: block;
+
+        float: left;
         width: 40%;
 
-        border-collapse:separate;
-        border-spacing:$default-margin;
+        overflow-x: hidden;
+
+        &>div
+        {
+            float: left;
+            margin: $default-margin;
+        }
     }
 
 }
