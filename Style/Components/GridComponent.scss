@@ -1,0 +1,29 @@
+@import './../Chart';
+
+div.Grid
+{
+    $width: 100%;
+    $height: auto;
+
+    width: $width;
+    height: $height; 
+
+    display: table;
+
+    // Modification de tout les enfants pour les afficher en tant que cellule de tableau
+    *
+    {
+        display: table-cell;
+    }
+
+    // Précision: tech
+    &.tech
+    {
+        margin: $default-margin;
+        width: 40%;
+
+        border-collapse:separate;
+        border-spacing:$default-margin;
+    }
+
+}

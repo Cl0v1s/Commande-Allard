@@ -1,3 +1,5 @@
+@import 'https://fonts.googleapis.com/css?family=Raleway';
+
 // Couleurs de base
 $color-dark: #071A31;
 $color-base : #094D76;
@@ -6,6 +8,9 @@ $color-light: #097BAD;
 // Couleurs de texte
 $color-text-light: white; 
 $color-text-base: #8899AD;
+
+// Définition des polices
+$font-base: 'Raleway', sans-serif;
 
 // Valeurs par defaut
 $default-margin: 10px;

@@ -1,0 +1,18 @@
+@import './../Chart';
+
+div.Article
+{
+    width: initial !important;
+    min-width: 200px;
+
+
+    div.thumbail
+    {
+
+    }
+
+    div.content
+    {
+        font-family: $font-base;
+    }
+}

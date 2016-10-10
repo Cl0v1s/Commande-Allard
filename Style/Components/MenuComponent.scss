@@ -30,7 +30,7 @@ div.Menu
     div.logo
     {
         $logo-width: 90%;
-        $logo-max-width: 80px;
+        $logo-max-width: 120px;
         $logo-height: 200px;
 
         width:  $logo-width;
@@ -62,6 +62,9 @@ div.Menu
         width: $width - (2 * $default-margin);
         height: $button-height;
         margin: $default-margin;
+
+        text-transform: uppercase;
+        font-family: $font-base;
 
 
         background-position: 5px center;
