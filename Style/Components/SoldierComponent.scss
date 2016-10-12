@@ -18,4 +18,11 @@ div.Soldier
     background-size: 100% 100%;
 
     z-index: 1;
+    
+    transition: all 0.5s ease;
+
+    &:hover
+    {
+        opacity: 0.2;
+    }
 }
