@@ -1,0 +1,35 @@
+@import './../Chart';
+
+header
+{
+
+    padding: $default-margin*2;
+    overflow: hidden;
+
+    h1
+    {
+        float: left;
+
+        font-family: $font-base;
+
+        color: $color-text-light;
+
+    }
+
+    div.contact
+    {
+        float: right;
+        
+
+
+        font-size: 10px;
+        color: $color-base;
+        text-align: right;
+
+        a
+        {
+            text-decoration: none;
+            color: $color-base;
+        }
+    }
+}
