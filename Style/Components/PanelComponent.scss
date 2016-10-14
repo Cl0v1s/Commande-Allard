@@ -8,6 +8,13 @@ div.Panel
     height: 100%;
     width: 100%;
     margin: auto;
+
+    background-image: url("Assets/Panel.png");
+    background-size: cover;
+    background-attachment: fixed;
+
+    overflow-y: auto;
+
     // Définition du style des élements affiché dans le panel
     div.item
     {
@@ -15,25 +22,30 @@ div.Panel
         $height-before: 39px; 
         $width: 70%;
         $width-max : 700px; 
+        $overlap: 10px;
 
+
+        background-image: url("Assets/Line.png");
         background-color: $color-dark;
 
         border: 1px solid $color-light;
+        border-top: none;
         border-radius: $default-border-radius;
 
         position: relative;
 
         width: $width;
         max-width: $width-max;
-        margin: auto;
         margin-top: $default-margin;
 
         padding: $default-margin;
         padding-top: $height-top * 2 + $default-margin;
 
         color: $color-text-base;
+
+        box-shadow: 0px 1px 2px RGBA(9, 123, 173, 0.3);
+        
             
-        overflow-x: hidden;
         
 
         &:before
@@ -52,7 +64,8 @@ div.Panel
             background-position: -100px -12px;
             background-repeat: no-repeat;
 
-            overflow: hidden;
+            background-color: $color-base;
+
 
             box-sizing: border-box;
 
@@ -60,7 +73,7 @@ div.Panel
             
             position: absolute;
             top: 0; 
-            left: 0;
+            left: -$overlap;
 
             width: 100%;
             height: $height-before;
@@ -68,7 +81,53 @@ div.Panel
             padding: 2px;
             padding-top: 10px;
 
-            border-bottom: 1px solid $color-light;
+
+            border: 1px solid $color-light;
+            border-right: none;
+
+            border-top-left-radius: 2px;
+            border-bottom-left-radius: 2px;
+
+            box-shadow: inset 0px -10px 10px rgba(0,0,0,0.2);
+            
+        }
+
+        &:after
+        {
+
+
+
+
+            content : "";
+
+            display: block;
+
+            position: absolute;
+            left: 100%;
+            top: 0;
+
+            margin-left: -$overlap;
+
+            width: $overlap*2;
+            height: $height-before;
+
+            background-color: $color-base;
+
+            box-sizing: border-box;            
+
+            background-image: url("Assets/Item-Top.png");
+            background-size: 900px $height-top;
+            background-position: -850px -12px;
+            background-repeat: no-repeat;
+
+            border-top-right-radius: 2px;
+            border-bottom-right-radius: 2px;
+
+            border: 1px solid $color-light;
+            border-left: none;
+
+            box-shadow: inset 0px -10px 10px rgba(0,0,0,0.2);
+            
         }
     }
 }

@@ -1,5 +1,11 @@
 @import 'https://fonts.googleapis.com/css?family=Raleway';
 
+@font-face {
+    font-family: Starcraft;
+    src: url('Assets/Starcraft.ttf');
+}
+
+
 // Couleurs de base
 $color-dark: #071A31;
 $color-base : #094D76;
@@ -11,6 +17,7 @@ $color-text-base: #8899AD;
 
 // Définition des polices
 $font-base: 'Raleway', sans-serif;
+$font-special: 'Starcraft', sans-serif;
 
 // Valeurs par defaut
 $default-margin: 10px;
@@ -21,3 +28,4 @@ $default-border-radius: 2px;
 
 // Breakpoints
 $canvas-min-width: 600px;
+$canvas-min-height: 480px;

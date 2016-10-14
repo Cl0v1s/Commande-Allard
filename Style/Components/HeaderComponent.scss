@@ -2,15 +2,21 @@
 
 header
 {
+    position: fixed;
+    top: 0;
+    left: 0;
 
-    padding: $default-margin*2;
+    width: 100%;
+
+
     overflow: hidden;
+
 
     h1
     {
         float: left;
 
-        font-family: $font-base;
+        font-family: $font-special;
 
         color: $color-text-light;
 
@@ -20,6 +26,7 @@ header
     {
         float: right;
         
+        padding: $default-margin;
 
 
         font-size: 10px;

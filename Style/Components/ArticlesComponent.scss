@@ -1,0 +1,49 @@
+@import './../Chart';
+div.Articles {
+
+    padding: $default-margin;
+
+
+    div.Article {
+        position: relative;
+        min-width: 200px;
+        margin: auto;
+        margin-bottom: $default-margin*3;
+
+
+        div.thumbnail {
+            box-shadow: inset 0px 10px 10px rgba(0, 0, 0, 0.2);
+            background-color: blue;
+            position: absolute;
+            top: 49px;
+            left: 0;
+            height: 100px;
+            width: 100%;
+            margin-top: -$default-margin;
+            background-image: attr('data-src');
+            background-position: center center;
+            background-size: cover;
+        }
+
+
+        div.content {
+            margin-top: $default-margin+100px;
+            font-family: $font-base;
+        }
+
+
+        div.more {
+            margin: $default-margin;
+            text-align: center;
+            color: $color-text-light;
+            font-family: $font-base;
+            font-size: 12px;
+            cursor: pointer;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+
+}

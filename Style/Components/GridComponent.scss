@@ -25,15 +25,16 @@ div.Grid
     {
         display: block;
 
-        float: left;
-        width: 40%;
+        width: 100%;
 
         overflow-x: hidden;
 
         &>div
         {
             float: left;
-            margin: $default-margin;
+            
+            margin: $default-margin*2;
+
         }
     }
 
