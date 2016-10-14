@@ -2,6 +2,7 @@
 div.Articles {
 
     padding: $default-margin;
+    padding-top: 80px;
 
 
     div.Article {
@@ -11,7 +12,7 @@ div.Articles {
         margin-bottom: $default-margin*3;
 
 
-        div.thumbnail {
+        img.thumbnail {
             box-shadow: inset 0px 10px 10px rgba(0, 0, 0, 0.2);
             background-color: blue;
             position: absolute;
@@ -20,28 +21,24 @@ div.Articles {
             height: 100px;
             width: 100%;
             margin-top: -$default-margin;
-            background-image: attr('data-src');
-            background-position: center center;
-            background-size: cover;
         }
 
 
         div.content {
             margin-top: $default-margin+100px;
             font-family: $font-base;
+            color: rgba($color-text-light, 0.8);
         }
 
 
-        div.more {
-            margin: $default-margin;
+        button.more {
+            display: block;
+            width: 150px;
+            margin: auto;
             text-align: center;
             color: $color-text-light;
             font-family: $font-base;
             font-size: 12px;
-            cursor: pointer;
-            &:hover {
-                text-decoration: underline;
-            }
         }
     }
 
