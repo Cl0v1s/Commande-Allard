@@ -7,6 +7,8 @@ class ArticlesView extends View
             classes : "Articles"
         });
         base.Mount(null, null);
-        
+        Model.Articles.forEach((data) => {
+            new ArticleComponent(data).Mount(base);
+        });
     }
 }

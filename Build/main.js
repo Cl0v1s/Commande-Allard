@@ -1,3 +1,52 @@
+class Model {
+    static RetrieveArticles(callback) {
+        App.Get(App.EndPoint + "/collections/get/Articles", (data) => {
+            data = JSON.parse(data);
+            data.forEach((e) => {
+                Model.Articles.push(new Article(e));
+            });
+            callback();
+        });
+    }
+    static Retrieve(callback) {
+        Model.RetrieveArticles(() => {
+            callback();
+        });
+    }
+}
+Model.Articles = new Array();
+class Article {
+    constructor(data) {
+        this.id = data._id;
+        this.title = data.Title;
+        this.picture = data.Picture;
+        this.description = data.Description;
+        this.content = data.Content;
+        this.created = data.created;
+        this.modified = data.modified;
+    }
+    Id() {
+        return this.id;
+    }
+    Title() {
+        return this.title;
+    }
+    Picture() {
+        return this.picture;
+    }
+    Description() {
+        return this.description;
+    }
+    Content() {
+        return this.content;
+    }
+    Modified() {
+        return this.modified;
+    }
+    Created() {
+        return this.created;
+    }
+}
 /**
  * Représente un composant de l'interface
  */
@@ -65,7 +114,7 @@ class Component {
 }
 Component.IDS = 0;
 class ArticleComponent extends Component {
-    constructor(title, picture, description) {
+    constructor(data) {
         super({
             body: "\<img class='thumbnail' src='{{picture}}'>\
                 <div class='content'>\
@@ -77,9 +126,10 @@ class ArticleComponent extends Component {
                 ",
             classes: "item Article"
         });
-        this.title = title;
-        this.picture = picture;
-        this.description = description;
+        this.article = data;
+        this.title = data.Title();
+        this.picture = data.Picture();
+        this.description = data.Description();
     }
     Mount(parent) {
         let opts = {
@@ -122,14 +172,33 @@ class ArticlesView extends View {
             classes: "Articles"
         });
         base.Mount(null, null);
+        Model.Articles.forEach((data) => {
+            new ArticleComponent(data).Mount(base);
+        });
     }
 }
 class App {
     static Main() {
         View.RootID = "Content";
-        new ArticlesView().Show();
-        console.log("Started");
+        Model.Retrieve(() => {
+            new ArticlesView().Show();
+            console.log("Started");
+        });
+    }
+    /**
+     * Envoie des requetes Ajax GET
+     */
+    static Get(url, callback) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            callback(xhttp.responseText.trim());
+        };
+        xhttp.open("GET", url + "?token=" + App.Token, true);
+        xhttp.send("token=" + App.Token);
+        console.log("Processing " + url);
     }
 }
+App.EndPoint = "http://172.17.0.2/rest/api";
+App.Token = "5e33c6d1ec779b9210e9cdad";
 window.onload = App.Main;
 //# sourceMappingURL=main.js.map

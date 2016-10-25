@@ -3,8 +3,9 @@ class ArticleComponent extends Component
     private title : string;
     private picture : string;
     private description : string;
+    private article : Article;
 
-    constructor(title : string, picture : string, description : string)
+    constructor(data : Article)
     {
         super({
             body : "\<img class='thumbnail' src='{{picture}}'>\
@@ -17,9 +18,11 @@ class ArticleComponent extends Component
                 ", 
             classes : "item Article"
         })
-        this.title = title;
-        this.picture = picture;
-        this.description = description;
+        this.article = data;
+
+        this.title = data.Title();
+        this.picture = data.Picture();
+        this.description = data.Description();
     }
 
     public Mount(parent : Component) : void
