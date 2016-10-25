@@ -98,7 +98,9 @@ class Component {
         // Construction du DOM
         let dom = document.createElement("div");
         dom.id = "component-" + this.id;
-        dom.className = this.constructor.name + " " + this.classes;
+        dom.className = this.constructor.name;
+        if (this.classes != undefined)
+            dom.className += " " + this.classes;
         dom.innerHTML = this.body;
         dom.addEventListener("click", (event) => { this.Click(event); });
         target.appendChild(dom);
@@ -114,7 +116,7 @@ class Component {
 }
 Component.IDS = 0;
 class ArticleComponent extends Component {
-    constructor(data) {
+    constructor(article) {
         super({
             body: "\<img class='thumbnail' src='{{picture}}'>\
                 <div class='content'>\
@@ -126,18 +128,64 @@ class ArticleComponent extends Component {
                 ",
             classes: "item Article"
         });
-        this.article = data;
-        this.title = data.Title();
-        this.picture = data.Picture();
-        this.description = data.Description();
+        this.article = article;
     }
     Mount(parent) {
         let opts = {
-            picture: this.picture,
-            description: this.description
+            picture: this.article.Picture(),
+            description: this.article.Description()
         };
         super.Mount(parent, opts);
-        this.GetDOM().setAttribute("data-title", this.title);
+        this.GetDOM().setAttribute("data-title", this.article.Title());
+        // Ajout de l'action au clic
+        this.GetDOM().getElementsByTagName("button")[0].addEventListener("click", () => {
+            new ArticleFocusView(this.article).Show();
+        });
+    }
+}
+class ArticleFocusComponent extends Component {
+    constructor(article) {
+        super({
+            body: "\<img class='thumbnail' src='{{picture}}'>\
+                <div class='content'>\
+                    <p>{{content}}</p>\
+                </div>\
+                ",
+            classes: "item Article"
+        });
+        this.article = article;
+    }
+    Mount(parent) {
+        let opts = {
+            picture: this.article.Picture(),
+            content: this.article.Content()
+        };
+        super.Mount(parent, opts);
+        this.GetDOM().setAttribute("data-title", this.article.Title());
+    }
+}
+class DisqusComponent extends Component {
+    constructor(article) {
+        super({
+            body: "<div id='disqus_thread'></div>\
+                    <script>"
+        });
+        this.article = article;
+    }
+    Mount(parent) {
+        super.Mount(parent, null);
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*
+        **/
+        /*var disqus_config = function () {
+        this.page.url = '/article';  // Replace PAGE_URL with your page's canonical URL variable\
+        this.page.identifier = this.article.Id(); // Replace PAGE_IDENTIFIER with your page's unique identifier variable\
+        };*/
+        var d = document, s = d.createElement('script');
+        s.src = 'http://allard.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', new Date().toString());
+        (d.head || d.body).appendChild(s);
     }
 }
 class View {
@@ -175,6 +223,24 @@ class ArticlesView extends View {
         Model.Articles.forEach((data) => {
             new ArticleComponent(data).Mount(base);
         });
+    }
+}
+class ArticleFocusView extends View {
+    constructor(article) {
+        super();
+        this.article = article;
+        console.log("Focus article " + this.article.Id());
+    }
+    Show() {
+        super.Show();
+        let base = new Component({
+            body: "",
+            classes: "Articles"
+        });
+        base.Mount(null, null);
+        let articleFocus = new ArticleFocusComponent(this.article);
+        articleFocus.Mount(base);
+        new DisqusComponent(this.article).Mount(articleFocus);
     }
 }
 class App {

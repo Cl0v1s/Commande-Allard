@@ -70,7 +70,9 @@ class Component
         // Construction du DOM
         let dom : HTMLDivElement = document.createElement("div");
         dom.id = "component-"+this.id;
-        dom.className = this.constructor.name + " " + this.classes;
+        dom.className = this.constructor.name;
+        if(this.classes != undefined)
+            dom.className += " " + this.classes;
         dom.innerHTML = this.body;
         dom.addEventListener("click", (event) => {this.Click(event);});
         target.appendChild(dom);

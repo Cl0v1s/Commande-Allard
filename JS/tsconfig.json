@@ -10,8 +10,11 @@
         "Model/Article.ts",
         "Components/Component.ts", 
         "Components/ArticleComponent.ts", 
+        "Components/ArticleFocusComponent.ts", 
+        "Components/DisqusComponent.ts", 
         "Views/View.ts",
         "Views/ArticlesView.ts",
+        "Views/ArticleFocusView.ts",
         "App.ts"
     ]
 
