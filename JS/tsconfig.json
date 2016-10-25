@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+            "target": "es6",
+            "sourceMap": true,
+            "outFile": "./../Build/main.js"
+    },
+    "files": 
+    [
+        "Components/Component.ts", 
+        "Components/ArticleComponent.ts", 
+        "Views/View.ts",
+        "Views/ArticlesView.ts",
+        "App.ts"
+    ]
+
+    
+}
