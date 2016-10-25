@@ -6,6 +6,8 @@
     },
     "files": 
     [
+        "Model/Model.ts",
+        "Model/Article.ts",
         "Components/Component.ts", 
         "Components/ArticleComponent.ts", 
         "Views/View.ts",
