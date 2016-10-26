@@ -1,0 +1,99 @@
+div.Gallery
+{
+
+
+    width: 100%;
+    white-space: normal;
+
+    text-align: center;
+
+    div.Replay
+    {
+        display: inline-block;
+
+        width: 25%;
+        margin: $default-margin;
+
+        padding:0;
+        border-top: 1px solid rgba($color-light,0.65);
+
+        &:before
+        {
+            display: none;
+        }
+
+        &:after
+        {
+            display: none;
+        }
+        
+        h2
+        {
+
+            margin-top: $default-margin;
+
+            color: $color-text-light;
+            font-family: $font-base;
+            text-align: center;
+            font-weight: normal;
+        }
+
+        div.thumbnail
+        {
+            position: relative;
+
+            display: block;
+            width: 100%;
+            height: 200px;
+
+            background-image: attr('data-src');
+            background-size: 0px 0px;
+
+            &:before
+            {
+                content: '';
+
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                width: 100%;
+                height: 100%;
+
+                filter: blur(25px);
+
+                background-image: inherit;
+                background-size: 200% 200%;
+                background-position: center center;
+                background-repeat: no-repeat;
+
+            }
+
+            &:after
+            {
+                content: '';
+
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                width: 100%;
+                height: 100%;
+
+
+                background-image: inherit;
+                background-size: auto 100%;
+                background-position: center center;
+                background-repeat: no-repeat;                
+            }
+        }
+
+        button
+        {
+            display: block;
+            width: 88px;
+            margin: auto;
+            margin-bottom: $default-margin;
+        }
+    }
+}
