@@ -34,4 +34,17 @@ class Model
             });
         });
     }
+
+    public static GetArticle(id : string) : Article
+    {
+        for(let i : number  = 0; i != Model.Articles.length; i++)
+        {
+            let e : Article = Model.Articles[i];
+            if(e.Id() == id)
+            {
+                return e;
+            }
+        }
+        return null;
+    }
 }

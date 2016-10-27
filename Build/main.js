@@ -24,6 +24,15 @@ class Model {
             });
         });
     }
+    static GetArticle(id) {
+        for (let i = 0; i != Model.Articles.length; i++) {
+            let e = Model.Articles[i];
+            if (e.Id() == id) {
+                return e;
+            }
+        }
+        return null;
+    }
 }
 Model.Articles = new Array();
 Model.Replays = new Array();
@@ -154,9 +163,11 @@ class ArticleComponent extends Component {
                 <div class='content'>\
                     <p>{{description}}</p>\
                 </div>\
-                <button class='more'>\
-                    Lire la suite...\
-                </button>\
+                <a href='Index.html?article-{{id}}'>\
+                    <button class='more'>\
+                        Lire la suite...\
+                    </button>\
+                </a>\
                 ",
             classes: "item Article"
         });
@@ -164,15 +175,12 @@ class ArticleComponent extends Component {
     }
     Mount(parent) {
         let opts = {
+            id: this.article.Id(),
             picture: this.article.Picture(),
             description: this.article.Description()
         };
         super.Mount(parent, opts);
         this.GetDOM().setAttribute("data-title", this.article.Title());
-        // Ajout de l'action au clic
-        this.GetDOM().getElementsByTagName("button")[0].addEventListener("click", () => {
-            new ArticleFocusView(this.article).Show();
-        });
     }
 }
 class ArticleFocusComponent extends Component {
@@ -283,6 +291,10 @@ class ArticlesView extends View {
 class ArticleFocusView extends View {
     constructor(article) {
         super();
+        if (article == null) {
+            console.log("404"); //TODO: implémenter erreur 404
+            return;
+        }
         this.article = article;
         console.log("Focus article " + this.article.Id());
     }
@@ -311,11 +323,53 @@ class ReplaysView extends View {
         });
     }
 }
+class Link {
+    constructor(url, method) {
+        this.url = url;
+        this.method = method;
+    }
+}
+class Linker {
+    constructor() {
+        this.registry = new Array();
+    }
+    static GetInstance() {
+        if (Linker.Instance == null)
+            Linker.Instance = new Linker();
+        return Linker.Instance;
+    }
+    AddLink(url, method) {
+        let link = new Link(url, method);
+        this.registry.push(link);
+    }
+    Analyze() {
+        let url = window.location.toString().split("?")[1];
+        let params = url.split("-");
+        url = params.shift();
+        this.registry.forEach((e) => {
+            if (e.url == url) {
+                e.method(params);
+            }
+        });
+    }
+}
 class App {
     static Main() {
         View.RootID = "Content";
-        Model.Retrieve(() => {
+        let showArticles = function () {
+            new ArticlesView().Show();
+        };
+        let showReplays = function () {
             new ReplaysView().Show();
+        };
+        let showArticle = function (params) {
+            new ArticleFocusView(Model.GetArticle(params[0])).Show();
+        };
+        Linker.GetInstance().AddLink("articles", showArticles);
+        Linker.GetInstance().AddLink("replays", showReplays);
+        Linker.GetInstance().AddLink("article", showArticle);
+        Model.Retrieve(() => {
+            Linker.GetInstance().Analyze();
             console.log("Started");
         });
     }

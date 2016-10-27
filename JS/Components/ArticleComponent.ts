@@ -9,9 +9,11 @@ class ArticleComponent extends Component
                 <div class='content'>\
                     <p>{{description}}</p>\
                 </div>\
-                <button class='more'>\
-                    Lire la suite...\
-                </button>\
+                <a href='Index.html?article-{{id}}'>\
+                    <button class='more'>\
+                        Lire la suite...\
+                    </button>\
+                </a>\
                 ", 
             classes : "item Article"
         })
@@ -22,16 +24,12 @@ class ArticleComponent extends Component
     public Mount(parent : Component) : void
     {
         let opts : any = {
+            id : this.article.Id(),
             picture : this.article.Picture(), 
             description : this.article.Description()
         }
         super.Mount(parent, opts);
         this.GetDOM().setAttribute("data-title", this.article.Title());
-
-        // Ajout de l'action au clic
-        this.GetDOM().getElementsByTagName("button")[0].addEventListener("click", () => {
-            new ArticleFocusView(this.article).Show();
-        });
 
     }
 

@@ -18,6 +18,7 @@
         "Views/ArticlesView.ts",
         "Views/ArticleFocusView.ts",
         "Views/ReplaysView.ts",
+        "Link.ts",
         "App.ts"
     ]
 

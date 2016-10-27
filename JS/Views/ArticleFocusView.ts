@@ -6,6 +6,11 @@ class ArticleFocusView extends View
     constructor(article : Article)
     {
         super();
+        if(article == null)
+        {
+            console.log("404"); //TODO: implémenter erreur 404
+            return;
+        }
         this.article = article;
 
         console.log("Focus article "+this.article.Id());
