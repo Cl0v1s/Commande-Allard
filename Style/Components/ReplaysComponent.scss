@@ -1,4 +1,4 @@
-div.Gallery
+div.Replays
 {
 
 
@@ -9,6 +9,9 @@ div.Gallery
 
     div.Replay
     {
+        $thumbnail-height: 245px;
+
+        position: relative;
         display: inline-block;
 
         width: 25%;
@@ -29,6 +32,8 @@ div.Gallery
         
         h2
         {
+            position : relative;
+            z-index: 1;
 
             margin-top: $default-margin;
 
@@ -40,14 +45,18 @@ div.Gallery
 
         div.thumbnail
         {
-            position: relative;
+            position: absolute;
+            top: 0;
+            left: 0;
 
             display: block;
             width: 100%;
-            height: 200px;
+            height: $thumbnail-height;
 
-            background-image: attr('data-src');
             background-size: 0px 0px;
+
+            overflow: hidden;
+            box-shadow: 0px 0px 5px black;
 
             &:before
             {
@@ -60,7 +69,7 @@ div.Gallery
                 width: 100%;
                 height: 100%;
 
-                filter: blur(25px);
+                filter: blur(5px);
 
                 background-image: inherit;
                 background-size: 200% 200%;
@@ -74,7 +83,7 @@ div.Gallery
                 content: '';
 
                 position: absolute;
-                top: 0;
+                top: 45px;
                 left: 0;
 
                 width: 100%;
@@ -92,7 +101,11 @@ div.Gallery
         {
             display: block;
             width: 88px;
+            color: $color-text-light;
+            font-family: $font-base;
+            font-weight: normal;
             margin: auto;
+            margin-top: $thumbnail-height - 28px;
             margin-bottom: $default-margin;
         }
     }

@@ -8,13 +8,16 @@
     [
         "Model/Model.ts",
         "Model/Article.ts",
+        "Model/Replay.ts",
         "Components/Component.ts", 
         "Components/ArticleComponent.ts", 
         "Components/ArticleFocusComponent.ts", 
         "Components/DisqusComponent.ts", 
+        "Components/ReplayComponent.ts", 
         "Views/View.ts",
         "Views/ArticlesView.ts",
         "Views/ArticleFocusView.ts",
+        "Views/ReplaysView.ts",
         "App.ts"
     ]
 

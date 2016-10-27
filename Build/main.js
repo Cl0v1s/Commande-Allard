@@ -1,4 +1,13 @@
 class Model {
+    static RetrieveReplays(callback) {
+        App.Get(App.EndPoint + "/collections/get/Replays", (data) => {
+            data = JSON.parse(data);
+            data.forEach((e) => {
+                Model.Replays.push(new Replay(e));
+            });
+            callback();
+        });
+    }
     static RetrieveArticles(callback) {
         App.Get(App.EndPoint + "/collections/get/Articles", (data) => {
             data = JSON.parse(data);
@@ -10,11 +19,14 @@ class Model {
     }
     static Retrieve(callback) {
         Model.RetrieveArticles(() => {
-            callback();
+            Model.RetrieveReplays(() => {
+                callback();
+            });
         });
     }
 }
 Model.Articles = new Array();
+Model.Replays = new Array();
 class Article {
     constructor(data) {
         this.id = data._id;
@@ -45,6 +57,26 @@ class Article {
     }
     Created() {
         return this.created;
+    }
+}
+class Replay {
+    constructor(data) {
+        this.title = data.Title;
+        this.description = data.Description;
+        this.picture = data.Picture;
+        this.url = data.Url;
+    }
+    Title() {
+        return this.title;
+    }
+    Description() {
+        return this.description;
+    }
+    Picture() {
+        return this.picture;
+    }
+    Url() {
+        return this.url;
     }
 }
 /**
@@ -188,6 +220,29 @@ class DisqusComponent extends Component {
         (d.head || d.body).appendChild(s);
     }
 }
+class ReplayComponent extends Component {
+    constructor(replay) {
+        super({
+            body: "<h2>{{title}}</h2>\
+                <div class='thumbnail' style='background-image: url({{picture}});'></div>\
+                <a href='{{url}}'>\
+                    <button>\
+                        Télécharger\
+                    </button>\
+                </a>",
+            classes: 'Replay item'
+        });
+        this.replay = replay;
+    }
+    Mount(parent) {
+        let opts = {
+            title: this.replay.Title(),
+            picture: this.replay.Picture(),
+            url: this.replay.Url(),
+        };
+        super.Mount(parent, opts);
+    }
+}
 class View {
     constructor() {
         this.components = new Array();
@@ -243,11 +298,24 @@ class ArticleFocusView extends View {
         new DisqusComponent(this.article).Mount(articleFocus);
     }
 }
+class ReplaysView extends View {
+    Show() {
+        super.Show();
+        let base = new Component({
+            body: '',
+            classes: 'Replays'
+        });
+        base.Mount(null, null);
+        Model.Replays.forEach((e) => {
+            new ReplayComponent(e).Mount(base);
+        });
+    }
+}
 class App {
     static Main() {
         View.RootID = "Content";
         Model.Retrieve(() => {
-            new ArticlesView().Show();
+            new ReplaysView().Show();
             console.log("Started");
         });
     }

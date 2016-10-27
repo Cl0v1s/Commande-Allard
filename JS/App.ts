@@ -8,7 +8,7 @@ class App
     {
         View.RootID = "Content";
         Model.Retrieve(() => {
-            new ArticlesView().Show();
+            new ReplaysView().Show();
             console.log("Started");
         });
 
