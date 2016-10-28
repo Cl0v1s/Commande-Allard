@@ -9,18 +9,27 @@ class App
     {
         View.RootID = "Content";
 
+        /**
+         * Affiche l'ensemble des articles présents dans le site
+         */
         let showArticles : Function = function(){
             Model.RetrieveArticles(() => {
                 new ArticlesView().Show();
             });
         };
-        
+
+        /**
+         * Affiche l'ensemble des replays disponibles
+         */
         let showReplays : Function = function(){
             Model.RetrieveReplays(() => {
                 new ReplaysView().Show();
             });
         };
 
+        /**
+         * Affiche un article en particulier (premier élément du tableau params)
+         */
         let showArticle : Function = function(params)
         {
             Model.RetrieveArticles(() => {

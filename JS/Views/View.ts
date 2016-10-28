@@ -1,6 +1,12 @@
+/**
+ * Une vue est un element consituté d'un ensemble de composants permettant de présenter des informations à l'utilisateur
+ */
 class View
 {
 
+    /**
+     * ID (#) de l'élement DOM sur lequel fixer la vue. Si RootID est null, la vue se fixe sur <body>. 
+     */
     public static RootID : string = null;
 
     private components : Array<Component>;

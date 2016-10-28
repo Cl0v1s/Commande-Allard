@@ -1,5 +1,10 @@
 class Model {
+    /**
+     * Récupère la liste des replays présents dans la base de données
+     * Appelle callback une fois l'opération de récupération terminée
+     */
     static RetrieveReplays(callback) {
+        Model.Replays = new Array();
         App.Get(App.EndPoint + "/collections/get/Replays", (data) => {
             data = JSON.parse(data);
             data.forEach((e) => {
@@ -8,7 +13,12 @@ class Model {
             callback();
         });
     }
+    /**
+     * Récupère la liste des articles présents dans la base de données
+     * Appelle callback une fois l'opération de récupération terminée
+     */
     static RetrieveArticles(callback) {
+        Model.Articles = new Array();
         App.Get(App.EndPoint + "/collections/get/Articles", (data) => {
             data = JSON.parse(data);
             data.forEach((e) => {
@@ -17,14 +27,21 @@ class Model {
             callback();
         });
     }
-    static Retrieve(callback) {
+    /*
+    public static Retrieve(callback : Function) : void
+    {
         Model.RetrieveArticles(() => {
             Model.RetrieveReplays(() => {
                 callback();
             });
         });
-    }
+    }*/
+    /**
+     * Retourne l'article possédant l'id précisé depuis la liste des articles présents dans le CMS
+     */
     static GetArticle(id) {
+        if (Model.Articles == null)
+            throw Error("Les articles doivent être récupérés depuis le CMS avant opération.");
         for (let i = 0; i != Model.Articles.length; i++) {
             let e = Model.Articles[i];
             if (e.Id() == id) {
@@ -33,9 +50,19 @@ class Model {
         }
         return null;
     }
+    static GetArticles() {
+        if (Model.Articles == null)
+            throw Error("Les articles doivent être récupérés depuis le CMS avant opération.");
+        return Model.Articles;
+    }
+    static GetReplays() {
+        if (Model.Replays == null)
+            throw Error("Les replays doivent être récupérés depuis le CMS avant opération.");
+        return Model.Replays;
+    }
 }
-Model.Articles = new Array();
-Model.Replays = new Array();
+Model.Articles = null;
+Model.Replays = null;
 class Article {
     constructor(data) {
         this.id = data._id;
@@ -251,6 +278,9 @@ class ReplayComponent extends Component {
         super.Mount(parent, opts);
     }
 }
+/**
+ * Une vue est un element consituté d'un ensemble de composants permettant de présenter des informations à l'utilisateur
+ */
 class View {
     constructor() {
         this.components = new Array();
@@ -275,6 +305,9 @@ class View {
     Leave() {
     }
 }
+/**
+ * ID (#) de l'élement DOM sur lequel fixer la vue. Si RootID est null, la vue se fixe sur <body>.
+ */
 View.RootID = null;
 class ArticlesView extends View {
     Show() {
@@ -283,7 +316,7 @@ class ArticlesView extends View {
             classes: "Articles"
         });
         base.Mount(null, null);
-        Model.Articles.forEach((data) => {
+        Model.GetArticles().forEach((data) => {
             new ArticleComponent(data).Mount(base);
         });
     }
@@ -318,17 +351,26 @@ class ReplaysView extends View {
             classes: 'Replays'
         });
         base.Mount(null, null);
-        Model.Replays.forEach((e) => {
+        Model.GetReplays().forEach((e) => {
             new ReplayComponent(e).Mount(base);
         });
     }
 }
+/**
+ * Permet d'associer un lien et une méthode, permet de simuler un comportement d'affichage par page
+ */
 class Link {
     constructor(url, method) {
         this.url = url;
         this.method = method;
     }
 }
+/**
+ * Permet de simuler un système d'affichage par page qui soit totalement transparent pour l'utilisateur
+ * On lit un mot à une méthode.
+ * Un url compatible doit être de la forme
+ * http://blah.com/Index.html?page-par1-par2-par3-...-parn
+ */
 class Linker {
     constructor() {
         this.registry = new Array();
@@ -338,40 +380,60 @@ class Linker {
             Linker.Instance = new Linker();
         return Linker.Instance;
     }
+    /**
+     * Ajoute un nouveau lien au système (et par la une page)
+     */
     AddLink(url, method) {
         let link = new Link(url, method);
         this.registry.push(link);
     }
+    /**
+     * Annalise l'url de la page courante pour déterminer d'éventuelles actions à réaliser
+     */
     Analyze() {
         let url = window.location.toString().split("?")[1];
         let params = url.split("-");
         url = params.shift();
-        this.registry.forEach((e) => {
+        for (let i; i != this.registry.length; i++) {
+            let e = this.registry[i];
             if (e.url == url) {
                 e.method(params);
+                return;
             }
-        });
+        }
     }
 }
 class App {
     static Main() {
         View.RootID = "Content";
+        /**
+         * Affiche l'ensemble des articles présents dans le site
+         */
         let showArticles = function () {
-            new ArticlesView().Show();
+            Model.RetrieveArticles(() => {
+                new ArticlesView().Show();
+            });
         };
+        /**
+         * Affiche l'ensemble des replays disponibles
+         */
         let showReplays = function () {
-            new ReplaysView().Show();
+            Model.RetrieveReplays(() => {
+                new ReplaysView().Show();
+            });
         };
+        /**
+         * Affiche un article en particulier (premier élément du tableau params)
+         */
         let showArticle = function (params) {
-            new ArticleFocusView(Model.GetArticle(params[0])).Show();
+            Model.RetrieveArticles(() => {
+                new ArticleFocusView(Model.GetArticle(params[0])).Show();
+            });
         };
         Linker.GetInstance().AddLink("articles", showArticles);
         Linker.GetInstance().AddLink("replays", showReplays);
         Linker.GetInstance().AddLink("article", showArticle);
-        Model.Retrieve(() => {
-            Linker.GetInstance().Analyze();
-            console.log("Started");
-        });
+        Linker.GetInstance().Analyze();
     }
     /**
      * Envoie des requetes Ajax GET
