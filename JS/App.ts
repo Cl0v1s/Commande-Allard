@@ -10,14 +10,22 @@ class App
         View.RootID = "Content";
 
         let showArticles : Function = function(){
-            new ArticlesView().Show();
+            Model.RetrieveArticles(() => {
+                new ArticlesView().Show();
+            });
         };
+        
         let showReplays : Function = function(){
-            new ReplaysView().Show();
+            Model.RetrieveReplays(() => {
+                new ReplaysView().Show();
+            });
         };
+
         let showArticle : Function = function(params)
         {
-            new ArticleFocusView(Model.GetArticle(params[0])).Show();
+            Model.RetrieveArticles(() => {
+                new ArticleFocusView(Model.GetArticle(params[0])).Show();
+            });
         };
 
 
@@ -25,12 +33,7 @@ class App
         Linker.GetInstance().AddLink("replays", showReplays);
         Linker.GetInstance().AddLink("article", showArticle);
 
-
-        Model.Retrieve(() => {
-            Linker.GetInstance().Analyze();
-            console.log("Started");
-        });
-
+        Linker.GetInstance().Analyze();
     }
 
     /**

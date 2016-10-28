@@ -1,10 +1,10 @@
 class Model
 {
-    public static Articles : Array<Article> = new Array<Article>();
-    public static Replays : Array<Replay> = new Array<Replay>();
+    private static Articles : Array<Article> = new Array<Article>();
+    private static Replays : Array<Replay> = new Array<Replay>();
 
 
-    private static RetrieveReplays(callback : Function) : void
+    public static RetrieveReplays(callback : Function) : void
     {
         App.Get(App.EndPoint+"/collections/get/Replays", (data) => {
             data = JSON.parse(data);
@@ -15,7 +15,7 @@ class Model
         });
     }
 
-    private static RetrieveArticles(callback : Function) : void
+    public static RetrieveArticles(callback : Function) : void
     {
         App.Get(App.EndPoint+"/collections/get/Articles", (data) => {
             data = JSON.parse(data);
@@ -47,4 +47,16 @@ class Model
         }
         return null;
     }
+
+    public static GetArticles() : Array<Article>
+    {
+        return Model.Articles;
+    }
+
+    public static GetReplays() : Array<Replay>
+    {
+        return Model.Replays;
+    }
+
+
 }

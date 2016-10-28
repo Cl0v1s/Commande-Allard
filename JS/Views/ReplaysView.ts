@@ -8,7 +8,7 @@ class ReplaysView extends View
             classes : 'Replays'
         });
         base.Mount(null, null);
-        Model.Replays.forEach((e) => {
+        Model.GetReplays().forEach((e) => {
             new ReplayComponent(e).Mount(base);
         });
     }
