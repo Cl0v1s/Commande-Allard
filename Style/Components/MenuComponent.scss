@@ -28,6 +28,11 @@ div.Menu {
             border-radius: 0px;
 
             background-position: 5px center;
+
+            &:before
+            {
+                background-size: auto;
+            }
         }
 
     }
@@ -90,6 +95,7 @@ div.Menu {
                 height: 100%;
 
                 background-image: url("Assets/Line.png");
+                background-size: 0 0;
 
             }
 

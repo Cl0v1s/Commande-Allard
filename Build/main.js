@@ -299,6 +299,21 @@ class MessageComponent extends Component {
         this.GetDOM().setAttribute("data-title", this.title);
     }
 }
+class TitleComponent extends Component {
+    constructor(title) {
+        super({
+            body: "{{message}}",
+            classes: "Title"
+        });
+        this.content = title;
+    }
+    Mount(parent) {
+        let opts = {
+            message: this.content
+        };
+        super.Mount(parent, opts);
+    }
+}
 /**
  * Une vue est un element consituté d'un ensemble de composants permettant de présenter des informations à l'utilisateur
  */
@@ -382,7 +397,8 @@ class Error500View extends View {
             body: ""
         });
         base.Mount(null, null);
-        new MessageComponent("Erreur 500", "Une erreur serveur a eu lieu, veuillez réessayer ultérieurement.").Mount(base);
+        new TitleComponent("Erreur 500").Mount(base);
+        new MessageComponent("Détails", "Une erreur serveur a eu lieu, veuillez réessayer ultérieurement.").Mount(base);
     }
 }
 class Error404View extends View {
@@ -391,7 +407,8 @@ class Error404View extends View {
             body: ""
         });
         base.Mount(null, null);
-        new MessageComponent("Erreur 404", "Impossible de trouver le contenu demandé.").Mount(base);
+        new TitleComponent("Erreur 404").Mount(base);
+        new MessageComponent("Détails", "Impossible de trouver le contenu demandé.").Mount(base);
     }
 }
 var Link_Special = {

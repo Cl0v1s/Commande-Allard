@@ -6,6 +6,7 @@ class Error404View extends View
             body :  ""
         });
         base.Mount(null, null);
-        new MessageComponent("Erreur 404", "Impossible de trouver le contenu demandé.").Mount(base);
+        new TitleComponent("Erreur 404").Mount(base);
+        new MessageComponent("Détails", "Impossible de trouver le contenu demandé.").Mount(base);
     }
 }

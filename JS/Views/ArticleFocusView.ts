@@ -23,6 +23,8 @@ class ArticleFocusView extends View
         });
         base.Mount(null, null);
 
+        new TitleComponent(this.article.Title()).Mount(base);
+
         let articleFocus : ArticleFocusComponent = new ArticleFocusComponent(this.article);
         articleFocus.Mount(base);
         new DisqusComponent(this.article).Mount(articleFocus);

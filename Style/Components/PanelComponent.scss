@@ -3,12 +3,15 @@
 div.Panel
 {
 
+    position: relative;
+
     display: inline-block;
 
     height: 100%;
     width: 100%;
     margin: auto;
-    margin-top: 80px;
+    
+    padding-top: 120px;
 
     background-image: url("Assets/Panel.png");
     background-size: cover;
@@ -25,7 +28,7 @@ div.Panel
         $width-max : 700px; 
         $overlap: 10px;
 
-
+        
 
         background-image: url("Assets/Line.png");
         background-color: rgba($color-dark, 0.65);

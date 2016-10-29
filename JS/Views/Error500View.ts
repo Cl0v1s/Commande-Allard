@@ -6,6 +6,7 @@ class Error500View extends View
             body :  ""
         });
         base.Mount(null, null);
-        new MessageComponent("Erreur 500", "Une erreur serveur a eu lieu, veuillez réessayer ultérieurement.").Mount(base);
+        new TitleComponent("Erreur 500").Mount(base);
+        new MessageComponent("Détails", "Une erreur serveur a eu lieu, veuillez réessayer ultérieurement.").Mount(base);
     }
 }
