@@ -11,6 +11,8 @@ class Model {
                 Model.Replays.push(new Replay(e));
             });
             callback();
+        }, function () {
+            window.location.replace("Index.html?" + Link_Special.Error_500);
         });
     }
     /**
@@ -25,6 +27,8 @@ class Model {
                 Model.Articles.push(new Article(e));
             });
             callback();
+        }, function () {
+            window.location.replace("Index.html?" + Link_Special.Error_500);
         });
     }
     /*
@@ -278,6 +282,23 @@ class ReplayComponent extends Component {
         super.Mount(parent, opts);
     }
 }
+class MessageComponent extends Component {
+    constructor(title, message) {
+        super({
+            body: "<p>{{message}}</p>",
+            classes: "item"
+        });
+        this.title = title;
+        this.message = message;
+    }
+    Mount(parent) {
+        let opts = {
+            message: this.message
+        };
+        super.Mount(parent, opts);
+        this.GetDOM().setAttribute("data-title", this.title);
+    }
+}
 /**
  * Une vue est un element consituté d'un ensemble de composants permettant de présenter des informations à l'utilisateur
  */
@@ -325,11 +346,10 @@ class ArticleFocusView extends View {
     constructor(article) {
         super();
         if (article == null) {
-            console.log("404"); //TODO: implémenter erreur 404
+            window.location.replace("Index.html?" + Link_Special.Error_404);
             return;
         }
         this.article = article;
-        console.log("Focus article " + this.article.Id());
     }
     Show() {
         super.Show();
@@ -356,6 +376,29 @@ class ReplaysView extends View {
         });
     }
 }
+class Error500View extends View {
+    Show() {
+        let base = new Component({
+            body: ""
+        });
+        base.Mount(null, null);
+        new MessageComponent("Erreur 500", "Une erreur serveur a eu lieu, veuillez réessayer ultérieurement.").Mount(base);
+    }
+}
+class Error404View extends View {
+    Show() {
+        let base = new Component({
+            body: ""
+        });
+        base.Mount(null, null);
+        new MessageComponent("Erreur 404", "Impossible de trouver le contenu demandé.").Mount(base);
+    }
+}
+var Link_Special = {
+    Default: null,
+    Error_500: "ERROR_500",
+    Error_404: "ERROR_404"
+};
 /**
  * Permet d'associer un lien et une méthode, permet de simuler un comportement d'affichage par page
  */
@@ -384,22 +427,33 @@ class Linker {
      * Ajoute un nouveau lien au système (et par la une page)
      */
     AddLink(url, method) {
+        if (this.GetLink(url) != null)
+            throw Error("Url must be unique.");
         let link = new Link(url, method);
         this.registry.push(link);
+    }
+    GetLink(url) {
+        for (let i = 0; i != this.registry.length; i++) {
+            let e = this.registry[i];
+            if (e.url == url) {
+                return e;
+            }
+        }
+        return null;
     }
     /**
      * Annalise l'url de la page courante pour déterminer d'éventuelles actions à réaliser
      */
     Analyze() {
-        let url = window.location.toString().split("?")[1];
-        let params = url.split("-");
-        url = params.shift();
-        for (let i; i != this.registry.length; i++) {
-            let e = this.registry[i];
-            if (e.url == url) {
-                e.method(params);
-                return;
-            }
+        try {
+            let url = window.location.toString().split("?")[1];
+            let params = url.split("-");
+            url = params.shift();
+            this.GetLink(url).method(params);
+        }
+        catch (e) {
+            console.log("Linker error, redirect to default");
+            this.GetLink(Link_Special.Default).method(); // SI une erreur a eu lieu, on affiche la page par defaut
         }
     }
 }
@@ -430,18 +484,35 @@ class App {
                 new ArticleFocusView(Model.GetArticle(params[0])).Show();
             });
         };
+        let showError500 = function () {
+            new Error500View().Show();
+        };
+        let showError404 = function () {
+            new Error404View().Show();
+        };
+        let showHome = function () {
+            //TODO: à implémenter
+            console.log("Home");
+        };
         Linker.GetInstance().AddLink("articles", showArticles);
         Linker.GetInstance().AddLink("replays", showReplays);
         Linker.GetInstance().AddLink("article", showArticle);
+        Linker.GetInstance().AddLink(Link_Special.Error_404, showError404);
+        Linker.GetInstance().AddLink(Link_Special.Error_500, showError500);
+        Linker.GetInstance().AddLink(Link_Special.Default, showHome);
         Linker.GetInstance().Analyze();
     }
     /**
      * Envoie des requetes Ajax GET
      */
-    static Get(url, callback) {
+    static Get(url, callback, error) {
         var xhttp = new XMLHttpRequest();
         xhttp.onload = function () {
             callback(xhttp.responseText.trim());
+        };
+        xhttp.onerror = function () {
+            if (error != null)
+                error();
         };
         xhttp.open("GET", url + "?token=" + App.Token, true);
         xhttp.send("token=" + App.Token);

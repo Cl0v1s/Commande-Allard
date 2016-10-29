@@ -4,7 +4,9 @@
 
 Contient l'ensemble du code du projet de site en rapport avec Starcraft II commandé par Guillaume Allard.
 
-Fonctionnement basé sur Cockpit Headless CMS 
+Fonctionnement basé sur Cockpit Headless CMS.
+
+Un container docker présentant une installation correct de dockpit est trouvable [ici](https://hub.docker.com/r/aheinze/cockpit/);
 
 ## Tâches à réaliser 
 

@@ -1,8 +1,17 @@
+
+var Link_Special =  
+{
+    Default : null,
+    Error_500 : "ERROR_500",
+    Error_404 : "ERROR_404"
+}
+
 /**
  * Permet d'associer un lien et une méthode, permet de simuler un comportement d'affichage par page 
  */
 class Link
 {
+
     public url : string;
     public method : Function;
 
@@ -37,8 +46,23 @@ class Linker
      */
     public AddLink(url : string, method : Function)
     {
+        if(this.GetLink(url) != null)
+            throw Error("Url must be unique.");
         let link : Link = new Link(url, method);
         this.registry.push(link);
+    }
+
+    private GetLink(url : string) : Link
+    {
+            for(let i : number = 0; i != this.registry.length; i++)
+            {
+                let e : Link  = this.registry[i];
+                if(e.url == url)
+                {
+                    return e;
+                }
+            }
+            return null;
     }
     
     /**
@@ -46,17 +70,17 @@ class Linker
      */
     public Analyze() : void
     {
-        let url : string = window.location.toString().split("?")[1];
-        let params : Array<string> = url.split("-");
-        url = params.shift();
-        for(let i : number; i != this.registry.length; i++)
+        try
         {
-            let e : Link  = this.registry[i];
-            if(e.url == url)
-            {
-                e.method(params);
-                return;
-            }
+            let url : string = window.location.toString().split("?")[1];
+            let params : Array<string> = url.split("-");
+            url = params.shift();
+            this.GetLink(url).method(params);
+        }
+        catch(e)
+        {
+            console.log("Linker error, redirect to default");
+            this.GetLink(Link_Special.Default).method(); // SI une erreur a eu lieu, on affiche la page par defaut
         }
     }
 }

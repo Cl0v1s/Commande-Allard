@@ -1,8 +1,8 @@
 @import "./../Chart";
 div.Menu {
     $logo-height: 200px;    
-    $width: 200px; // Arbitraire 
-    $width-minified: 60px; // Arbitraire
+    $width: 220px; // Arbitraire 
+    $width-minified: 80px; // Arbitraire
     $height: 100%;
     float: left;
     overflow-x: hidden;
@@ -18,6 +18,18 @@ div.Menu {
     // Etat: survol
     &:hover {
         width: $width;
+
+        nav button
+        {
+            width: $width - (2 * $default-margin);
+
+            color: $color-text-light;
+
+            border-radius: 0px;
+
+            background-position: 5px center;
+        }
+
     }
     // Style du logo
     div.logo {
@@ -39,20 +51,31 @@ div.Menu {
         flex-direction: column;
         justify-content: center;
         height: 100%;
+
+
         // Style des boutons du menu
         button {
             position: relative;
             margin: auto;
             $button-height: 40px; // Valeur arbitraire
             display: block;
-            width: $width - (2 * $default-margin);
-            height: $button-height;
+            /* width: $width - (2 * $default-margin);*/
+
+            width: $width-minified - (2 * $default-margin);
+            height: $width-minified - (2 * $default-margin);
+
+
+
+            color: rgba(0,0,0,0);
+
             margin: $default-margin;
             text-transform: uppercase;
             font-family: $font-base;
 
+            border-radius: 50%;
+
             background-color: rgba($color-base, 0.8);
-            background-position: 5px center;
+            background-position: center center;
             background-repeat: no-repeat;
             background-size: $button-height - 4px; // (-2*2pixels)
 

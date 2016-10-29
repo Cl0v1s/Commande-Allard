@@ -8,12 +8,10 @@ class ArticleFocusView extends View
         super();
         if(article == null)
         {
-            console.log("404"); //TODO: implémenter erreur 404
+            window.location.replace("Index.html?"+Link_Special.Error_404);
             return;
         }
         this.article = article;
-
-        console.log("Focus article "+this.article.Id());
     }
 
     public Show() : void

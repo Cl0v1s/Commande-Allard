@@ -16,6 +16,8 @@ class Model
                 Model.Replays.push(new Replay(e));
             });
             callback();
+        }, function(){
+            window.location.replace("Index.html?"+Link_Special.Error_500);
         });
     }
 
@@ -32,6 +34,8 @@ class Model
                 Model.Articles.push(new Article(e));
             });
             callback();
+        }, function(){
+            window.location.replace("Index.html?"+Link_Special.Error_500);
         });
     }
 

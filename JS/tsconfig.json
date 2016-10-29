@@ -14,10 +14,13 @@
         "Components/ArticleFocusComponent.ts", 
         "Components/DisqusComponent.ts", 
         "Components/ReplayComponent.ts", 
+        "Components/MessageComponent.ts", 
         "Views/View.ts",
         "Views/ArticlesView.ts",
         "Views/ArticleFocusView.ts",
         "Views/ReplaysView.ts",
+        "Views/Error500View.ts",
+        "Views/Error404View.ts",
         "Link.ts",
         "App.ts"
     ]

@@ -8,6 +8,7 @@ div.Panel
     height: 100%;
     width: 100%;
     margin: auto;
+    margin-top: 80px;
 
     background-image: url("Assets/Panel.png");
     background-size: cover;
@@ -37,16 +38,21 @@ div.Panel
 
         width: $width;
         max-width: $width-max;
+
+        margin: auto;
+
         margin-top: $default-margin;
 
         padding: $default-margin;
         padding-top: $height-top * 2 + $default-margin;
 
         color: $color-text-base;
+        font-family: $font-base;
 
         box-shadow: 0px 1px 2px RGBA(9, 123, 173, 0.3);
         
-            
+        white-space: normal;
+        
         
 
         &:before
@@ -90,6 +96,7 @@ div.Panel
             border-bottom-left-radius: 2px;
 
             box-shadow: inset 0px -10px 10px rgba(0,0,0,0.2);
+
             
         }
 
