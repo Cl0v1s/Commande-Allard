@@ -6,11 +6,16 @@ class Model {
     static RetrieveReplays(callback) {
         Model.Replays = new Array();
         App.Get(App.EndPoint + "/collections/get/Replays", (data) => {
-            data = JSON.parse(data);
-            data.forEach((e) => {
-                Model.Replays.push(new Replay(e));
-            });
-            callback();
+            try {
+                data = JSON.parse(data);
+                data.forEach((e) => {
+                    Model.Replays.push(new Replay(e));
+                });
+                callback();
+            }
+            catch (e) {
+                window.location.replace("Index.html?" + Link_Special.Error_500);
+            }
         }, function () {
             window.location.replace("Index.html?" + Link_Special.Error_500);
         });
@@ -22,11 +27,25 @@ class Model {
     static RetrieveArticles(callback) {
         Model.Articles = new Array();
         App.Get(App.EndPoint + "/collections/get/Articles", (data) => {
-            data = JSON.parse(data);
-            data.forEach((e) => {
-                Model.Articles.push(new Article(e));
-            });
-            callback();
+            try {
+                data = JSON.parse(data);
+                data.forEach((e) => {
+                    Model.Articles.push(new Article(e));
+                });
+                // tri des articles par date de parution décroissant 
+                // TODO: à tester 
+                Model.Articles.sort((a, b) => {
+                    if (a.Created() > b.Created())
+                        return -1;
+                    else if (a.Created() < b.Created())
+                        return 1;
+                    return 0;
+                });
+                callback();
+            }
+            catch (e) {
+                window.location.replace("Index.html?" + Link_Special.Error_500);
+            }
         }, function () {
             window.location.replace("Index.html?" + Link_Special.Error_500);
         });
@@ -77,34 +96,45 @@ class Article {
         this.created = data.created;
         this.modified = data.modified;
     }
+    // Id dans la base de données 
     Id() {
         return this.id;
     }
+    // Titre de l'article 
     Title() {
         return this.title;
     }
+    // Photo de preview de l'article
     Picture() {
         return this.picture;
     }
+    // Description de l'article
     Description() {
         return this.description;
     }
+    // Retourne le contenu de l'article
     Content() {
         return this.content;
     }
+    // Retourne la date de modification de l'article (timestamp visiblement)
     Modified() {
         return this.modified;
     }
+    // Retourne la date de création de l'article (timestamp visiblement)
     Created() {
         return this.created;
     }
 }
 class Replay {
     constructor(data) {
+        this.id = data._id;
         this.title = data.Title;
         this.description = data.Description;
         this.picture = data.Picture;
         this.url = data.Url;
+    }
+    Id() {
+        return this.id;
     }
     Title() {
         return this.title;
@@ -190,7 +220,7 @@ Component.IDS = 0;
 class ArticleComponent extends Component {
     constructor(article) {
         super({
-            body: "\<img class='thumbnail' src='{{picture}}'>\
+            body: "\<div class='thumbnail' style='background-image: url({{picture}});'></div>\
                 <div class='content'>\
                     <p>{{description}}</p>\
                 </div>\
@@ -315,6 +345,37 @@ class TitleComponent extends Component {
     }
 }
 /**
+ * Composant présentant les derniers articles parus
+ */
+class LastsArticlesComponent extends Component {
+    constructor(articles, articleNumber) {
+        super({
+            body: "<table>\
+                        <th>\
+                            <td>Titre</td><td>Date</td>\
+                        </th>\
+                        {{content}}\
+                    </table>",
+            classes: "LastsArticles"
+        });
+        // selection des articleNumber derniers aticles
+        this.articles = new Array();
+        for (let i; i != articleNumber; i++) {
+            this.articles.push(articles[i]);
+        }
+    }
+    Mount(parent) {
+        let content = "";
+        this.articles.forEach((e) => {
+            content = content + "<tr><td>" + e.Title() + "</td><td>" + new Date(e.Created()).toString() + "</td></tr>";
+        });
+        let opts = {
+            'content': content
+        };
+        super.Mount(parent, opts);
+    }
+}
+/**
  * Une vue est un element consituté d'un ensemble de composants permettant de présenter des informations à l'utilisateur
  */
 class View {
@@ -352,6 +413,7 @@ class ArticlesView extends View {
             classes: "Articles"
         });
         base.Mount(null, null);
+        new TitleComponent("Articles").Mount(base);
         Model.GetArticles().forEach((data) => {
             new ArticleComponent(data).Mount(base);
         });
@@ -373,6 +435,7 @@ class ArticleFocusView extends View {
             classes: "Articles"
         });
         base.Mount(null, null);
+        new TitleComponent(this.article.Title()).Mount(base);
         let articleFocus = new ArticleFocusComponent(this.article);
         articleFocus.Mount(base);
         new DisqusComponent(this.article).Mount(articleFocus);
@@ -382,15 +445,19 @@ class ReplaysView extends View {
     Show() {
         super.Show();
         let base = new Component({
-            body: '',
+            body: '<div></div>',
             classes: 'Replays'
         });
         base.Mount(null, null);
+        new TitleComponent("Replays").Mount(base);
         Model.GetReplays().forEach((e) => {
             new ReplayComponent(e).Mount(base);
         });
     }
 }
+/**
+ * Affiche la page d'errur 500 correspondant à erreur serveur
+ */
 class Error500View extends View {
     Show() {
         let base = new Component({
@@ -401,6 +468,9 @@ class Error500View extends View {
         new MessageComponent("Détails", "Une erreur serveur a eu lieu, veuillez réessayer ultérieurement.").Mount(base);
     }
 }
+/**
+ * Affiche la page d'errur 404 correspondant à ressource non trouvée
+ */
 class Error404View extends View {
     Show() {
         let base = new Component({
@@ -537,6 +607,6 @@ class App {
     }
 }
 App.EndPoint = "http://172.17.0.2/rest/api";
-App.Token = "5e33c6d1ec779b9210e9cdad";
+App.Token = "1466c749fd54c9e648ad57a6";
 window.onload = App.Main;
 //# sourceMappingURL=main.js.map

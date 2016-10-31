@@ -11,11 +11,18 @@ class Model
     {
         Model.Replays = new Array<Replay>();
         App.Get(App.EndPoint+"/collections/get/Replays", (data) => {
-            data = JSON.parse(data);
-            data.forEach((e) => {
-                Model.Replays.push(new Replay(e));
-            });
-            callback();
+            try
+            {
+                data = JSON.parse(data);
+                data.forEach((e) => {
+                    Model.Replays.push(new Replay(e));
+                });
+                callback();
+            }
+            catch(e)
+            {
+                window.location.replace("Index.html?"+Link_Special.Error_500);                
+            }
         }, function(){
             window.location.replace("Index.html?"+Link_Special.Error_500);
         });
@@ -29,21 +36,28 @@ class Model
     {
         Model.Articles = new Array<Article>();
         App.Get(App.EndPoint+"/collections/get/Articles", (data) => {
-            data = JSON.parse(data);
-            data.forEach((e) => {
-                Model.Articles.push(new Article(e));
-            });
-            // tri des articles par date de parution décroissant 
-            // TODO: à tester 
-            Model.Articles.sort((a,b) : number => {
-                if(a.Created() > b.Created())
-                    return -1;
-                else if(a.Created() < b.Created())
-                    return 1;
-                return 0;
-            });
+            try
+            {
+                data = JSON.parse(data);
+                data.forEach((e) => {
+                    Model.Articles.push(new Article(e));
+                });
+                // tri des articles par date de parution décroissant 
+                // TODO: à tester 
+                Model.Articles.sort((a,b) : number => {
+                    if(a.Created() > b.Created())
+                        return -1;
+                    else if(a.Created() < b.Created())
+                        return 1;
+                    return 0;
+                });
+                callback();
+            }
+            catch(e)
+            {
+                window.location.replace("Index.html?"+Link_Special.Error_500);
+            }
 
-            callback();
         }, function(){
             window.location.replace("Index.html?"+Link_Special.Error_500);
         });

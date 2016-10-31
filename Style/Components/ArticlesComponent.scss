@@ -3,22 +3,25 @@ div.Articles {
 
     padding: $default-margin;
 
-
     div.Article {
+
+
         position: relative;
         min-width: 200px;
-        margin: auto;
+        margin-left: auto;
+        margin-right: auto;
         margin-bottom: $default-margin*3;
 
 
-        img.thumbnail {
+        div.thumbnail {
             box-shadow: inset 0px 10px 10px rgba(0, 0, 0, 0.2);
-            background-color: blue;
             position: absolute;
             top: 49px;
             left: 0;
             height: 100px;
             width: 100%;
+            background-size: cover;
+            background-position: center;
             margin-top: -$default-margin;
         }
 

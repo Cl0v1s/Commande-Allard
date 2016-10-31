@@ -5,7 +5,7 @@ class ArticleComponent extends Component
     constructor(article : Article)
     {
         super({
-            body : "\<img class='thumbnail' src='{{picture}}'>\
+            body : "\<div class='thumbnail' style='background-image: url({{picture}});'></div>\
                 <div class='content'>\
                     <p>{{description}}</p>\
                 </div>\

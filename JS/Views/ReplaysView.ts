@@ -4,7 +4,7 @@ class ReplaysView extends View
     {
         super.Show();
         let base : Component = new Component({
-            body : '', 
+            body : '<div></div>', 
             classes : 'Replays'
         });
         base.Mount(null, null);
