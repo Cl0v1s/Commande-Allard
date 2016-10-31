@@ -19,36 +19,43 @@ class Article
         this.modified = data.modified;
     }
 
+    // Id dans la base de données 
     public Id() : string
     {
         return  this.id;
     }
 
+    // Titre de l'article 
     public Title() : string
     {
         return this.title;
     }
 
+    // Photo de preview de l'article
     public Picture() : string
     {
         return this.picture;
     }
 
+    // Description de l'article
     public Description() : string
     {
         return this.description;
     }
 
+    // Retourne le contenu de l'article
     public Content() : string
     {
         return this.content;
     }
 
+    // Retourne la date de modification de l'article (timestamp visiblement)
     public Modified() : number
     {
         return this.modified;
     }
 
+    // Retourne la date de création de l'article (timestamp visiblement)
     public Created() : number
     {
         return this.created;

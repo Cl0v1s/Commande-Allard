@@ -1,3 +1,6 @@
+/**
+ * Affiche la page d'errur 404 correspondant à ressource non trouvée
+ */
 class Error404View extends View
 {
     public Show() : void

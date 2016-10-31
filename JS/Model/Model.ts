@@ -33,6 +33,16 @@ class Model
             data.forEach((e) => {
                 Model.Articles.push(new Article(e));
             });
+            // tri des articles par date de parution décroissant 
+            // TODO: à tester 
+            Model.Articles.sort((a,b) : number => {
+                if(a.Created() > b.Created())
+                    return -1;
+                else if(a.Created() < b.Created())
+                    return 1;
+                return 0;
+            });
+
             callback();
         }, function(){
             window.location.replace("Index.html?"+Link_Special.Error_500);

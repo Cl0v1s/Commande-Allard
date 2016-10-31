@@ -1,5 +1,7 @@
 class Replay
 {
+
+    private id : string;
     private title : string;
     private description : string;
     private picture : string;
@@ -7,10 +9,16 @@ class Replay
 
     constructor(data : any)
     {
+        this.id = data._id;
         this.title = data.Title;
         this.description = data.Description;
         this.picture = data.Picture;
         this.url = data.Url;
+    }
+
+    public Id() : string
+    {
+        return this.id;
     }
 
     public Title() : string

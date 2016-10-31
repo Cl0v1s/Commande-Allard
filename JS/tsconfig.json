@@ -16,6 +16,7 @@
         "Components/ReplayComponent.ts", 
         "Components/MessageComponent.ts", 
         "Components/TitleComponent.ts", 
+        "Components/LastsArticlesComponent.ts", 
         "Views/View.ts",
         "Views/ArticlesView.ts",
         "Views/ArticleFocusView.ts",

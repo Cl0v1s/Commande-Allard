@@ -1,3 +1,6 @@
+/**
+ * Affiche la page d'errur 500 correspondant à erreur serveur 
+ */
 class Error500View extends View
 {
     public Show() : void
