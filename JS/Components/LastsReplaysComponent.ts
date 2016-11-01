@@ -1,11 +1,11 @@
 /** 
  * Composant présentant les derniers articles parus
  */
-class LastsArticlesComponent extends Component
+class LastsReplaysComponent extends Component
 {
-    private articles : Array<Article>;
+    private replays : Array<Replay>;
 
-    constructor(articles : Array<Article>, articleNumber : number)
+    constructor(replays : Array<Replay>, replayNumber : number)
     {
         super({
             body : "<table>\
@@ -17,11 +17,11 @@ class LastsArticlesComponent extends Component
             classes : "Frame item"
         });
         // selection des articleNumber derniers aticles
-        this.articles = new Array<Article>();
-        for(let i : number = 0; i!= articleNumber; i++)
-        {
-            if(articles[i] != null)
-                this.articles.push(articles[i]);
+        this.replays = new Array<Replay>();
+        for(let i : number = 0; i!= replayNumber; i++)
+        { 
+            if(replays[i] != null)
+                this.replays.push(replays[i]);
         }
 
         console.log(this);
@@ -30,14 +30,14 @@ class LastsArticlesComponent extends Component
     public Mount(parent : Component) : void
     {
         let content : string = "";
-        this.articles.forEach((e) => {
+        this.replays.forEach((e) => {
             let date : Date = new Date(e.Created()*1000);
-            content = content + "<tr><td><a href='Index.html?article-"+e.Id()+"'>"+e.Title()+"</a></td><td>"+date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear()+"</td></tr>";
+            content = content + "<tr><td><a href='Index.html?replays'>"+e.Title()+"</a></td><td>"+date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear()+"</td></tr>";
         });
         let opts = {
             'content' : content
         };
         super.Mount(parent, opts);
-        this.GetDOM().setAttribute("data-title", "Derniers Articles");
+        this.GetDOM().setAttribute("data-title", "Derniers Replays");
     }
 }

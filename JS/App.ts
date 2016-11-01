@@ -2,7 +2,7 @@ class App
 {
 
     public static EndPoint : string = "http://172.17.0.2/rest/api";
-    public static Token : string = "1466c749fd54c9e648ad57a6";
+    public static Token : string = "5e33c6d1ec779b9210e9cdad";
 
 
     public static Main()
@@ -49,14 +49,18 @@ class App
 
         let showHome : Function = function()
         {
-            //TODO: à implémenter
-            console.log("Home");
+            Model.RetrieveArticles(() => {
+                Model.RetrieveReplays(() => {
+                    new IndexView().Show();
+                });
+            });
         }
 
 
         Linker.GetInstance().AddLink("articles", showArticles);
         Linker.GetInstance().AddLink("replays", showReplays);
         Linker.GetInstance().AddLink("article", showArticle);
+        Linker.GetInstance().AddLink("index", showHome);
         Linker.GetInstance().AddLink(Link_Special.Error_404, showError404);
         Linker.GetInstance().AddLink(Link_Special.Error_500, showError500);
         Linker.GetInstance().AddLink(Link_Special.Default, showHome);

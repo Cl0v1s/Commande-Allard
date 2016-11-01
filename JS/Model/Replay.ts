@@ -6,6 +6,7 @@ class Replay
     private description : string;
     private picture : string;
     private url : string;
+    private created : number;
 
     constructor(data : any)
     {
@@ -14,6 +15,7 @@ class Replay
         this.description = data.Description;
         this.picture = data.Picture;
         this.url = data.Url;
+        this.created = data.created;
     }
 
     public Id() : string
@@ -39,5 +41,10 @@ class Replay
     public Url() : string
     {
         return this.url;
+    }
+
+    public Created() : number
+    {
+        return this.created;
     }
 }

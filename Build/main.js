@@ -132,6 +132,7 @@ class Replay {
         this.description = data.Description;
         this.picture = data.Picture;
         this.url = data.Url;
+        this.created = data.created;
     }
     Id() {
         return this.id;
@@ -147,6 +148,9 @@ class Replay {
     }
     Url() {
         return this.url;
+    }
+    Created() {
+        return this.created;
     }
 }
 /**
@@ -247,7 +251,7 @@ class ArticleComponent extends Component {
 class ArticleFocusComponent extends Component {
     constructor(article) {
         super({
-            body: "\<img class='thumbnail' src='{{picture}}'>\
+            body: "\<div class='thumbnail' style='background-image: url({{picture}});'></div>\
                 <div class='content'>\
                     <p>{{content}}</p>\
                 </div>\
@@ -351,28 +355,67 @@ class LastsArticlesComponent extends Component {
     constructor(articles, articleNumber) {
         super({
             body: "<table>\
-                        <th>\
-                            <td>Titre</td><td>Date</td>\
-                        </th>\
+                        <tr>\
+                            <th>Titre</th><th>Date</th>\
+                        </tr>\
                         {{content}}\
                     </table>",
-            classes: "LastsArticles"
+            classes: "Frame item"
         });
         // selection des articleNumber derniers aticles
         this.articles = new Array();
-        for (let i; i != articleNumber; i++) {
-            this.articles.push(articles[i]);
+        for (let i = 0; i != articleNumber; i++) {
+            if (articles[i] != null)
+                this.articles.push(articles[i]);
         }
+        console.log(this);
     }
     Mount(parent) {
         let content = "";
         this.articles.forEach((e) => {
-            content = content + "<tr><td>" + e.Title() + "</td><td>" + new Date(e.Created()).toString() + "</td></tr>";
+            let date = new Date(e.Created() * 1000);
+            content = content + "<tr><td><a href='Index.html?article-" + e.Id() + "'>" + e.Title() + "</a></td><td>" + date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + "</td></tr>";
         });
         let opts = {
             'content': content
         };
         super.Mount(parent, opts);
+        this.GetDOM().setAttribute("data-title", "Derniers Articles");
+    }
+}
+/**
+ * Composant présentant les derniers articles parus
+ */
+class LastsReplaysComponent extends Component {
+    constructor(replays, replayNumber) {
+        super({
+            body: "<table>\
+                        <tr>\
+                            <th>Titre</th><th>Date</th>\
+                        </tr>\
+                        {{content}}\
+                    </table>",
+            classes: "Frame item"
+        });
+        // selection des articleNumber derniers aticles
+        this.replays = new Array();
+        for (let i = 0; i != replayNumber; i++) {
+            if (replays[i] != null)
+                this.replays.push(replays[i]);
+        }
+        console.log(this);
+    }
+    Mount(parent) {
+        let content = "";
+        this.replays.forEach((e) => {
+            let date = new Date(e.Created() * 1000);
+            content = content + "<tr><td><a href='Index.html?replays'>" + e.Title() + "</a></td><td>" + date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + "</td></tr>";
+        });
+        let opts = {
+            'content': content
+        };
+        super.Mount(parent, opts);
+        this.GetDOM().setAttribute("data-title", "Derniers Replays");
     }
 }
 /**
@@ -453,6 +496,26 @@ class ReplaysView extends View {
         Model.GetReplays().forEach((e) => {
             new ReplayComponent(e).Mount(base);
         });
+    }
+}
+class IndexView extends View {
+    Show() {
+        super.Show();
+        let base = new Component({
+            body: "",
+            classes: "Index",
+        });
+        base.Mount(null, null);
+        new TitleComponent("Accueil").Mount(base);
+        let indexLayout = new Component({
+            body: "",
+            classes: "IndexLayout"
+        });
+        indexLayout.Mount(base, null);
+        let lastArticles = new LastsArticlesComponent(Model.GetArticles(), 5);
+        lastArticles.Mount(indexLayout);
+        let lastReplays = new LastsReplaysComponent(Model.GetReplays(), 5);
+        lastReplays.Mount(indexLayout);
     }
 }
 /**
@@ -578,12 +641,16 @@ class App {
             new Error404View().Show();
         };
         let showHome = function () {
-            //TODO: à implémenter
-            console.log("Home");
+            Model.RetrieveArticles(() => {
+                Model.RetrieveReplays(() => {
+                    new IndexView().Show();
+                });
+            });
         };
         Linker.GetInstance().AddLink("articles", showArticles);
         Linker.GetInstance().AddLink("replays", showReplays);
         Linker.GetInstance().AddLink("article", showArticle);
+        Linker.GetInstance().AddLink("index", showHome);
         Linker.GetInstance().AddLink(Link_Special.Error_404, showError404);
         Linker.GetInstance().AddLink(Link_Special.Error_500, showError500);
         Linker.GetInstance().AddLink(Link_Special.Default, showHome);
@@ -607,6 +674,6 @@ class App {
     }
 }
 App.EndPoint = "http://172.17.0.2/rest/api";
-App.Token = "1466c749fd54c9e648ad57a6";
+App.Token = "5e33c6d1ec779b9210e9cdad";
 window.onload = App.Main;
 //# sourceMappingURL=main.js.map

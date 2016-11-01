@@ -145,5 +145,26 @@ div.Panel
             box-shadow: inset 0px -10px 10px rgba(0,0,0,0.2);
             
         }
+
+        table
+        {
+            table-layout: fixed;
+            width: 100%;
+
+            border-collapse: collapse;
+
+
+            th
+            {
+                font-weight: normal;
+                background-color: rgba($color-base,0.3);
+                color: $color-text-light;
+            }
+
+            td, th
+            {
+                border: 1px solid rgba($color-text-base, 0.3);
+            }
+        }
     }
 }

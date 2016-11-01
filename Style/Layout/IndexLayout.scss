@@ -1,0 +1,17 @@
+@import './../Chart';
+
+div.IndexLayout
+{
+    width: 100%;
+
+    text-align: center;
+
+    &>div.item
+    {
+        display: inline-block;
+        width: 25%;  
+        margin-left: $default-margin*2;  
+        margin-right: $default-margin*2;  
+    }
+
+}
