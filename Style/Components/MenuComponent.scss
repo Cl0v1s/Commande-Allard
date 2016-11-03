@@ -108,6 +108,11 @@ div.Menu {
             &.gallery {
                 background-image: url("Assets/gallery.svg");
             }
+
+            &:hover
+            {
+                background-color: rgba($color-light, 0.8);
+            }
         }
     }
 }
