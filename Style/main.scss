@@ -1,5 +1,8 @@
 @import "Chart";
-@import "Vendor/Stars";
+
+// Vendors
+
+// Components
 @import "Components/HeaderComponent";
 @import "Components/SoldierComponent";
 @import "Components/MenuComponent";
@@ -7,6 +10,8 @@
 @import "Components/ArticlesComponent";
 @import "Components/ReplaysComponent";
 @import "Components/TitleComponent";
+
+// Layouts
 @import "Layout/IndexLayout";
 
 
