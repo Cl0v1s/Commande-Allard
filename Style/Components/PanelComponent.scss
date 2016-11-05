@@ -164,6 +164,8 @@ div.Panel
             td, th
             {
                 border: 1px solid rgba($color-text-base, 0.3);
+                text-overflow: ellipsis;
+                overflow: hidden;
             }
         }
     }

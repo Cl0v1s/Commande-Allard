@@ -674,6 +674,7 @@ class App {
     }
 }
 App.EndPoint = "http://172.17.0.2/rest/api";
-App.Token = "5e33c6d1ec779b9210e9cdad";
+//public static Token : string = "5e33c6d1ec779b9210e9cdad";
+App.Token = "1466c749fd54c9e648ad57a6";
 window.onload = App.Main;
 //# sourceMappingURL=main.js.map
