@@ -553,20 +553,28 @@ class Error404View extends View {
 class Locale {
     constructor(callback) {
         let self = this;
-        let lang = "FR-fr"; // On charge le français par défaut
-        let load = function () {
+        let error;
+        let load = function (lang) {
             App.Get("Locales/" + lang + ".json", (data) => {
-                console.log(data);
-                self.data = JSON.parse(data);
-                callback();
-            });
+                try {
+                    self.data = JSON.parse(data);
+                    callback();
+                }
+                catch (e) {
+                    error();
+                }
+            }, error);
+        };
+        error = function () {
+            load("FR-fr");
         };
         // Récupération de la locale 
         App.Get("http://ip-api.com/json/", (data) => {
             data = JSON.parse(data);
-            lang = data.countryCode.toUpperCase() + "-" + data.countryCode.toLowerCase();
-            load();
-        }, load);
+            load(data.countryCode.toUpperCase() + "-" + data.countryCode.toLowerCase());
+        }, () => {
+            load("FR-fr"); // En cas d'échec de récupération de la localisation, on appelle quand même load avec des valeurs par defaut 
+        });
     }
     static CreateInstance(callback) {
         if (Locale.Instance == null)

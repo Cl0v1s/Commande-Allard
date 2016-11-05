@@ -15,3 +15,7 @@ Un container docker présentant une installation correct de cockpit est trouvabl
 * [x] Revoir les boutons du menu
 * [ ] Page d'acceuil 
 * [ ] Ajouter paralax léger dans zone de menu
+
+## Important 
+
+Le fichier de langue française, est critique. Il est chargé par défaut et en cas d'erreur. 

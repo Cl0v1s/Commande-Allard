@@ -18,23 +18,37 @@ class Locale
     constructor(callback : Function)
     {
         let self : Locale = this;
-        let lang : string = "FR-fr"; // On charge le français par défaut
 
-        let load : Function =  function()
+        let error : Function;
+
+        let load : Function =  function(lang : string)
         {
             App.Get("Locales/"+lang+".json", (data) => {
-                console.log(data);
-                self.data = JSON.parse(data);
-                callback();
-            });
+                try
+                {
+                    self.data = JSON.parse(data);
+                    callback();
+                }
+                catch(e)
+                {
+                    error();
+                }
+
+            }, error);
         };
+
+        error = function() // En cas d'échec (on ne peux charger la langue, on ne la trouve pas), on charge la langue française par défaut
+        {
+            load("FR-fr");
+        }
 
         // Récupération de la locale 
         App.Get("http://ip-api.com/json/", (data) => {
             data = JSON.parse(data);
-            lang = data.countryCode.toUpperCase() + "-" + data.countryCode.toLowerCase();
-            load();
-        }, load);
+            load(data.countryCode.toUpperCase() + "-" + data.countryCode.toLowerCase());
+        }, () => {
+            load("FR-fr"); // En cas d'échec de récupération de la localisation, on appelle quand même load avec des valeurs par defaut 
+        }); 
 
 
 
