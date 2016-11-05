@@ -14,6 +14,7 @@ class Locale
     }
 
     private data : any;
+    private lang : string;
 
     constructor(callback : Function)
     {
@@ -23,6 +24,7 @@ class Locale
 
         let load : Function =  function(lang : string)
         {
+            self.lang = lang;
             App.Get("Locales/"+lang+".json", (data) => {
                 try
                 {
@@ -49,9 +51,11 @@ class Locale
         }, () => {
             load("FR-fr"); // En cas d'échec de récupération de la localisation, on appelle quand même load avec des valeurs par defaut 
         }); 
+    }
 
-
-
+    public GetLang() : string 
+    {
+        return this.lang;
     }
 
     public Word(word : string) : string

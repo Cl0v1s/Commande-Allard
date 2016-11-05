@@ -30,7 +30,9 @@ class Model {
             try {
                 data = JSON.parse(data);
                 data.forEach((e) => {
-                    Model.Articles.push(new Article(e));
+                    let a = new Article(e);
+                    if (a.Lang() == Locale.GetInstance().GetLang())
+                        Model.Articles.push(a);
                 });
                 // tri des articles par date de parution décroissant 
                 // TODO: à tester 
@@ -95,6 +97,7 @@ class Article {
         this.content = data.Content;
         this.created = data.created;
         this.modified = data.modified;
+        this.lang = data.Lang;
     }
     // Id dans la base de données 
     Id() {
@@ -123,6 +126,9 @@ class Article {
     // Retourne la date de création de l'article (timestamp visiblement)
     Created() {
         return this.created;
+    }
+    Lang() {
+        return this.lang;
     }
 }
 class Replay {
@@ -555,6 +561,7 @@ class Locale {
         let self = this;
         let error;
         let load = function (lang) {
+            self.lang = lang;
             App.Get("Locales/" + lang + ".json", (data) => {
                 try {
                     self.data = JSON.parse(data);
@@ -582,6 +589,9 @@ class Locale {
     }
     static GetInstance() {
         return Locale.Instance;
+    }
+    GetLang() {
+        return this.lang;
     }
     Word(word) {
         return this.data[word];

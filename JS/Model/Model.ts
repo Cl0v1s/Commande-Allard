@@ -40,7 +40,9 @@ class Model
             {
                 data = JSON.parse(data);
                 data.forEach((e) => {
-                    Model.Articles.push(new Article(e));
+                    let a : Article = new Article(e);
+                    if(a.Lang() == Locale.GetInstance().GetLang())
+                        Model.Articles.push(a);
                 });
                 // tri des articles par date de parution décroissant 
                 // TODO: à tester 

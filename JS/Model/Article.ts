@@ -7,6 +7,7 @@ class Article
     private content : string;
     private created : number;
     private modified : number;
+    private lang : string; 
 
     constructor(data : any)
     {
@@ -17,6 +18,7 @@ class Article
         this.content = data.Content;
         this.created = data.created;
         this.modified = data.modified;
+        this.lang = data.Lang;
     }
 
     // Id dans la base de données 
@@ -59,6 +61,11 @@ class Article
     public Created() : number
     {
         return this.created;
+    }
+
+    public Lang() : string 
+    {
+        return this.lang;
     }
 
 }
