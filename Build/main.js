@@ -230,7 +230,7 @@ class ArticleComponent extends Component {
                 </div>\
                 <a href='Index.html?article-{{id}}'>\
                     <button class='more'>\
-                        Lire la suite...\
+                        {{readMore}}\
                     </button>\
                 </a>\
                 ",
@@ -240,9 +240,10 @@ class ArticleComponent extends Component {
     }
     Mount(parent) {
         let opts = {
-            id: this.article.Id(),
-            picture: this.article.Picture(),
-            description: this.article.Description()
+            'id': this.article.Id(),
+            'picture': this.article.Picture(),
+            'description': this.article.Description(),
+            'readMore': Locale.GetInstance().Word("ReadMore"),
         };
         super.Mount(parent, opts);
         this.GetDOM().setAttribute("data-title", this.article.Title());
@@ -300,7 +301,7 @@ class ReplayComponent extends Component {
                 <div class='thumbnail' style='background-image: url({{picture}});'></div>\
                 <a href='{{url}}'>\
                     <button>\
-                        Télécharger\
+                        {{download}}\
                     </button>\
                 </a>",
             classes: 'Replay item'
@@ -312,6 +313,7 @@ class ReplayComponent extends Component {
             title: this.replay.Title(),
             picture: this.replay.Picture(),
             url: this.replay.Url(),
+            download: Locale.GetInstance().Word("Download"),
         };
         super.Mount(parent, opts);
     }
@@ -356,7 +358,7 @@ class LastsArticlesComponent extends Component {
         super({
             body: "<table>\
                         <tr>\
-                            <th>Titre</th><th>Date</th>\
+                            <th>{{title}}</th><th>{{date}}</th>\
                         </tr>\
                         {{content}}\
                     </table>",
@@ -377,10 +379,12 @@ class LastsArticlesComponent extends Component {
             content = content + "<tr><td><a href='Index.html?article-" + e.Id() + "'>" + e.Title() + "</a></td><td>" + date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + "</td></tr>";
         });
         let opts = {
-            'content': content
+            'content': content,
+            'title': Locale.GetInstance().Word("Title"),
+            'date': Locale.GetInstance().Word("Date"),
         };
         super.Mount(parent, opts);
-        this.GetDOM().setAttribute("data-title", "Derniers Articles");
+        this.GetDOM().setAttribute("data-title", Locale.GetInstance().Word("LastArticles"));
     }
 }
 /**
@@ -391,7 +395,7 @@ class LastsReplaysComponent extends Component {
         super({
             body: "<table>\
                         <tr>\
-                            <th>Titre</th><th>Date</th>\
+                            <th>{{title}}</th><th>{{date}}</th>\
                         </tr>\
                         {{content}}\
                     </table>",
@@ -412,10 +416,12 @@ class LastsReplaysComponent extends Component {
             content = content + "<tr><td><a href='Index.html?replays'>" + e.Title() + "</a></td><td>" + date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear() + "</td></tr>";
         });
         let opts = {
-            'content': content
+            'content': content,
+            'title': Locale.GetInstance().Word("Title"),
+            'date': Locale.GetInstance().Word("Date"),
         };
         super.Mount(parent, opts);
-        this.GetDOM().setAttribute("data-title", "Derniers Replays");
+        this.GetDOM().setAttribute("data-title", Locale.GetInstance().Word("LastReplays"));
     }
 }
 /**
@@ -456,7 +462,7 @@ class ArticlesView extends View {
             classes: "Articles"
         });
         base.Mount(null, null);
-        new TitleComponent("Articles").Mount(base);
+        new TitleComponent(Locale.GetInstance().Word("Articles")).Mount(base);
         Model.GetArticles().forEach((data) => {
             new ArticleComponent(data).Mount(base);
         });
@@ -492,7 +498,7 @@ class ReplaysView extends View {
             classes: 'Replays'
         });
         base.Mount(null, null);
-        new TitleComponent("Replays").Mount(base);
+        new TitleComponent(Locale.GetInstance().Word("Replays")).Mount(base);
         Model.GetReplays().forEach((e) => {
             new ReplayComponent(e).Mount(base);
         });
@@ -506,7 +512,7 @@ class IndexView extends View {
             classes: "Index",
         });
         base.Mount(null, null);
-        new TitleComponent("Accueil").Mount(base);
+        new TitleComponent(Locale.GetInstance().Word("Index")).Mount(base);
         let indexLayout = new Component({
             body: "",
             classes: "IndexLayout"
@@ -527,8 +533,8 @@ class Error500View extends View {
             body: ""
         });
         base.Mount(null, null);
-        new TitleComponent("Erreur 500").Mount(base);
-        new MessageComponent("Détails", "Une erreur serveur a eu lieu, veuillez réessayer ultérieurement.").Mount(base);
+        new TitleComponent(Locale.GetInstance().Word("Error") + " 500").Mount(base);
+        new MessageComponent(Locale.GetInstance().Word("Details"), Locale.GetInstance().Word("Error500")).Mount(base);
     }
 }
 /**
@@ -540,8 +546,37 @@ class Error404View extends View {
             body: ""
         });
         base.Mount(null, null);
-        new TitleComponent("Erreur 404").Mount(base);
-        new MessageComponent("Détails", "Impossible de trouver le contenu demandé.").Mount(base);
+        new TitleComponent(Locale.GetInstance().Word("Error") + " 404").Mount(base);
+        new MessageComponent(Locale.GetInstance().Word("Details"), Locale.GetInstance().Word("Error404")).Mount(base);
+    }
+}
+class Locale {
+    constructor(callback) {
+        let self = this;
+        let lang = "FR-fr"; // On charge le français par défaut
+        let load = function () {
+            App.Get("Locales/" + lang + ".json", (data) => {
+                console.log(data);
+                self.data = JSON.parse(data);
+                callback();
+            });
+        };
+        // Récupération de la locale 
+        App.Get("http://ip-api.com/json/", (data) => {
+            data = JSON.parse(data);
+            lang = data.countryCode.toUpperCase() + "-" + data.countryCode.toLowerCase();
+            load();
+        }, load);
+    }
+    static CreateInstance(callback) {
+        if (Locale.Instance == null)
+            Locale.Instance = new Locale(callback);
+    }
+    static GetInstance() {
+        return Locale.Instance;
+    }
+    Word(word) {
+        return this.data[word];
     }
 }
 var Link_Special = {
@@ -608,6 +643,7 @@ class Linker {
     }
 }
 class App {
+    //public static Token : string = "1466c749fd54c9e648ad57a6";
     static Main() {
         View.RootID = "Content";
         /**
@@ -654,7 +690,9 @@ class App {
         Linker.GetInstance().AddLink(Link_Special.Error_404, showError404);
         Linker.GetInstance().AddLink(Link_Special.Error_500, showError500);
         Linker.GetInstance().AddLink(Link_Special.Default, showHome);
-        Linker.GetInstance().Analyze();
+        Locale.CreateInstance(() => {
+            Linker.GetInstance().Analyze();
+        });
     }
     /**
      * Envoie des requetes Ajax GET
@@ -669,12 +707,11 @@ class App {
                 error();
         };
         xhttp.open("GET", url + "?token=" + App.Token, true);
-        xhttp.send("token=" + App.Token);
         console.log("Processing " + url);
+        xhttp.send();
     }
 }
 App.EndPoint = "http://172.17.0.2/rest/api";
-//public static Token : string = "5e33c6d1ec779b9210e9cdad";
-App.Token = "1466c749fd54c9e648ad57a6";
+App.Token = "5e33c6d1ec779b9210e9cdad";
 window.onload = App.Main;
 //# sourceMappingURL=main.js.map

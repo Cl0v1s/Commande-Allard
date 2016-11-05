@@ -10,7 +10,7 @@ class IndexView extends View
         });
         base.Mount(null, null);
 
-        new TitleComponent("Accueil").Mount(base);
+        new TitleComponent(Locale.GetInstance().Word("Index")).Mount(base);
 
 
         let indexLayout : Component = new Component({

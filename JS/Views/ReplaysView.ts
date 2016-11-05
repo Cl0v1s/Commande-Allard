@@ -9,7 +9,7 @@ class ReplaysView extends View
         });
         base.Mount(null, null);
         
-        new TitleComponent("Replays").Mount(base);
+        new TitleComponent(Locale.GetInstance().Word("Replays")).Mount(base);
         Model.GetReplays().forEach((e) => {
             new ReplayComponent(e).Mount(base);
         });

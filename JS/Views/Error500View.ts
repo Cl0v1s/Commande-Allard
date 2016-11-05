@@ -9,7 +9,7 @@ class Error500View extends View
             body :  ""
         });
         base.Mount(null, null);
-        new TitleComponent("Erreur 500").Mount(base);
-        new MessageComponent("Détails", "Une erreur serveur a eu lieu, veuillez réessayer ultérieurement.").Mount(base);
+        new TitleComponent(Locale.GetInstance().Word("Error")+" 500").Mount(base);
+        new MessageComponent(Locale.GetInstance().Word("Details"), Locale.GetInstance().Word("Error500")).Mount(base);
     }
 }

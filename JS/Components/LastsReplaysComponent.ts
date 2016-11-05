@@ -10,7 +10,7 @@ class LastsReplaysComponent extends Component
         super({
             body : "<table>\
                         <tr>\
-                            <th>Titre</th><th>Date</th>\
+                            <th>{{title}}</th><th>{{date}}</th>\
                         </tr>\
                         {{content}}\
                     </table>", 
@@ -35,9 +35,11 @@ class LastsReplaysComponent extends Component
             content = content + "<tr><td><a href='Index.html?replays'>"+e.Title()+"</a></td><td>"+date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear()+"</td></tr>";
         });
         let opts = {
-            'content' : content
+            'content' : content, 
+            'title' : Locale.GetInstance().Word("Title"), 
+            'date' : Locale.GetInstance().Word("Date"),
         };
         super.Mount(parent, opts);
-        this.GetDOM().setAttribute("data-title", "Derniers Replays");
+        this.GetDOM().setAttribute("data-title", Locale.GetInstance().Word("LastReplays"));
     }
 }

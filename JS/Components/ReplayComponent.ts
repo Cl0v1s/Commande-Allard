@@ -10,7 +10,7 @@ class ReplayComponent extends Component
                 <div class='thumbnail' style='background-image: url({{picture}});'></div>\
                 <a href='{{url}}'>\
                     <button>\
-                        Télécharger\
+                        {{download}}\
                     </button>\
                 </a>", 
             classes : 'Replay item'
@@ -24,6 +24,7 @@ class ReplayComponent extends Component
             title : this.replay.Title(),
             picture : this.replay.Picture(),
             url : this.replay.Url(),
+            download : Locale.GetInstance().Word("Download"),
         };
         super.Mount(parent, opts);
 

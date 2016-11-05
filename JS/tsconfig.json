@@ -25,6 +25,7 @@
         "Views/IndexView.ts",
         "Views/Error500View.ts",
         "Views/Error404View.ts",
+        "Locales/Locale.ts",
         "Link.ts",
         "App.ts"
     ]

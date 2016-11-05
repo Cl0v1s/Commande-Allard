@@ -1,0 +1,22 @@
+{
+    "Title" : "Titre", 
+    "Date" : "Date", 
+
+
+    "LastArticles" : "Derniers Articles", 
+    "LastReplays" :  "Derniers Replays", 
+    "ReadMore" : "Lire la suite ...", 
+    "Download" : "Télécharger", 
+
+    "Index" : "Accueil",
+    "Articles" : "Articles",
+    "Replays" : "Replays",
+    "Error" : "Erreur",
+    "Details" : "Détails",
+
+
+    "Error404" : "Impossible de trouver le contenu demandé.",
+    "Error500" : "Une erreur serveur a eu lieu, veuillez réessayer ultérieurement."
+
+
+}

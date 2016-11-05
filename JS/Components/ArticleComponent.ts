@@ -11,7 +11,7 @@ class ArticleComponent extends Component
                 </div>\
                 <a href='Index.html?article-{{id}}'>\
                     <button class='more'>\
-                        Lire la suite...\
+                        {{readMore}}\
                     </button>\
                 </a>\
                 ", 
@@ -24,9 +24,10 @@ class ArticleComponent extends Component
     public Mount(parent : Component) : void
     {
         let opts : any = {
-            id : this.article.Id(),
-            picture : this.article.Picture(), 
-            description : this.article.Description()
+            'id' : this.article.Id(),
+            'picture' : this.article.Picture(), 
+            'description' : this.article.Description(), 
+            'readMore' : Locale.GetInstance().Word("ReadMore"),
         }
         super.Mount(parent, opts);
         this.GetDOM().setAttribute("data-title", this.article.Title());

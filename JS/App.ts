@@ -2,8 +2,8 @@ class App
 {
 
     public static EndPoint : string = "http://172.17.0.2/rest/api";
-    //public static Token : string = "5e33c6d1ec779b9210e9cdad";
-    public static Token : string = "1466c749fd54c9e648ad57a6";
+    public static Token : string = "5e33c6d1ec779b9210e9cdad";
+    //public static Token : string = "1466c749fd54c9e648ad57a6";
 
 
     public static Main()
@@ -66,7 +66,9 @@ class App
         Linker.GetInstance().AddLink(Link_Special.Error_500, showError500);
         Linker.GetInstance().AddLink(Link_Special.Default, showHome);
 
-        Linker.GetInstance().Analyze();
+        Locale.CreateInstance(() => { // Chargement de la langue 
+            Linker.GetInstance().Analyze();
+        });
     }
 
     /**
@@ -84,8 +86,8 @@ class App
                 error();
         }
         xhttp.open("GET", url + "?token="+App.Token, true);
-        xhttp.send("token="+App.Token);
         console.log("Processing "+url);
+        xhttp.send();
 
 }
 }
