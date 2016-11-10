@@ -17,6 +17,15 @@ class View
     }
 
     /**
+     * Ajoute un composant à la vue 
+     */
+    public Add(component : any) : any
+    {
+        this.components.push(component);
+        return component;
+    }
+
+    /**
      * Affiche la vue
      */
     public Show() : void

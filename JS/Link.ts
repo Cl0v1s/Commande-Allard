@@ -52,6 +52,9 @@ class Linker
         this.registry.push(link);
     }
 
+    /**
+     * Retourne l'objet Link associé à l'url demandée
+     */
     private GetLink(url : string) : Link
     {
             for(let i : number = 0; i != this.registry.length; i++)

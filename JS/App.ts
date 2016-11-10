@@ -38,16 +38,25 @@ class App
             });
         };
 
+        /**
+         * Affiche le message erreur 500
+         */
         let showError500 : Function = function()
         {
             new Error500View().Show();
         }
 
+        /**
+         * Affiche le message erreur 400
+         */
         let showError404 : Function = function()
         {
             new Error404View().Show();
         }
 
+        /**
+         * Affiche la page d'index
+         */
         let showHome : Function = function()
         {
             Model.RetrieveArticles(() => {
@@ -58,6 +67,7 @@ class App
         }
 
 
+        // Création des liens et des actions associées
         Linker.GetInstance().AddLink("articles", showArticles);
         Linker.GetInstance().AddLink("replays", showReplays);
         Linker.GetInstance().AddLink("article", showArticle);
@@ -66,8 +76,9 @@ class App
         Linker.GetInstance().AddLink(Link_Special.Error_500, showError500);
         Linker.GetInstance().AddLink(Link_Special.Default, showHome);
 
+
         Locale.CreateInstance(() => { // Chargement de la langue 
-            Linker.GetInstance().Analyze();
+            Linker.GetInstance().Analyze(); // Une fois qu'on a chargé la langue on analise l'URL
         });
     }
 

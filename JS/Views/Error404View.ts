@@ -3,13 +3,22 @@
  */
 class Error404View extends View
 {
+
+    /**
+     * Action a réaliser lors de l'affichage de la vue 
+     */
     public Show() : void
     {
+        super.Show();
         let base : Component = new Component({
             body :  ""
         });
         base.Mount(null, null);
-        new TitleComponent(Locale.GetInstance().Word("Error")+" 404").Mount(base);
-        new MessageComponent(Locale.GetInstance().Word("Details"), Locale.GetInstance().Word("Error404")).Mount(base);
+
+        // AJout du composant présentant le titre
+        this.Add(new TitleComponent(Locale.GetInstance().Word("Error")+" 404")).Mount(base);
+
+        // AJout du composant présentant le message d'erreur 
+        this.Add(new MessageComponent(Locale.GetInstance().Word("Details"), Locale.GetInstance().Word("Error404"))).Mount(base);
     }
 }
