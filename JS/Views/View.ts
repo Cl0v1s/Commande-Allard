@@ -19,8 +19,9 @@ class View
     /**
      * Ajoute un composant à la vue 
      */
-    public Add(component : any) : any
+    public Add(component : Component) : any
     {
+        component.SetMountable();
         this.components.push(component);
         return component;
     }

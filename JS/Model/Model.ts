@@ -21,10 +21,10 @@ class Model
             }
             catch(e)
             {
-                window.location.replace("Index.html?"+Link_Special.Error_500);                
+                App.Error(e);               
             }
         }, function(){
-            window.location.replace("Index.html?"+Link_Special.Error_500);
+                App.Error(new Error("Unable to reach page"));               
         });
     }
 
@@ -57,11 +57,11 @@ class Model
             }
             catch(e)
             {
-                window.location.replace("Index.html?"+Link_Special.Error_500);
+                App.Error(e);                               
             }
 
         }, function(){
-            window.location.replace("Index.html?"+Link_Special.Error_500);
+                App.Error(new Error("Unable to reach page"));                              
         });
     }
 

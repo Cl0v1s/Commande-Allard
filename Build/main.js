@@ -14,10 +14,10 @@ class Model {
                 callback();
             }
             catch (e) {
-                window.location.replace("Index.html?" + Link_Special.Error_500);
+                App.Error(e);
             }
         }, function () {
-            window.location.replace("Index.html?" + Link_Special.Error_500);
+            App.Error(new Error("Unable to reach page"));
         });
     }
     /**
@@ -46,10 +46,10 @@ class Model {
                 callback();
             }
             catch (e) {
-                window.location.replace("Index.html?" + Link_Special.Error_500);
+                App.Error(e);
             }
         }, function () {
-            window.location.replace("Index.html?" + Link_Special.Error_500);
+            App.Error(new Error("Unable to reach page"));
         });
     }
     /*
@@ -168,6 +168,10 @@ class Component {
             throw new Error("You must define a body to this component");
         this.body = args.body;
         this.classes = args.classes;
+        this.mountable = false;
+    }
+    SetMountable() {
+        this.mountable = true;
     }
     GetDOM() {
         return document.getElementById("component-" + this.id);
@@ -176,6 +180,8 @@ class Component {
      * Construit le composant dans la page
      */
     Mount(parent, opts) {
+        if (this.mountable == false)
+            throw new Error("You must set this component mountable (Call this.Add(theComponent) in the view's source code)");
         this.id = Component.IDS;
         Component.IDS = Component.IDS + 1;
         let par;
@@ -376,7 +382,6 @@ class LastsArticlesComponent extends Component {
             if (articles[i] != null)
                 this.articles.push(articles[i]);
         }
-        console.log(this);
     }
     Mount(parent) {
         let content = "";
@@ -413,7 +418,6 @@ class LastsReplaysComponent extends Component {
             if (replays[i] != null)
                 this.replays.push(replays[i]);
         }
-        console.log(this);
     }
     Mount(parent) {
         let content = "";
@@ -436,6 +440,14 @@ class LastsReplaysComponent extends Component {
 class View {
     constructor() {
         this.components = new Array();
+    }
+    /**
+     * Ajoute un composant à la vue
+     */
+    Add(component) {
+        component.SetMountable();
+        this.components.push(component);
+        return component;
     }
     /**
      * Affiche la vue
@@ -461,72 +473,113 @@ class View {
  * ID (#) de l'élement DOM sur lequel fixer la vue. Si RootID est null, la vue se fixe sur <body>.
  */
 View.RootID = null;
+/**
+ * Présente la liste des articles par ordre descendant de dates
+ */
 class ArticlesView extends View {
+    /**
+     * Action a réaliser lors de l'affichage de la vue
+     */
     Show() {
         let base = new Component({
             body: "",
             classes: "Articles"
         });
+        this.Add(base);
         base.Mount(null, null);
-        new TitleComponent(Locale.GetInstance().Word("Articles")).Mount(base);
+        // Ajout du cmposant présentant le titre
+        this.Add(new TitleComponent(Locale.GetInstance().Word("Articles"))).Mount(base);
+        // pour chacun des articles présents dans le modèle, on ajoute un nouveau composant article chargé de le présenter 
         Model.GetArticles().forEach((data) => {
-            new ArticleComponent(data).Mount(base);
+            this.Add(new ArticleComponent(data)).Mount(base);
         });
     }
 }
+/**
+ * Affiche la view permettant de présenter un unique article
+ */
 class ArticleFocusView extends View {
     constructor(article) {
         super();
+        // Si l'article est nul, on redirige vers l'erreur 404
         if (article == null) {
             window.location.replace("Index.html?" + Link_Special.Error_404);
             return;
         }
         this.article = article;
     }
+    /**
+     * Actions a réaliser lors de l'affichage de la vue
+     */
     Show() {
         super.Show();
         let base = new Component({
             body: "",
             classes: "Articles"
         });
+        this.Add(base);
         base.Mount(null, null);
-        new TitleComponent(this.article.Title()).Mount(base);
-        let articleFocus = new ArticleFocusComponent(this.article);
+        // Ajout du composant de titre
+        this.Add(new TitleComponent(this.article.Title())).Mount(base);
+        // Ajout du composant ArticleFocus contenant un unique article 
+        let articleFocus = this.Add(new ArticleFocusComponent(this.article));
         articleFocus.Mount(base);
-        new DisqusComponent(this.article).Mount(articleFocus);
+        // Ajout du composant disqus comportant la zone de commmentaires
+        this.Add(new DisqusComponent(this.article)).Mount(articleFocus);
     }
 }
+/**
+ * Affiche la gallery des replays
+ */
 class ReplaysView extends View {
+    /**
+     * Actions à réaliser lors de l'affichage de la vue
+     */
     Show() {
         super.Show();
         let base = new Component({
             body: '<div></div>',
             classes: 'Replays'
         });
+        this.Add(base);
         base.Mount(null, null);
-        new TitleComponent(Locale.GetInstance().Word("Replays")).Mount(base);
+        // Afichage du titre 
+        this.Add(new TitleComponent(Locale.GetInstance().Word("Replays"))).Mount(base);
+        // Pour chacun des replays on créer un composant chargé de l'afficher 
         Model.GetReplays().forEach((e) => {
-            new ReplayComponent(e).Mount(base);
+            this.Add(new ReplayComponent(e)).Mount(base);
         });
     }
 }
+/**
+ * Présente la page d'index
+ */
 class IndexView extends View {
+    /**
+     * Actions àréaliser lors de l'affichae de la page
+     */
     Show() {
         super.Show();
         let base = new Component({
             body: "",
             classes: "Index",
         });
+        this.Add(base);
         base.Mount(null, null);
-        new TitleComponent(Locale.GetInstance().Word("Index")).Mount(base);
+        // Affichage du titre de la page 
+        this.Add(new TitleComponent(Locale.GetInstance().Word("Index"))).Mount(base);
+        // Création d'une zone présentant les informations au sein de la page 
         let indexLayout = new Component({
             body: "",
             classes: "IndexLayout"
         });
+        this.Add(indexLayout);
         indexLayout.Mount(base, null);
-        let lastArticles = new LastsArticlesComponent(Model.GetArticles(), 5);
+        // Ajout d'un composant affichant les derniers articles parus 
+        let lastArticles = this.Add(new LastsArticlesComponent(Model.GetArticles(), 5));
         lastArticles.Mount(indexLayout);
-        let lastReplays = new LastsReplaysComponent(Model.GetReplays(), 5);
+        // Ajout d'un composant affichant les derniers replays parus 
+        let lastReplays = this.Add(new LastsReplaysComponent(Model.GetReplays(), 5));
         lastReplays.Mount(indexLayout);
     }
 }
@@ -534,26 +587,40 @@ class IndexView extends View {
  * Affiche la page d'errur 500 correspondant à erreur serveur
  */
 class Error500View extends View {
+    /**
+     * Actions à réaliser lors de l'affichage de la vue
+     */
     Show() {
+        super.Show();
         let base = new Component({
             body: ""
         });
+        this.Add(base);
         base.Mount(null, null);
-        new TitleComponent(Locale.GetInstance().Word("Error") + " 500").Mount(base);
-        new MessageComponent(Locale.GetInstance().Word("Details"), Locale.GetInstance().Word("Error500")).Mount(base);
+        // Affichage du titre de la page 
+        this.Add(new TitleComponent(Locale.GetInstance().Word("Error") + " 500")).Mount(base);
+        // Affichage du message présentant les détails de l'erreur 
+        this.Add(new MessageComponent(Locale.GetInstance().Word("Details"), Locale.GetInstance().Word("Error500"))).Mount(base);
     }
 }
 /**
  * Affiche la page d'errur 404 correspondant à ressource non trouvée
  */
 class Error404View extends View {
+    /**
+     * Action a réaliser lors de l'affichage de la vue
+     */
     Show() {
+        super.Show();
         let base = new Component({
             body: ""
         });
+        this.Add(base);
         base.Mount(null, null);
-        new TitleComponent(Locale.GetInstance().Word("Error") + " 404").Mount(base);
-        new MessageComponent(Locale.GetInstance().Word("Details"), Locale.GetInstance().Word("Error404")).Mount(base);
+        // AJout du composant présentant le titre
+        this.Add(new TitleComponent(Locale.GetInstance().Word("Error") + " 404")).Mount(base);
+        // AJout du composant présentant le message d'erreur 
+        this.Add(new MessageComponent(Locale.GetInstance().Word("Details"), Locale.GetInstance().Word("Error404"))).Mount(base);
     }
 }
 class Locale {
@@ -635,6 +702,9 @@ class Linker {
         let link = new Link(url, method);
         this.registry.push(link);
     }
+    /**
+     * Retourne l'objet Link associé à l'url demandée
+     */
     GetLink(url) {
         for (let i = 0; i != this.registry.length; i++) {
             let e = this.registry[i];
@@ -688,12 +758,21 @@ class App {
                 new ArticleFocusView(Model.GetArticle(params[0])).Show();
             });
         };
+        /**
+         * Affiche le message erreur 500
+         */
         let showError500 = function () {
             new Error500View().Show();
         };
+        /**
+         * Affiche le message erreur 400
+         */
         let showError404 = function () {
             new Error404View().Show();
         };
+        /**
+         * Affiche la page d'index
+         */
         let showHome = function () {
             Model.RetrieveArticles(() => {
                 Model.RetrieveReplays(() => {
@@ -701,6 +780,7 @@ class App {
                 });
             });
         };
+        // Création des liens et des actions associées
         Linker.GetInstance().AddLink("articles", showArticles);
         Linker.GetInstance().AddLink("replays", showReplays);
         Linker.GetInstance().AddLink("article", showArticle);
@@ -709,8 +789,16 @@ class App {
         Linker.GetInstance().AddLink(Link_Special.Error_500, showError500);
         Linker.GetInstance().AddLink(Link_Special.Default, showHome);
         Locale.CreateInstance(() => {
-            Linker.GetInstance().Analyze();
+            Linker.GetInstance().Analyze(); // Une fois qu'on a chargé la langue on analise l'URL
         });
+    }
+    static Error(e) {
+        if (App.Debug) {
+            console.log(e);
+            return;
+        }
+        if (window.location.toString().endsWith(Link_Special.Error_500) == false)
+            window.location.replace("Index.html?" + Link_Special.Error_500);
     }
     /**
      * Envoie des requetes Ajax GET
@@ -729,6 +817,7 @@ class App {
         xhttp.send();
     }
 }
+App.Debug = true;
 App.EndPoint = "http://172.17.0.2/rest/api";
 App.Token = "5e33c6d1ec779b9210e9cdad";
 window.onload = App.Main;

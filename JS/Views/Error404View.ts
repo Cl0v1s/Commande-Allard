@@ -13,6 +13,7 @@ class Error404View extends View
         let base : Component = new Component({
             body :  ""
         });
+        this.Add(base);
         base.Mount(null, null);
 
         // AJout du composant présentant le titre

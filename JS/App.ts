@@ -1,5 +1,6 @@
 class App
 {
+    public static Debug : boolean = true;
 
     public static EndPoint : string = "http://172.17.0.2/rest/api";
     public static Token : string = "5e33c6d1ec779b9210e9cdad";
@@ -80,6 +81,17 @@ class App
         Locale.CreateInstance(() => { // Chargement de la langue 
             Linker.GetInstance().Analyze(); // Une fois qu'on a chargé la langue on analise l'URL
         });
+    }
+
+    public static Error(e : Error) : void
+    {
+        if(App.Debug)
+        {
+            console.log(e);
+            return;
+        }
+        if(window.location.toString().endsWith(Link_Special.Error_500) == false)
+            window.location.replace("Index.html?"+Link_Special.Error_500);            
     }
 
     /**

@@ -24,7 +24,6 @@ class LastsArticlesComponent extends Component
                 this.articles.push(articles[i]);
         }
 
-        console.log(this);
     }
 
     public Mount(parent : Component) : void

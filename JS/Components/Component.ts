@@ -10,6 +10,7 @@ class Component
     protected body : string; 
     protected view : View;
     protected classes : string;
+    private mountable : boolean;
 
     constructor(args : any)
     {
@@ -17,6 +18,12 @@ class Component
             throw new Error("You must define a body to this component");
         this.body = args.body;
         this.classes = args.classes;
+        this.mountable = false;
+    }
+
+    public SetMountable() : void
+    {
+        this.mountable = true;
     }
 
     protected GetDOM() : HTMLElement
@@ -29,6 +36,8 @@ class Component
      */
     public Mount(parent : Component, opts : any) : void
     {
+        if(this.mountable == false)
+            throw new Error("You must set this component mountable (Call this.Add(theComponent) in the view's source code)");
         this.id = Component.IDS;
         Component.IDS = Component.IDS + 1;
 

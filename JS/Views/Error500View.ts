@@ -13,6 +13,7 @@ class Error500View extends View
         let base : Component = new Component({
             body :  ""
         });
+        this.Add(base);
         base.Mount(null, null);
 
         // Affichage du titre de la page 

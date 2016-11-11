@@ -28,6 +28,7 @@ class ArticleFocusView extends View
             body : "", 
             classes : "Articles"
         });
+        this.Add(base);
         base.Mount(null, null);
 
         // Ajout du composant de titre
@@ -36,6 +37,6 @@ class ArticleFocusView extends View
         let articleFocus : ArticleFocusComponent = this.Add(new ArticleFocusComponent(this.article));
         articleFocus.Mount(base);
         // Ajout du composant disqus comportant la zone de commmentaires
-        this.Add(new DisqusComponent(this.article).Mount(articleFocus));
+        this.Add(new DisqusComponent(this.article)).Mount(articleFocus);
     }
 }

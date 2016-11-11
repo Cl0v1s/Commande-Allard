@@ -14,6 +14,7 @@ class IndexView extends View
             body : "", 
             classes : "Index",
         });
+        this.Add(base);
         base.Mount(null, null);
 
         // Affichage du titre de la page 
@@ -24,13 +25,14 @@ class IndexView extends View
             body: "", 
             classes : "IndexLayout"
         });
+        this.Add(indexLayout);
         indexLayout.Mount(base, null);
 
         // Ajout d'un composant affichant les derniers articles parus 
-        let lastArticles : LastsArticlesComponent = new LastsArticlesComponent(Model.GetArticles(), 5);
+        let lastArticles : LastsArticlesComponent = this.Add(new LastsArticlesComponent(Model.GetArticles(), 5));
         lastArticles.Mount(indexLayout);
         // Ajout d'un composant affichant les derniers replays parus 
-        let lastReplays : LastsReplaysComponent = new LastsReplaysComponent(Model.GetReplays(), 5);
+        let lastReplays : LastsReplaysComponent = this.Add(new LastsReplaysComponent(Model.GetReplays(), 5));
         lastReplays.Mount(indexLayout);
 
 

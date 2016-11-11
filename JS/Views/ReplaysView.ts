@@ -14,13 +14,14 @@ class ReplaysView extends View
             body : '<div></div>', 
             classes : 'Replays'
         });
+        this.Add(base);
         base.Mount(null, null);
         
         // Afichage du titre 
-        new TitleComponent(Locale.GetInstance().Word("Replays")).Mount(base);
+        this.Add(new TitleComponent(Locale.GetInstance().Word("Replays"))).Mount(base);
         // Pour chacun des replays on créer un composant chargé de l'afficher 
         Model.GetReplays().forEach((e) => {
-            new ReplayComponent(e).Mount(base);
+            this.Add(new ReplayComponent(e)).Mount(base);
         });
     }
 }

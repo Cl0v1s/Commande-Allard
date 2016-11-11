@@ -24,7 +24,6 @@ class LastsReplaysComponent extends Component
                 this.replays.push(replays[i]);
         }
 
-        console.log(this);
     }
 
     public Mount(parent : Component) : void

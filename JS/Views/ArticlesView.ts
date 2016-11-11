@@ -13,6 +13,7 @@ class ArticlesView extends View
             body : "", 
             classes : "Articles"
         });
+        this.Add(base);
         base.Mount(null, null);
 
         // Ajout du cmposant présentant le titre
